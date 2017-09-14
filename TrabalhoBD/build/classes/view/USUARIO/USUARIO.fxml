@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="453.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.USUARIO.controller_usuario">
+   <children>
+      <AnchorPane layoutX="1.0" layoutY="-2.0" prefHeight="30.0" prefWidth="780.0">
+         <children>
+            <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="30.0" prefWidth="780.0" text="CADASTRO DE USUARIO" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="45.0" prefHeight="419.0" prefWidth="63.0">
+         <children>
+            <Button fx:id="btnSalvar" layoutY="249.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Salvar" />
+            <Button fx:id="btnSair" layoutY="370.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
+            <Button fx:id="btnVoltar" layoutY="14.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Voltar" />
+            <Button fx:id="btnNovo" layoutY="72.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Novo" />
+            <Button fx:id="btnAlterar" layoutY="130.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
+            <Button fx:id="btnExcluir" layoutY="191.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
+            <Button fx:id="btnImprimir" layoutY="309.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Imprimir" AnchorPane.leftAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <TabPane layoutX="81.0" layoutY="45.0" prefHeight="419.0" prefWidth="699.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="GRID">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="423.0" prefWidth="699.0">
+                     <children>
+                        <TableView prefHeight="419.0" prefWidth="454.0">
+                          <columns>
+                              <TableColumn prefWidth="75.0" text="MATRICULA" />
+                              <TableColumn prefWidth="75.0" text="NOME" />
+                              <TableColumn prefWidth="75.0" text="FUNÇÃO" />
+                              <TableColumn prefWidth="75.0" text="E-MAIL" />
+                              <TableColumn prefWidth="75.0" text="TELEFONE" />
+                              <TableColumn prefWidth="75.0" text="STATUS" />
+                          </columns>
+                        </TableView>
+                        <AnchorPane layoutX="454.0" prefHeight="389.0" prefWidth="247.0">
+                           <children>
+                              <Button fx:id="btnFiltrar" layoutX="76.0" layoutY="327.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Filtrar" />
+                              <Label alignment="CENTER" layoutX="5.0" layoutY="54.0" prefHeight="17.0" prefWidth="36.0" text="ID" />
+                              <Label alignment="CENTER" layoutX="15.0" layoutY="96.0" prefHeight="17.0" prefWidth="53.0" text="NOME" />
+                              <Label alignment="CENTER" layoutX="2.0" layoutY="132.0" prefHeight="17.0" prefWidth="74.0" text="MATRICULA" />
+                              <TextField layoutX="78.0" layoutY="50.0" prefHeight="25.0" prefWidth="164.0" />
+                              <TextField layoutX="76.0" layoutY="92.0" prefHeight="25.0" prefWidth="166.0" />
+                              <TextField layoutX="76.0" layoutY="128.0" prefHeight="25.0" prefWidth="164.0" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="30.0" prefWidth="94.0" text="PESQUISA">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="NOVO">
+            <content>
+              <AnchorPane fx:id="tabNovo" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane layoutX="5.0" layoutY="2.0" prefHeight="419.0" prefWidth="681.0">
+                           <children>
+                              <TextField fx:id="txtNome" layoutX="133.0" layoutY="94.0" prefHeight="25.0" prefWidth="184.0" />
+                              <RadioButton fx:id="chkAtivo" layoutX="141.0" layoutY="302.0" mnemonicParsing="false" text="ATIVO" />
+                              <Label layoutX="68.0" layoutY="89.0" text="NOME" />
+                              <Label layoutX="66.0" layoutY="138.0" text="E-MAIL" />
+                              <Label layoutX="74.0" layoutY="175.0" text="SENHA" />
+                              <TextField fx:id="txtEmail" layoutX="132.0" layoutY="134.0" prefHeight="25.0" prefWidth="186.0" />
+                              <TextField fx:id="txtSenha" layoutX="134.0" layoutY="171.0" prefHeight="25.0" prefWidth="184.0" />
+                              <TextField fx:id="txtMatricula" layoutX="134.0" layoutY="210.0" prefHeight="25.0" prefWidth="183.0" />
+                              <Label layoutX="61.0" layoutY="214.0" text="MATRÍCULA" />
+                              <TextField fx:id="txtTelefone" layoutX="133.0" layoutY="244.0" prefHeight="25.0" prefWidth="184.0" />
+                              <Label layoutX="66.0" layoutY="248.0" prefHeight="12.0" prefWidth="55.0" text="TELEFONE" />
+                           </children>
+                        </AnchorPane>
+                        <ListView layoutX="467.0" layoutY="186.0" prefHeight="162.0" prefWidth="149.0" />
+                        <ComboBox layoutX="466.0" layoutY="144.0" prefWidth="150.0" />
+                        <ComboBox layoutX="466.0" layoutY="94.0" prefWidth="150.0" />
+                        <Label layoutX="375.0" layoutY="148.0" text="PERMIÇÃO" />
+                        <Label layoutX="375.0" layoutY="98.0" text="FUNÇÃO" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
