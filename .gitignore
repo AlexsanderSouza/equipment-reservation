@@ -1,0 +1,13 @@
+/.settings
+/RESERVAS/bin/*
+/RESERVAS/*.class
+/mysql-connector-java-5.1.23/*
+
+*.txt
+
+*.classpath
+*.project
+
+FXML.fxml
+README.md
+Sql Banco de Dados.sql

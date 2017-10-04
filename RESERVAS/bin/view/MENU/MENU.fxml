@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MENU.controllerMenu">
+   <children>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu fx:id="menuCadastro" mnemonicParsing="false" text="Cadastro">
+            <items>
+                  <MenuItem fx:id="menuFuncao" mnemonicParsing="false" text="Função" />
+              <MenuItem fx:id="menuUsuario" mnemonicParsing="false" text="Usuario" />
+                  <MenuItem fx:id="menuUnidade" mnemonicParsing="false" text="Unidade" />
+                  <MenuItem fx:id="menuInstituicao" mnemonicParsing="false" text="Instituiçao" />
+                  <MenuItem fx:id="menuTipoRecurso" mnemonicParsing="false" text="Tipo de Recurso" />
+                  <MenuItem fx:id="menuRecurso" mnemonicParsing="false" text="Recurso" />
+            </items>
+          </Menu>
+            <Menu fx:id="menuRotina" mnemonicParsing="false" text="Rotina">
+              <items>
+                <MenuItem fx:id="menuReserva" mnemonicParsing="false" text="Reserva" />
+                  <MenuItem fx:id="menuRestricaoRecurso" mnemonicParsing="false" text="Restrição do Recurso" />
+              </items>
+            </Menu>
+            <Menu fx:id="menuSair" mnemonicParsing="false" text="Sair" />
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>
