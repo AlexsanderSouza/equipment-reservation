@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="TelaLogin" prefHeight="307.0" prefWidth="391.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LOGIN.controller_login">
+   <children>
+      <Label fx:id="lblUsuario" layoutX="54.0" layoutY="151.0" text="Usúario" />
+      <Label fx:id="lblSenha" layoutX="62.0" layoutY="185.0" text="Senha" />
+      <TextField fx:id="txtUsuario" layoutX="104.0" layoutY="147.0" prefHeight="25.0" prefWidth="201.0" />
+      <TextField fx:id="txtSenha" layoutX="104.0" layoutY="181.0" prefHeight="25.0" prefWidth="201.0" />
+      <Button fx:id="btnEntrar" layoutX="245.0" layoutY="217.0" mnemonicParsing="false" text="ENTRAR" />
+      <Button fx:id="btnAlterarSenha" layoutX="104.0" layoutY="217.0" mnemonicParsing="false" text="ALTERAR SENHA" />
+   </children>
+</AnchorPane>
