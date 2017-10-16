@@ -1,4 +1,4 @@
-package model.dao;
+package model.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.alerta;
-import model.entity.restricaoRecurso;
+import model.ENTITY.restricaoRecurso;
 
 public class dao_restricaoRecurso {
 alerta vAlerta = new alerta();

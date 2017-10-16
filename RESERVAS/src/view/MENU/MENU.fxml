@@ -18,10 +18,12 @@
                   <MenuItem fx:id="menuInstituicao" mnemonicParsing="false" text="Instituiçao" />
                   <MenuItem fx:id="menuTipoRecurso" mnemonicParsing="false" text="Tipo de Recurso" />
                   <MenuItem fx:id="menuRecurso" mnemonicParsing="false" text="Recurso" />
+                  <MenuItem fx:id="menuPermissao" mnemonicParsing="false" text="Permissão" />
             </items>
           </Menu>
             <Menu fx:id="menuRotina" mnemonicParsing="false" text="Rotina">
               <items>
+                  <MenuItem fx:id="menuDisponivel" mnemonicParsing="false" text="Disponivel" />
                 <MenuItem fx:id="menuReserva" mnemonicParsing="false" text="Reserva" />
                   <MenuItem fx:id="menuRestricaoRecurso" mnemonicParsing="false" text="Restrição do Recurso" />
               </items>

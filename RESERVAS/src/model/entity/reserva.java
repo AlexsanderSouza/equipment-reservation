@@ -1,7 +1,7 @@
-package model.entity;
+package model.ENTITY;
 
 public class reserva {
-	private int id, id_responsavel, id_destinatario; 
+	private int id, id_responsavel, id_destinatario, id_recurso, qtde_gasto, qtde_estoque, qtde_disponivel; 
 	private String  data_hora_reserva, data_hora_final, repeticao,status;
 	
 	
@@ -46,6 +46,30 @@ public class reserva {
 	}
 	public void setId_destinatario(int id_destinatario) {
 		this.id_destinatario = id_destinatario;
+	}
+	public int getId_recurso() {
+		return id_recurso;
+	}
+	public void setId_recurso(int id_recurso) {
+		this.id_recurso = id_recurso;
+	}
+	public int getQtde_gasto() {
+		return qtde_gasto;
+	}
+	public void setQtde_gasto(int qtde_gasto) {
+		this.qtde_gasto = qtde_gasto;
+	}
+	public int getQtde_disponivel() {
+		return qtde_disponivel;
+	}
+	public void setQtde_disponivel(int qtde_disponivel) {
+		this.qtde_disponivel = qtde_disponivel;
+	}
+	public int getQtde_estoque() {
+		return qtde_estoque;
+	}
+	public void setQtde_estoque(int qtde_estoque) {
+		this.qtde_estoque = qtde_estoque;
 	}
 	 
 	

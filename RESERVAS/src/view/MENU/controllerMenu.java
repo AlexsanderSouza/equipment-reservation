@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import view.DISPONIVEL.viewDisponivel;
 import view.FUNCAO.viewFuncao;
 import view.INSTITUICAO.viewInstituicao;
 import view.RECURSO.viewRecurso;
@@ -22,6 +23,7 @@ import view.RESTRICAO_RECURSO.viewRestricaoRecurso;
 import view.TIPO_RECURSO.viewTipoRecurso;
 import view.UNIDADE.viewUnidade;
 import view.USUARIO.viewUsuario;
+import view.permissao.viewPermissao;
 
 
 
@@ -32,15 +34,45 @@ import view.USUARIO.viewUsuario;
 public class controllerMenu implements Initializable{
     
     @FXML
-    private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao;
+    private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel;
     
     @FXML
-    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuSair,menuRecurso;
+    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuSair,menuRecurso,menuPermissao;
 
     alerta vAlerta = new alerta();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	
+    	menuPermissao.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+                	viewPermissao vPermissao = new viewPermissao();
+                	vPermissao.start();
+                } catch (Exception e) {
+                	vAlerta.mensagemAlerta("Erro ao Abrir Tela de Permissão! \n"+"Erro: "+e.getMessage());                    
+                }
+			}
+		});
+    	
+    	menuDisponivel.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+                	viewDisponivel vDisponivel = new viewDisponivel();
+                	vDisponivel.start();
+                } catch (Exception e) {
+                	vAlerta.mensagemAlerta("Erro ao Abrir Tela Dispónivel! \n"+"Erro: "+e.getMessage());                    
+                }
+			}
+		});
+    	
     	
     	menuRecurso.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -51,7 +83,7 @@ public class controllerMenu implements Initializable{
                 	viewRecurso vRecurso = new viewRecurso();
                 	vRecurso.start();
                 } catch (Exception e) {
-                	vAlerta.mensagemAlerta("Erro ao Abrir Tela de Reserva! \n"+"Erro: "+e.getMessage());                    
+                	vAlerta.mensagemAlerta("Erro ao Abrir Tela de Recurso! \n"+"Erro: "+e.getMessage());                    
                 }
 			}
 		});    	

@@ -1,9 +1,9 @@
-package model.entity;
+package model.ENTITY;
 
 public class recurso {
-	private String nome, etiqueta, observacao;
-	private boolean ativo;
+	private String  nome, etiqueta, observacao, ativo;
 	int id, id_unidade, id_tipo_recurso;
+	
 	
 	
 	
@@ -25,10 +25,10 @@ public class recurso {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	public Boolean getAtivo() {
+	public String getAtivo() {
 		return ativo;
 	}
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(String ativo) {
 		this.ativo = ativo;
 	}
 	public int getId() {

@@ -1,4 +1,4 @@
-package model.dao;
+package model.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.alerta;
-import model.entity.instituicao;
+import model.ENTITY.instituicao;
 
 public class dao_instituicao {
 alerta vAlerta = new alerta();
     
-    public List<instituicao> listar() throws Exception{
+    public List<instituicao> listar(instituicao pInstituicao) throws Exception{
         
         List<instituicao> vListaInstituicao = new ArrayList<instituicao>();
         java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();

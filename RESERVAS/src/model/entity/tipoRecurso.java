@@ -1,9 +1,9 @@
-package model.entity;
+package model.ENTITY;
 
 public class tipoRecurso {
 	    int id;
-		String nome;
-		boolean ativo;
+		String nome, ativo;
+		
 		
 		public int getId() {
 			return id;
@@ -17,10 +17,10 @@ public class tipoRecurso {
 		public void setNome(String nome) {
 			this.nome = nome;
 		}
-		public boolean getAtivo() {
+		public String getAtivo() {
 			return ativo;
 		}
-		public void setAtivo(boolean ativo) {
+		public void setAtivo(String ativo) {
 			this.ativo = ativo;
 		}
 		

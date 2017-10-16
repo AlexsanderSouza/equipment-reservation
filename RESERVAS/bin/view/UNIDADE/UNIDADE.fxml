@@ -70,7 +70,7 @@
                         <TextField fx:id="txtEndereco" layoutX="138.0" layoutY="250.0" prefHeight="25.0" prefWidth="189.0" />
                         <ListView layoutX="395.0" layoutY="84.0" prefHeight="239.0" prefWidth="200.0" />
                         <Label layoutX="51.0" layoutY="302.0" text="INSTITUIÇÃO" />
-                        <ComboBox fx:id="cBoxInstituicao" layoutX="139.0" layoutY="298.0" prefHeight="25.0" prefWidth="189.0" />
+                        <ComboBox layoutX="139.0" layoutY="298.0" prefHeight="25.0" prefWidth="189.0" />
                      </children>
                   </AnchorPane>
                </content></Tab>

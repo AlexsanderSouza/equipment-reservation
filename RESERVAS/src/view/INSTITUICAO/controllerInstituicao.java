@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import model.alerta;
+import model.ENTITY.instituicao;
 import controller.Controller;
-import model.entity.instituicao;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

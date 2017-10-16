@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.dao;
+package model.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.alerta;
-import model.entity.unidade;
+import model.ENTITY.unidade;
 
 /**
  *

@@ -1,4 +1,4 @@
-package model.dao;
+package model.DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.alerta;
-import model.entity.tipoRecurso;
+import model.ENTITY.tipoRecurso;
 
 public class dao_tipoRecurso {
 alerta vAlerta = new alerta();
@@ -21,7 +21,7 @@ alerta vAlerta = new alerta();
         	tipoRecurso vTipo_recurso = new tipoRecurso();
             vTipo_recurso.setId(rs.getInt("id"));
             vTipo_recurso.setNome(rs.getString("nome"));      
-            vTipo_recurso.setAtivo(rs.getBoolean("ativo"));
+            vTipo_recurso.setAtivo(rs.getString("ativo"));
             vListaTipo_recurso.add(vTipo_recurso);
         }
         rs.close();
@@ -33,13 +33,13 @@ alerta vAlerta = new alerta();
     
     public void inserir(tipoRecurso pTipo_recurso){
         try {
-            String vSQL = "INSERT INTO tipo_recurso(id, nome, ativo) "
-                                      +"VALUES(?, ?, ?);";
+            String vSQL = "INSERT INTO tipo_recurso(id, nome) "
+                                      +"VALUES(?, ?);";
             
             PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
             st.setString(1, Integer.toString(pTipo_recurso.getId()));
             st.setString(2, pTipo_recurso.getNome());         
-            st.setBoolean(3, pTipo_recurso.getAtivo());
+            //st.setString(3, pUser.getAtivo());
             
             st.execute();
             st.close();

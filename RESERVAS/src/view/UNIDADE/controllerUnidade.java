@@ -1,25 +1,16 @@
 package view.UNIDADE;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.ResourceBundle;
 
-
 import model.alerta;
+import model.ENTITY.unidade;
 import controller.Controller;
-import model.entity.instituicao;
-import model.entity.reserva;
-import model.entity.unidade;
-import model.entity.usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 public class controllerUnidade implements Initializable{
@@ -29,11 +20,6 @@ public class controllerUnidade implements Initializable{
 	
 	@FXML
     private TextField txtNome,txtEmail,txtTelefone,txtEndereco;
-	
-	@FXML
-	private ComboBox cBoxInstituicao;
-	
-	private HashSet<String> lHUser;
 	
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
@@ -50,26 +36,11 @@ public class controllerUnidade implements Initializable{
         vCtrl.InserirUnidade(vUnidade);
     }
 	
-	
-	public void iniciaComboBox(){
-		lHUser = new HashSet<String>();
-		List<instituicao> auxInstituicao = new ArrayList<instituicao>();
-		
-		auxInstituicao = vCtrl.listaInstituicao();
-	
-		for(instituicao inst: auxInstituicao){
-			lHUser.add(inst.getNome());
-					}	
-		cBoxInstituicao.getItems().addAll(lHUser);
-	}
-		
-
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		
-		iniciaComboBox();
+		
 		btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override

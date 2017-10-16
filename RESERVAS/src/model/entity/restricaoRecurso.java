@@ -1,4 +1,4 @@
-package model.entity;
+package model.ENTITY;
 
 public class restricaoRecurso {
 	int id, id_tipo_recurso, id_funcao;

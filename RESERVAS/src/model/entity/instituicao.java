@@ -1,4 +1,4 @@
-package model.entity;
+package model.ENTITY;
 
 public class instituicao {
 	

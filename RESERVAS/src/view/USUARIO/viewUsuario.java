@@ -20,7 +20,7 @@ public class viewUsuario {
     public void start() throws Exception {
      	
 	
-    	Parent root = FXMLLoader.load(getClass().getResource("User.fxml"));
+    	Parent root = FXMLLoader.load(getClass().getResource("USUARIO.fxml"));
         
         Stage stage = new Stage();
         Scene scene = new Scene(root);

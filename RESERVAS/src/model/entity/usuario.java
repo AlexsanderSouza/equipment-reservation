@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.entity;
+package model.ENTITY;
 
 /**
  *
@@ -12,14 +12,35 @@ package model.entity;
 public class usuario {
     
     private int id;
+    private String funcao;
     private String nome;
     private String matricula;
     private String senha;
     private String email;
     private String telefone;
-    private Boolean ativo;
+    private String Status;
+    private boolean ativo;
 
-    /**
+    
+    
+    
+    public String getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(String pfuncao) {
+		this.funcao = pfuncao;
+	}
+
+	public String getStatus() {
+		return Status;
+	}
+
+	public void setStatus(String status) {
+		Status = status;
+	}
+
+	/**
      * @return the id
      */
     public int getId() {
@@ -106,14 +127,14 @@ public class usuario {
     /**
      * @return the status
      */
-    public Boolean getAtivo() {
+    public boolean getAtivo() {
         return ativo;
     }
 
     /**
      * @param status the status to set
      */
-    public void setAtivo(Boolean ativo) {
+    public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
     

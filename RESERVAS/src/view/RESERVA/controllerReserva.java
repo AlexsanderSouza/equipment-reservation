@@ -2,13 +2,12 @@ package view.RESERVA;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import model.dataTime.DateTimePicker;
+import view.COMPONENTE_DATAHORA.DateTimePicker;
 import model.alerta;
-import model.entity.*;
+import model.ENTITY.*;
 import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,33 +33,25 @@ public class controllerReserva implements Initializable{
     private Button btnVoltar,btnNovo,btnAlterar,btnExcluir,btnSalvar,btnImprimir,btnSair,btnFiltrar;
 		
 	@FXML
-	private ComboBox<String> cbxResponsavel,cbxdestinatario,cbxTipoRepeticao,cbxStatus,cbxTipo,cbxRecurso,cbxPesqStatus,cbxPesqAutor,cbxPesqDestinatario;
+	private ComboBox<String> cbxResponsavel,cbxRecurso,cbxdestinatario,cbxTipoRepeticao,cbxStatus,cbxPesqStatus,cbxPesqAutor,cbxPesqDestinatario;
+	
+	@FXML
+	private DatePicker edtDataHoraInicio,edtDataHoraFinal, dtInicial, dtInicial2, dtFim, dtFim2;
 		
 	@FXML
 	private TableView<reserva> tbGrid;
 	
 	@FXML
-	private DatePicker dtInicial, dtInicial2, dtFim, dtFim2;
-	
-	@FXML
 	private TabPane tabPane;
-	
-	@FXML
-	private VBox vboxReserva; //Para usar o botão dinamico de data e hora
 	
 	@FXML
 	private Tab ctrlPag1,ctrlPag2;
 	
 	@FXML
-	private TextField txtPesqID;
+	private VBox vboxReserva; //Para usar o botão dinamico de data e hora
 	
-	
-	DateTimePicker dataTimeAutor = new DateTimePicker();
-	DateTimePicker dataTimeDestinatario = new DateTimePicker();
-	DateTimePicker dataTimeListagem = new DateTimePicker();
-	DateTimePicker dataTimePesqDataInicial = new DateTimePicker();
-	DateTimePicker dataTimePesqDataFinal = new DateTimePicker();
-	
+	@FXML
+	private TextField txtPesqID,txtPesqAutor,txtPesqDestinatario,txtCadHoraInicio,txtCadHoraFim,txtFimHoraInicio,txtFimHoraFim,txtHoraInicio,txtHoraFim;
 	
 	//Variavel local
 	private TableColumn<reserva, Integer> tbColum1 = new TableColumn<reserva, Integer>(); 		
@@ -70,29 +61,76 @@ public class controllerReserva implements Initializable{
 	private TableColumn<reserva, String> tbColum5  = new TableColumn<reserva, String>(); 
 	private TableColumn<reserva, String> tbColum6  = new TableColumn<reserva, String>(); 
 	
-	
-	///Apagar-----------------------------
-//	private TableColumn<reserva, Integer> tbColum12 = new TableColumn<reserva, Integer>(); 		
-//	private TableColumn<reserva, String> tbColum22 = new TableColumn<reserva, String>(); 
-//	private TableColumn<reserva, String> tbColum32 = new TableColumn<reserva, String>(); 
-//	private TableColumn<reserva, Integer> tbColum42  = new TableColumn<reserva, Integer>(); 
-//	private TableColumn<reserva, Integer> tbColum52  = new TableColumn<reserva, Integer>(); 
-//	private TableColumn<reserva, String> tbColum62  = new TableColumn<reserva, String>(); 
-	
-	//Apagar-------------------------------
-//	private TableColumn id = new TableColumn("Id");
-//	private TableColumn autor = new TableColumn("Autor");
-//	private TableColumn funcao = new TableColumn("Fução");
-//	private TableColumn destinatario = new TableColumn("Destinatário");
-//	private TableColumn confirmacao = new TableColumn("Confirmação");
-//	private TableColumn status = new TableColumn("Status");
-	
+	DateTimePicker dataTimeAutor = new DateTimePicker();
+	DateTimePicker dataTimeDestinatario = new DateTimePicker();
+	DateTimePicker dataTimeListagem = new DateTimePicker();
+	DateTimePicker dataTimePesqDataInicial = new DateTimePicker();
+	DateTimePicker dataTimePesqDataFinal = new DateTimePicker();
 	
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
     
     int vTipoComboBox = 0;
     
+    public void Filtro(){
+    	String vDataInicio;
+    	String vDataFim;
+    	String vDataInicio2;
+    	String vDataFim2;
+    	String vStatus;
+    	String vAutor;
+    	String vDestinatario;
+    	
+    	try {
+    		vDataInicio = dtInicial.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+txtCadHoraInicio.getText();
+        	vDataFim = dtFim.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+txtCadHoraFim.getText();
+		} catch (Exception e) {
+			// TODO: handle exception
+			vDataInicio = "";
+			vDataFim = "";
+		}
+    	
+    	try {
+    		vDataInicio2 = dtInicial2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+txtFimHoraInicio.getText();
+        	vDataFim2 = dtFim2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+txtFimHoraFim.getText();	
+		} catch (Exception e) {
+			// TODO: handle exception
+			vDataInicio2 = "";
+			vDataFim2 = "";
+		}
+ 	        	    	
+    	try {
+    		String vNull = null;
+    		
+    		vStatus = cbxPesqStatus.getValue();
+    		if ( vStatus == vNull ) {
+    			vStatus = "";
+    		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			vStatus = "";
+		}
+    	    	
+    	try {
+    		vAutor = cbxPesqAutor.getValue();
+    		vAutor = vAutor.substring(0, vAutor.indexOf(" ")).trim();
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAutor = "";
+		}
+    	
+    	try {
+    		vDestinatario = cbxPesqDestinatario.getValue();
+    		vDestinatario = vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim();
+		} catch (Exception e) {
+			// TODO: handle exception
+			vDestinatario = "";
+		}
+    	    	
+    	ObservableList<reserva> vLista = FXCollections.observableArrayList(vCtrl.ListaFiltrosReserva(txtPesqID.getText(), vDataInicio, vDataFim, vDataInicio2, vDataFim2, vStatus, vAutor, vDestinatario ) );
+    	tbGrid.setItems(vLista);
+    
+    }
     
     public void dataTimePicker() {                                  //insere o botão dinamico de data e hora
     	vboxReserva.setSpacing(05);
@@ -100,17 +138,16 @@ public class controllerReserva implements Initializable{
     	vboxReserva.getChildren().add(dataTimeDestinatario);
     }
     
-    
     @SuppressWarnings("unchecked")
 	public void inserirTabela(){
     	    	
     	try {
-    		tbColum1.setText("ID");/*SETA O TITULO DA GRID*/
-        	tbColum2.setText("RESPONSAVEL");
-        	tbColum3.setText("DESTINATARIO");
-        	tbColum4.setText("DATA INICIO");
-        	tbColum5.setText("DATA FIM");
-        	tbColum6.setText("STATUS");
+    		tbColum1.setText("Código Reserva");/*SETA O TITULO DA GRID*/
+        	tbColum2.setText("Responsável");
+        	tbColum3.setText("Destinatario");
+        	tbColum4.setText("Data Reserva");
+        	tbColum5.setText("Data Fim ");
+        	tbColum6.setText("Status");
     		
     	    tbColum1.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id"));/*SETA QUAL CAMPO DA LISTA*/
         	tbColum2.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_responsavel"));//PENSAR COMO MOSTRAR O NOME DO USUARIO
@@ -132,38 +169,42 @@ public class controllerReserva implements Initializable{
 		    	
     }
     
-    //funçao para copiar o ID que esta na comboBox
+   // funçao para copiar o ID que esta na comboBox
    // String nome = "Vinícius Mendonça";
    // String primeiroNome = nome.substring(0, nome.indexOf(" "));
-    
-//    public void inserirTabela(){
-//    	////// Terminar tabela
-//    	id.setCellValueFactory(new PropertyValueFactory<usuario, String>("id"));
-//    	autor.setCellValueFactory(new PropertyValueFactory<usuario, String>("matricula"));
-//    	funcao.setCellValueFactory(new PropertyValueFactory<usuario, String>("senha"));
-//    	destinatario.setCellValueFactory(new PropertyValueFactory<usuario, String>("email"));
-//    	confirmacao.setCellValueFactory(new PropertyValueFactory<usuario, String>("telefone"));
-//    	status.setCellValueFactory(new PropertyValueFactory<usuario, String>("status"));
-//    	
-//    	tbGrid.getItems().setAll(id, autor, funcao,  destinatario, confirmacao, status);
-//    	    }
-    
+   
     public void inserirReserva(){
+    	
     	reserva vReserva = new reserva();
+    	
     	String vResponsavel = cbxResponsavel.getValue();
     	String vDestinatario = cbxdestinatario.getValue();
-    	//String vDataInicio = edtDataHoraInicio.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));  //alterado
-    	//String vDataFinal = edtDataHoraFinal.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));    //alterado
+    	String vRecurso = cbxRecurso.getValue();
+    	String vDataInicio = dataTimeAutor.getTextField().getText();
+    	String vDataFinal = dataTimeDestinatario.getTextField().getText();
     	
     	
-    	vReserva.setId_responsavel( Integer.parseInt( vResponsavel.substring(0, vResponsavel.indexOf(" ")).trim() ));
+    	    	
+    	vReserva.setId_responsavel( Integer.parseInt(vResponsavel.substring(0, vResponsavel.indexOf(" ")).trim() ));
     	vReserva.setId_destinatario(Integer.parseInt(vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim() ));
+    	vReserva.setId_recurso(Integer.parseInt(vRecurso.substring(0, vRecurso.indexOf(" ")).trim() ));
     	vReserva.setRepeticao(cbxTipoRepeticao.getValue());
     	vReserva.setStatus(cbxStatus.getValue());
-    	vReserva.setData_hora_reserva(dataTimeAutor.getTextField().getText());
-    	vReserva.setData_hora_final(dataTimeDestinatario.getTextField().getText());
+    	vReserva.setData_hora_reserva(vDataInicio);
+    	vReserva.setData_hora_final(vDataFinal);
     	
     	vCtrl.InserirReserva(vReserva);
+    	
+    }
+    
+    public void preencherRecurso(List<recurso> rec) throws Exception{
+    	String vListaRecurso = "";
+    	
+    	for (recurso vrec : rec){
+    		vListaRecurso = Integer.toString(vrec.getId())+" - "+vrec.getEtiqueta();
+    		cbxRecurso.getItems().addAll(vListaRecurso);    		
+    	}
+    	
     }
     
     public void preencherUser(List<usuario> user) throws Exception{
@@ -172,23 +213,38 @@ public class controllerReserva implements Initializable{
     	    	
         for (usuario user3 : user){
         	if (vTipoComboBox == 1) {
-	        	vListaUsuario = Integer.toString(user3.getId())+"-"+user3.getNome();
+	        	vListaUsuario = Integer.toString(user3.getId())+" - "+user3.getNome();
 	        	cbxResponsavel.getItems().addAll(vListaUsuario);
+	        	cbxPesqAutor.getItems().addAll(vListaUsuario);
         	}
         	if (vTipoComboBox == 2) {
-	        	vListaUsuario = Integer.toString(user3.getId())+"-"+user3.getNome();
+	        	vListaUsuario = Integer.toString(user3.getId())+" - "+user3.getNome();
 	        	cbxdestinatario.getItems().addAll(vListaUsuario);
+	        	cbxPesqDestinatario.getItems().addAll(vListaUsuario);
         	}
         }
         
+    }
+    
+    public void aliementaComboBoxRecurso(){
+    	try {
+			cbxRecurso.setTooltip(new Tooltip());
+			preencherRecurso(vCtrl.ListaRecurso());
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro ao Alimentar a ComboBox Recurso!");
+		}
     }
     
     public void alimentaComboBoxResponsavel(){
     	try {
     		vTipoComboBox = 1;
     		cbxResponsavel.setTooltip(new Tooltip());
+    		cbxPesqAutor.setTooltip(new Tooltip());
+    		cbxPesqAutor.getItems().addAll(" ");
+    		
     		preencherUser(vCtrl.ListaUsuario());    
-			
+    		
 		} catch (Exception e) {
 			vAlerta.mensagemAlerta("Erro ao Alimentar a ComboBox Responsavel!");
 		} 
@@ -199,7 +255,12 @@ public class controllerReserva implements Initializable{
     	try {
     		vTipoComboBox = 2;
     		cbxdestinatario.setTooltip(new Tooltip());
+    		cbxPesqDestinatario.setTooltip(new Tooltip());
+    		cbxPesqDestinatario.getItems().addAll(" ");
+    		
     		preencherUser(vCtrl.ListaUsuario());
+    		
+    		
 		} catch (Exception e) {
 			vAlerta.mensagemAlerta("Erro ao Alimentar a ComboBox Destinatario!");
 		}
@@ -232,36 +293,23 @@ public class controllerReserva implements Initializable{
     		cbxStatus.getItems().addAll("ATIVO");
     		cbxStatus.getItems().addAll("PENDENTE");
     		cbxStatus.getItems().addAll("CONCLUIDO");
-    		cbxPesqStatus.getItems().addAll("","ATIVO","PENDENTE","CONCLUIDO");
+    		
+    		cbxPesqStatus.setTooltip(new Tooltip());
+    		cbxPesqStatus.getItems().addAll("  ");
+    		cbxPesqStatus.getItems().addAll("ATIVO");
+    		cbxPesqStatus.getItems().addAll("PENDENTE");
+    		cbxPesqStatus.getItems().addAll("CONCLUIDO");
 		} catch (Exception e) {
 			vAlerta.mensagemAlerta("Erro ao Alimentar a ComboBox Status!");
 		}
-    }
-    
-    public void alimentaComboBoxTipo() {
-    	List<tipoRecurso> aux = vCtrl.ListaTipoRecurso();
-    	
-    	for(tipoRecurso tipo: aux) {  //Implementar LinkHash
-    		
-    		cbxTipo.getItems().add(tipo.getId() + "-" + tipo.getNome());
-    	}
-    }
-    
-    public void alimentaComboBoxRecurso() {
-    	List<recurso> aux2 = vCtrl.ListaRecurso();
-    	for(recurso recurso: aux2) {
-    		cbxRecurso.getItems().add(recurso.getId() + "-" + recurso.getNome());
-    		  //fazer tratamento para visualizar resultados de acordo com o tipo selecionado
-    	}
     }
     
     public void AlimetaComboBox(){/*Carrega as ComboBox*/
     	alimentaComboBoxResponsavel();
 		alimentaComboBoxDestinatario();
 		alimentaComboBoxTipoRepeticao();
-		alimentaComboBoxStatus();
-		alimentaComboBoxTipo();
-		alimentaComboBoxRecurso();
+		alimentaComboBoxStatus();	
+		aliementaComboBoxRecurso();
     }
     
     public void onShow(){
@@ -303,140 +351,30 @@ public class controllerReserva implements Initializable{
 			break;
 		}
     }
-    
-    
-    //Apagar--------------------------------------------
-//    public void inserirTabelaListagem(){
-//    	
-//    	try {
-//    		tbColum12.setText("ID");/*SETA O TITULO DA GRID*/
-//        	tbColum22.setText("ETIQUETA");
-//        	tbColum32.setText("NOME");
-//        	tbColum42.setText("TIPO");
-//        	tbColum52.setText("STATUS");
-//        	tbColum62.setText("UNIDADE");
-//    		////Modificar   090908979879879797987
-//    	    tbColum12.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id"));/*SETA QUAL CAMPO DA LISTA*/
-//        	tbColum22.setCellValueFactory(new PropertyValueFactory<reserva, String>("etiqueta"));//PENSAR COMO MOSTRAR O NOME DO USUARIO
-//        	tbColum32.setCellValueFactory(new PropertyValueFactory<reserva, String>("observacao"));
-//        	tbColum42.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_tipo_recurso"));
-//        	tbColum52.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_unidade"));
-//        	tbColum62.setCellValueFactory(new PropertyValueFactory<reserva, String>("status"));
-//        	        	
-//        	tableListagem.getColumns().addAll(tbColum12,tbColum22,tbColum32,tbColum42,tbColum52,tbColum62);
-//        	
-//        	ObservableList<reserva> vLista = FXCollections.observableArrayList(vCtrl.ListaReserva());
-//        	
-//        	tableListagem.setItems(vLista);
-//			
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//			vAlerta.mensagemAlerta("Erro na Função Inserir na Tabela: \n Erro: "+e.getMessage());
-//		}		
-//		    	
-//    }
-   
-    
-    
-    
-    ///Apagar --------------------------------------------
-//    int tipoSelecionado;
-//    List<recurso> listRecurso = vCtrl.ListaRecurso();
-//   // List<recurso>
-//    public void tipoRecursoSel() {
-//    	
-//    	String[] tipoSelecionadoString;
-//    	tipoSelecionadoString = cbxTipoListagem.getSelectionModel().getSelectedItem().toString().split("-");
-//    	tipoSelecionado = Integer.parseInt(tipoSelecionadoString[0]);
-//    	List<recurso> listRecursoSel = new ArrayList<recurso>();;  //Lista Filtrada de recursos
-//    	
-//    	for(recurso rec: listRecurso) {
-//    		if(rec.getId_tipo_recurso() == tipoSelecionado ) {
-//    			listRecursoSel.add(rec);
-//    		}
-//    	}
-//    	//Adicionar tabela recurso aquii
-//    	
-//    	
-//    	
-//    }
-    
-    public void Filtro(){
-    	String vDataInicio;
-    	String vDataFim;
-    	String vDataInicio2;
-    	String vDataFim2;
-    	
-    	try {
-    		vDataInicio = dtInicial.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        	vDataFim = dtFim.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		} catch (Exception e) {
-			// TODO: handle exception
-			vDataInicio = "";
-			vDataFim = "";
-		}
-    	
-    	try {
-    		vDataInicio2 = dtInicial2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        	vDataFim2 = dtFim2.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));	
-		} catch (Exception e) {
-			// TODO: handle exception
-			vDataInicio2 = "";
-			vDataFim2 = "";
-		}
- 	        	
-    	String vStatus;
-    	try {
-    		String vNull = null;
-    		
-    		vStatus = cbxPesqStatus.getValue();
-    		if ( vStatus == vNull ) {
-    			vStatus = "";
-    		}
-		} catch (Exception e) {
-			// TODO: handle exception
-			vStatus = "";
-		}
-    	
-    	String vAutor;
-    	String vDestinatario;
-    	
-    	try {
-    		vAutor = cbxPesqAutor.getValue();
-    		vAutor = vAutor.substring(0, vAutor.indexOf(" ")).trim();
-		} catch (Exception e) {
-			// TODO: handle exception
-			vAutor = "";
-		}
-    	
-    	try {
-    		vDestinatario = cbxPesqDestinatario.getValue();
-    		vDestinatario = vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim();
-		} catch (Exception e) {
-			// TODO: handle exception
-			vDestinatario = "";
-		}
-    	
-    	
-    	ObservableList<reserva> vLista = FXCollections.observableArrayList(vCtrl.ListaFiltrosReserva(txtPesqID.getText(), vDataInicio, vDataFim, vDataInicio2, vDataFim2, vStatus, vAutor, vDestinatario ) );
-    	tbGrid.setItems(vLista);
-    
-    }
-    
   
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
+	
 		this.dataTimePicker();
 		this.onShow();	
+		
+		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Filtro();
+			}
+		});
 		
 		btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub				
 				moverPag1();
-				ControlaBotao("novo");
+				ControlaBotao("novo");				
 			}
 		});
 		
@@ -457,15 +395,6 @@ public class controllerReserva implements Initializable{
 				// TODO Auto-generated method stub
 				inserirReserva();
 				
-			}
-		});
-		
-		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				Filtro();
 			}
 		});
 		
