@@ -17,11 +17,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class controllerRecurso implements Initializable{
 	
@@ -32,15 +35,22 @@ public class controllerRecurso implements Initializable{
 	private TextField txtNome,txtEtiqueta;
 	
 	@FXML
-	private ComboBox<String> cbxTipo,bxUnidade;
+	private ComboBox<String> cbxTipo,cbxPesqTipo,cbxUnidade;
 	
 	@FXML
     private RadioButton chkAtivo;
 	
-	@FXML TableView<recurso> tbGrid;
+	@FXML
+	private Tab ctrlPag1,ctrlPag2;
+	
+	@FXML 
+	TableView<recurso> tbGrid;
 	
 	@FXML
 	private TextArea txtObs;
+	
+	@FXML
+	private TabPane tabPane;
 	
 	@FXML
 	private ListView<?> txtRestricao;
@@ -72,9 +82,7 @@ public class controllerRecurso implements Initializable{
 			
 			tbGrid.getColumns().addAll(tbColum1,tbColum2,tbColum3,tbColum4,tbColum5);
 			
-			ObservableList<recurso> vRecursoLista = FXCollections.observableArrayList(vCtrl.ListaRecurso());
-			
-			tbGrid.setItems(vRecursoLista);
+			alimentaTabela();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -82,18 +90,36 @@ public class controllerRecurso implements Initializable{
 		}
     }
 	
+    public void excluir() {
+    	recurso vRecurso = tbGrid.getSelectionModel().getSelectedItem();
+    	
+    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
+    	
+    	vCtrl.excluirRecurso(vRecurso);
+		tbGrid.getItems().remove(vTabelaRemover);
+    }
     
+    public void alimentaTabela() {
+    	ObservableList<recurso> vRecursoLista = FXCollections.observableArrayList(vCtrl.ListaRecurso());
+		
+		tbGrid.setItems(vRecursoLista);
+    }
     
-    
+    public void alimentaComboBosTipoPesquisa() {
+    	for(tipoRecurso aux: vCtrl.ListaTipoRecurso())
+        	cbxPesqTipo.getItems().add(aux.getId() +"-"+ aux.getNome());
+    } 
     
     public void alimentaComboBoxTipo() {
     	
     	for(tipoRecurso aux: vCtrl.ListaTipoRecurso())
     	cbxTipo.getItems().add(aux.getId() +"-"+ aux.getNome());
     }
-    
-    
-    
+        
+    public void fecharJanela() {
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+    	stage.close();
+    }
     
     public void inserirRecurso() {
     	
@@ -113,18 +139,34 @@ public class controllerRecurso implements Initializable{
     	}
     	
     	nomeTipo = cbxTipo.getValue().split("-");
-    	
-    	
+
     	vRecurso.setEtiqueta(txtEtiqueta.getText());
     	vRecurso.setObservacao(txtObs.getText());
     	vRecurso.setAtivo(vAtivo);
     	vRecurso.setId_tipo_recurso(vIdtipo);
-    	vRecurso.setNome(nomeTipo[1]);
+    	vRecurso.setNomeTipoRecurso(nomeTipo[1]);
     	System.out.println(nomeTipo[1]);
     	
     	vCtrl.InserirRecurso(vRecurso);
-    	// recurso.setId_tipo_recurso();
     }
+    
+    public void moverPag2() {
+    	tabPane.getSelectionModel().select(ctrlPag2);
+    }
+    
+    public void moverPag1() {
+    	alimentaTabela();
+    	
+    	tabPane.getSelectionModel().select(ctrlPag1);
+    }
+    
+    public void filtrar() {
+    	Integer vAux;
+    	
+    	//ObservableList<recurso> vRecursoLista = FXCollections.observableArrayList(vCtrl.filtrarRecurso(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs)ListaRecurso());
+		
+		//tbGrid.setItems(vRecursoLista);    	
+    }    
     
     public void ControlaBotao(String pBotao){
     	switch (pBotao) {
@@ -152,12 +194,60 @@ public class controllerRecurso implements Initializable{
 		}
     }
     
+    public void onShow() {
+    	this.inserirTabela();
+    	this.alimentaComboBosTipoPesquisa();
+    	this.ControlaBotao("novo");
+    }
+    
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
-		inserirTabela();
-		alimentaComboBoxTipo();
+		this.onShow();
+		
+		btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					excluir();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});		
+		
+		btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				moverPag1();
+				ControlaBotao("novo");				
+			}
+		});
+		
+		btnNovo.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				alimentaComboBoxTipo();
+				moverPag2();
+				ControlaBotao("voltar");
+			}
+		});
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				fecharJanela();
+			}
+		});
 		
 		btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
 			

@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -32,7 +31,6 @@ public class controllerUnidade implements Initializable{
 	
 	@FXML
     private TextField txtNome,txtEmail,txtTelefone,txtEndereco, txtIdPesquisa, txtNomePesquisa;
-	
 	
 	@FXML
 	private Tab ctrlPag1, ctrlPag2;

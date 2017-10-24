@@ -260,7 +260,10 @@ public class Controller {
     	vDaoTipoRecurso.excluir(pTipoRecurso);
     }
     
-  
+    public void excluirRecurso(recurso pRecurso) {
+    	vDaoRecurso.excluir(pRecurso);
+    }  
+    
     public void alterarTipoRecurso(tipoRecurso pTipoRecurso) {
     	vDaoTipoRecurso.alterar(pTipoRecurso);
     }
@@ -268,6 +271,10 @@ public class Controller {
     
     public List<tipoRecurso> filtrarTipoRecurso(Integer pId, String pNome) {
         return	vDaoTipoRecurso.filtrar(pId, pNome);
+    }
+    
+    public List<recurso> filtrarRecurso( Integer pIdRecurso, Integer pIdTipoRecurso, Integer pIdUnidade, String pEtiqueta, String pObs ){
+    	return vDaoRecurso.filtrar(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs);
     }
     
     public List<tipoRecurso> ListaTipoRecurso(){

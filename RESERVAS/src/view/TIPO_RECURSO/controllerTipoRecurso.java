@@ -42,24 +42,18 @@ public class controllerTipoRecurso implements Initializable{
 	@FXML
 	private TableView<tipoRecurso> tbGrid;
 	
-	
 	private tipoRecurso vTipoRecursoSelecionado;     //varialvel usada para pegar o id do objeto que foi selecionado na tabela e alterar ao salvar
 	private String salvar = "salvarNovo";  //variavel de validação para quando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
 	//private String listTable = "table"; //variavel de validação para o botão excluir saber se deve excluir da tabela ou do listView
 	private TableColumn<tipoRecurso, Integer> tbColum1 = new TableColumn<tipoRecurso, Integer>(); 		
 	private TableColumn<tipoRecurso, String> tbColum2 = new TableColumn<tipoRecurso, String>();
 	
-	
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
     
-
-	
-	
-	
-@SuppressWarnings("unchecked")
-public void inserirTabela(){
-    	
+	@SuppressWarnings("unchecked")
+	public void inserirTabela(){
+	    	
     	try {
     		
     		tbColum1.setText("Id");/*SETA O TITULO DA GRID*/
@@ -84,21 +78,19 @@ public void inserirTabela(){
 	
 	
 	
-public void inserirTipo_Recurso(){
+	public void inserirTipo_Recurso(){
     
-	tipoRecurso vTipoRecurso = new tipoRecurso();
-    
-	vTipoRecurso.setNome(txtNome.getText());
-    vTipoRecurso.setAtivo(chkAtivo.isSelected());
-    
-    if(this.salvar.equals("salvarNovo")) {
-		vCtrl.inserirTipo_Recurso( vTipoRecurso);
-	}else if(this.salvar.equals("alterar")) {
-		 vTipoRecurso.setId(vTipoRecursoSelecionado.getId());
-		
-    vCtrl.alterarTipoRecurso(vTipoRecurso);
-    
-	
+		tipoRecurso vTipoRecurso = new tipoRecurso();
+	    
+		vTipoRecurso.setNome(txtNome.getText());
+	    vTipoRecurso.setAtivo(chkAtivo.isSelected());
+	    
+	    if(this.salvar.equals("salvarNovo")) {
+			vCtrl.inserirTipo_Recurso( vTipoRecurso);
+		}else if(this.salvar.equals("alterar")) {
+			 vTipoRecurso.setId(vTipoRecursoSelecionado.getId());
+			
+	    vCtrl.alterarTipoRecurso(vTipoRecurso);
 	
 	}
     
@@ -106,244 +98,182 @@ public void inserirTipo_Recurso(){
     chkAtivo.setSelected(true);
 
     
-}
-	
-public void filtrar() {
-	Integer aux;
-
-	 try {
-	 aux = Integer.parseInt(txtIdPesquisa.getText());
-	 } catch (NumberFormatException e) {
-	 // TODO Auto-generated catch block
-	 aux = null;
-	 }
-	
-	 ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.filtrarTipoRecurso(aux,txtNomePesquisa.getText()));
-	
-	 tbGrid.setItems(vLista);
-
-}
-	
-	
-public void excluir() {
-	
-	tipoRecurso vTipoRecursoSelecionado = tbGrid.getSelectionModel().getSelectedItem();
-	int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
-	
-	vCtrl.excluirTipoRecurso(vTipoRecursoSelecionado);
-	tbGrid.getItems().remove(attTabela);
-}
-	
-	
-public void moverPag1() {
-	this.salvar = "salvarNovo"; //variavel de validação paraquando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
-	//this.listTable = "table"; 
-	ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.ListaTipoRecurso());
-	
-	tbGrid.setItems(vLista);
-	
-	tabPane.getSelectionModel().select(ctrlPag1);
-}
-
-public void moverPag2() {
-	//this.listTable  = "listView";
-	
-	tabPane.getSelectionModel().select(ctrlPag2);
-}
-
-    
-    
-public void ControlaBotao(String pBotao) {
-	switch (pBotao) {
-	case "novo":
-		btnVoltar.setDisable(true);
-		btnNovo.setDisable(false);
-		btnAlterar.setDisable(false);
-		btnExcluir.setDisable(false);
-		btnImprimir.setDisable(true);
-		btnSalvar.setDisable(true);
-		btnSair.setDisable(false);
-		break;
-	case "voltar":
-		btnVoltar.setDisable(false);
-		btnNovo.setDisable(true);
-		btnAlterar.setDisable(true);
-		btnExcluir.setDisable(true);   
-		btnImprimir.setDisable(true);
-		btnSalvar.setDisable(false);
-		btnSair.setDisable(false);
-		chkAtivo.setSelected(true);
-		break;
-
-	default:
-		break;
 	}
-}
-public void alterarDados() {
-
-	 this.salvar = "alterar";
 	
-	 vTipoRecursoSelecionado = (tbGrid.getSelectionModel().getSelectedItem());
-	 
-	 txtNome.setText(vTipoRecursoSelecionado.getNome());
-	 chkAtivo.setSelected(vTipoRecursoSelecionado.getAtivo());
-	 
+	public void filtrar() {
+		Integer aux;
 	
-}
-
-public void fecharJanela() {
-	Stage stage = (Stage) btnSair.getScene().getWindow();
-	stage.close();
-}
-
-public void onShow() {
-	this.inserirTabela();
-	this.ControlaBotao("novo");
-
-}
-
-
-    
-@Override
-public void initialize(URL location, ResourceBundle resources) {
-	// TODO Auto-generated method stub
-	
-	
-	onShow();
-	
-	btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+		 try {
+		 aux = Integer.parseInt(txtIdPesquisa.getText());
+		 } catch (NumberFormatException e) {
+		 // TODO Auto-generated catch block
+		 aux = null;
+		 }
 		
-		@Override
-		public void handle(ActionEvent event) {
-			try {
-				inserirTipo_Recurso();
-				} catch (Exception e) {
-				// TODO: handle exception
-			}
+		 ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.filtrarTipoRecurso(aux,txtNomePesquisa.getText()));
+		
+		 tbGrid.setItems(vLista);
+	
+	}
+	
+	
+	public void excluir() {
+		
+		tipoRecurso vTipoRecursoSelecionado = tbGrid.getSelectionModel().getSelectedItem();
+		int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
+		
+		vCtrl.excluirTipoRecurso(vTipoRecursoSelecionado);
+		tbGrid.getItems().remove(attTabela);
+	}
+		
+	
+	public void moverPag1() {
+		this.salvar = "salvarNovo"; //variavel de validação paraquando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+									 
+		ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.ListaTipoRecurso());
+		
+		tbGrid.setItems(vLista);
+		
+		tabPane.getSelectionModel().select(ctrlPag1);
+	}
+
+	public void moverPag2() {	
+		tabPane.getSelectionModel().select(ctrlPag2);
+	}
+
+	public void ControlaBotao(String pBotao) {
+		switch (pBotao) {
+		case "novo":
+			btnVoltar.setDisable(true);
+			btnNovo.setDisable(false);
+			btnAlterar.setDisable(false);
+			btnExcluir.setDisable(false);
+			btnImprimir.setDisable(true);
+			btnSalvar.setDisable(true);
+			btnSair.setDisable(false);
+			break;
+		case "voltar":
+			btnVoltar.setDisable(false);
+			btnNovo.setDisable(true);
+			btnAlterar.setDisable(true);
+			btnExcluir.setDisable(true);   
+			btnImprimir.setDisable(true);
+			btnSalvar.setDisable(false);
+			btnSair.setDisable(false);
+			chkAtivo.setSelected(true);
+			break;
+	
+		default:
+			break;
+		}
+	}
+	
+	public void alterarDados() {
+	
+		 this.salvar = "alterar";
+		
+		 vTipoRecursoSelecionado = (tbGrid.getSelectionModel().getSelectedItem());
+		 
+		 txtNome.setText(vTipoRecursoSelecionado.getNome());
+		 chkAtivo.setSelected(vTipoRecursoSelecionado.getAtivo());
+		 
+		
+	}
+	
+	public void fecharJanela() {
+		Stage stage = (Stage) btnSair.getScene().getWindow();
+		stage.close();
+	}
+	
+	public void onShow() {
+		this.inserirTabela();
+		this.ControlaBotao("novo");
+	
+	}
+	   
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 			
-		}
-	});
-	
-	btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
+		this.onShow();
 		
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub
-			try {
-				excluir();
-			} catch (Exception e) {
-				// TODO: handle exception
+		btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					inserirTipo_Recurso();
+					} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
 			}
-		}
-	});
+		});
+		
+		btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					excluir();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		btnNovo.setOnAction(new EventHandler<ActionEvent>() {
 	
-	btnNovo.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub
-			moverPag2();
-			ControlaBotao("voltar");
-		}
-	});
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				moverPag2();
+				ControlaBotao("voltar");
+			}
+		});
+		
+		
+		btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
 	
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				moverPag1();
+				ControlaBotao("novo");				
+			}
+		});
+		
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
 	
-	btnVoltar.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
-			moverPag1();
-			ControlaBotao("novo");				
-		}
-	});
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				fecharJanela();
+			}
+		});
+		
+		btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
 	
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				alterarDados();
+				moverPag2();
+				ControlaBotao("voltar");
+			}
+		});
+		
+		
+		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
 	
-	btnSair.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
-			fecharJanela();
-		}
-	});
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				filtrar();
+			}
+		});
+	  }
 	
-	btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
-			alterarDados();
-			moverPag2();
-			ControlaBotao("voltar");
-		}
-	});
-	
-	
-	btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
-			filtrar();
-		}
-	});
-  }
-
-
-
-
-
-
 }	
-	
-/*
-
-	public tipoRecurso getvTipo_recursoSelecionado() {
-		return vTipo_recursoSelecionado;
-	}
-
-	public void setvTipo_recursoSelecionado(tipoRecurso vTipo_recursoSelecionado) {
-		this.vTipo_recursoSelecionado = vTipo_recursoSelecionado;
-	}
-
-	public TableColumn<tipoRecurso, Integer> getTbColum1() {
-		return tbColum1;
-	}
-
-	public void setTbColum1(TableColumn<tipoRecurso, Integer> tbColum1) {
-		this.tbColum1 = tbColum1;
-	}
-
-	public TableColumn<tipoRecurso, String> getTbColum2() {
-		return tbColum2;
-	}
-
-	public void setTbColum2(TableColumn<tipoRecurso, String> tbColum2) {
-		this.tbColum2 = tbColum2;
-	}
-
-	public String getSalvar() {
-		return salvar;
-	}
-
-	public void setSalvar(String salvar) {
-		this.salvar = salvar;
-	}
-
-
-
-	public tipoRecurso getvTipoRecursoSelecionado() {
-		return vTipoRecursoSelecionado;
-	}
-
-
-
-	public void setvTipoRecursoSelecionado(tipoRecurso vTipoRecursoSelecionado) {
-		this.vTipoRecursoSelecionado = vTipoRecursoSelecionado;
-	}
-
-}
-
-
-*/

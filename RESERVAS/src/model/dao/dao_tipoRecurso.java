@@ -93,15 +93,14 @@ alerta vAlerta = new alerta();
     
     
  public void excluir(tipoRecurso pTipo_recurso) {
- 	try {
- 		
+ 		try {
 			String vSQL = "DELETE FROM tipo_recurso WHERE `id`='" + pTipo_recurso.getId() +"'";
-			System.out.println(vSQL);
+			
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
-			
-			
+						
 			st.execute();
 	        st.close();
+	        
 	        vAlerta.mensagemAlerta("Excluido com Sucesso!");
 	        ConexaoDataBase.FecharConexao();
 	        
@@ -125,9 +124,7 @@ alerta vAlerta = new alerta();
 			}else if(!(nome.equals("") && id == null)) {
 				vSQL= vSQL + " where id =" +id+ "  and nome = '" +nome+ "'";
 			}
-			
-			
-			
+
 			List<tipoRecurso> vListaTipo_recurso = new ArrayList<tipoRecurso>();
 			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
 			st.executeQuery(vSQL);
