@@ -13,7 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -37,7 +37,7 @@ public class controllerPermissao implements Initializable{
 	private Tab ctrlPag1,ctrlPag2;
 	
 	@FXML
-	private RadioButton chkAtivo;
+	private CheckBox chkAtivo;
 	
 	@FXML
 	private TableView<permissao> tbGrid;
@@ -125,6 +125,7 @@ public class controllerPermissao implements Initializable{
     	
     	permissao vPermissaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
     	int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
+    	
     	tbGrid.getItems().remove(attTabela);
     	vCtrl.excluirPermissao(vPermissaoSelecionada);	
     }

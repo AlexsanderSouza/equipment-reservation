@@ -3,7 +3,6 @@ package view.FUNCAO;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import model.alerta;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
@@ -27,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+@SuppressWarnings("unused")
 public class controllerFuncao implements Initializable{
 	
 	@FXML
@@ -42,7 +42,7 @@ public class controllerFuncao implements Initializable{
 	private Tab ctrlPag1,ctrlPag2;
 	
 	@FXML
-	private RadioButton chkAtivo;
+	private CheckBox chkAtivo;
 	
 	@FXML
 	private TableView<funcao> tbGrid;

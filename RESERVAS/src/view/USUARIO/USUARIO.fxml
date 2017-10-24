@@ -69,12 +69,12 @@
                               <Label layoutX="367.0" layoutY="126.0" text="FUNÇÃO" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="140.0" />
                               <Label layoutX="500.0" layoutY="166.0" text="PERMISSÃO" />
                               <ListView fx:id="listViewPermissao" layoutX="458.0" layoutY="186.0" prefHeight="162.0" prefWidth="149.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="187.0" />
-                              <RadioButton fx:id="chkAtivo" layoutX="641.0" layoutY="307.0" mnemonicParsing="false" text="ATIVO" />
                               <ChoiceBox fx:id="ccBoxFuncao" layoutX="457.0" layoutY="131.0" prefWidth="150.0" AnchorPane.topAnchor="134.0" />
                               <Label layoutX="380.0" layoutY="85.0" text="STATUS" AnchorPane.leftAnchor="380.0" />
                               <ComboBox fx:id="cBoxStatus" layoutX="457.0" layoutY="81.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
+                        <CheckBox fx:id="chkAtivo" layoutX="140.0" layoutY="351.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

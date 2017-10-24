@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 import model.alerta;
 import model.ENTITY.recurso;
-import model.ENTITY.reserva;
 import model.ENTITY.tipoRecurso;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -38,7 +37,7 @@ public class controllerRecurso implements Initializable{
 	@FXML
     private RadioButton chkAtivo;
 	
-	@FXML TableView tbGrid;
+	@FXML TableView<recurso> tbGrid;
 	
 	@FXML
 	private TextArea txtObs;

@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 
 import model.alerta;
 import model.ENTITY.funcao;
-import model.ENTITY.permissao;
 import model.ENTITY.usuario;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -20,10 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -65,7 +64,7 @@ public class controllerUsuario implements Initializable {
 	ListView<String> listViewPermissao;
 
 	@FXML
-	private RadioButton chkAtivo;
+	private CheckBox chkAtivo;
 
 	// Variavel local
 	private usuario vUsuarioSelecionado; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e

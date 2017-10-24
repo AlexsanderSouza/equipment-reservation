@@ -55,6 +55,11 @@ public class Controller {
 		}    	    
     }
     
+    
+    
+    
+    
+    
     public List<permissao> filtrarPermissao(Integer id, String nome) {
     	try {
 			return vDaoPermissao.filtrar(id, nome);
@@ -64,34 +69,6 @@ public class Controller {
 		}
     }
     
-    public void alterarUsuario(usuario pUsuario) {
-    	vDaoUser.alterar(pUsuario);
-    }
-    
-    public void excluirUsuario(usuario pUsuario) {
-    	vDaoUser.excluir(pUsuario);
-    }
-    
-    public List<funcao> filtrarFuncao(Integer pId, String pNome) {
-    	return vDaoFuncao.filtrar(pId, pNome);
-    }
-    
-    public void excluirFuncao(funcao pFuncao) {
-    		vDaoFuncao.excluir(pFuncao);
-    }
-    
-    public List<usuario> filtrarUsuario(Integer pId, String pNome, String pMatricula) {
-    return	vDaoUser.filtrar(pId, pNome, pMatricula);
-    	
-    }
-    
-    public List<String> listViewAlterarFuncao(funcao pFuncao){
-    	return vDaoFuncao.listViewAlterar(pFuncao);
-    }
-    
-    public void alterarFuncao(funcao pFuncao) {
-    	vDaoFuncao.alterar(pFuncao);
-    }
     
     public void alterarPermissao(permissao pPermissao) {
     	vDaoPermissao.alterar(pPermissao);
@@ -114,12 +91,183 @@ public class Controller {
 		}
     }
      
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    public void alterarUsuario(usuario pUsuario) {
+    	vDaoUser.alterar(pUsuario);
+    }
+    
+    public void excluirUsuario(usuario pUsuario) {
+    	vDaoUser.excluir(pUsuario);
+    }
+    
+    public List<usuario> filtrarUsuario(Integer pId, String pNome, String pMatricula) {
+        return	vDaoUser.filtrar(pId, pNome, pMatricula);
+        	
+        }
+    
+    public List<usuario> ListaUsuario(){
+    	try {
+			return vDaoUser.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;			
+		}		
+    }
+    
+    public void InserirUsuario(usuario pUser){
+        vDaoUser.inserir(pUser);
+    }
+    
+    
+    
+    
+    
+    
+    
+    public List<funcao> filtrarFuncao(Integer pId, String pNome) {
+    	return vDaoFuncao.filtrar(pId, pNome);
+    }
+    
+   
+    public void excluirFuncao(funcao pFuncao) {
+    		vDaoFuncao.excluir(pFuncao);
+    }
+    
+    public List<String> listViewAlterarFuncao(funcao pFuncao){
+    	return vDaoFuncao.listViewAlterar(pFuncao);
+    }
+    
+    public void alterarFuncao(funcao pFuncao) {
+    	vDaoFuncao.alterar(pFuncao);
+    }
+    
+    public List<funcao> ListaFuncao() {
+    	try {
+			return vDaoFuncao.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+    }
+    
+    
+    public void InserirFuncao(funcao pFuncao){
+    	vDaoFuncao.inserir(pFuncao);    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public void excluirInstituicao(instituicao pInstituicao) {
+    	vDaoInstituicao.excluir(pInstituicao);
+    }
+    
+    public void inserirInstituicao(instituicao pInstituicao) {
+    	vDaoInstituicao.inserir(pInstituicao);
+    }
+    
+  
+    public void alterarInstituicao(instituicao pInstituicao) {
+    	vDaoInstituicao.alterar(pInstituicao);
+    }
+    
+    
+    public List<instituicao> filtrarinstituicao(Integer pId, String pNome) {
+        return	vDaoInstituicao.filtrar(pId, pNome);
+    }
+    
+    public List<instituicao> ListaInstituicao(){
+    	try {
+    		return vDaoInstituicao.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+    }
+    
+    
+  
+   
+    
+    public void InserirUnidade(unidade pUnidade){
+    	vDaoUnidade.inserir(pUnidade);    	
+    }
+    
+    
+    public void excluirUnidade(unidade pUnidade) {
+    	vDaoUnidade.excluir(pUnidade);
+    }
+    
+  
+    public void alterarUnidade(unidade pUnidade) {
+    	vDaoUnidade.alterar(pUnidade);
+    }
+    
+    
+    public List<unidade> filtrarunidade(Integer pId, String pNome) {
+        return	vDaoUnidade.filtrar(pId, pNome);
+    }
+    
+    public List<unidade> ListaUnidade(){
+    	try {
+    		return vDaoUnidade.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+    }
+    
+    
+
+    
+    
     public void InserirRecurso(recurso pRecurso) {
     	vDaoRecurso.inserir(pRecurso);
     }
     
-    public void InserirTipoRecurso(tipoRecurso pTipoRecurso) {
+    
+    public List<recurso> ListaRecurso(){
+    	try {
+			return vDaoRecurso.listar();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}    	
+    }
+    
+   
+    
+    
+    
+    public void inserirTipo_Recurso (tipoRecurso pTipoRecurso) {
     	vDaoTipoRecurso.inserir(pTipoRecurso);
+    }
+    
+    
+    public void excluirTipoRecurso(tipoRecurso pTipoRecurso) {
+    	vDaoTipoRecurso.excluir(pTipoRecurso);
+    }
+    
+  
+    public void alterarTipoRecurso(tipoRecurso pTipoRecurso) {
+    	vDaoTipoRecurso.alterar(pTipoRecurso);
+    }
+    
+    
+    public List<tipoRecurso> filtrarTipoRecurso(Integer pId, String pNome) {
+        return	vDaoTipoRecurso.filtrar(pId, pNome);
     }
     
     public List<tipoRecurso> ListaTipoRecurso(){
@@ -132,6 +280,11 @@ public class Controller {
     	
     }
    
+    
+    
+    
+    
+    
     public List<reserva> ListaFiltrosReserva(String pId,String pDataInicio,String pDataFim, String pDataInicio2,String pDataFim2, String pStatus, String pResponsavel, String pDestinatario){
     	try {
     		return vDaoReserva.listarFiltro(pId, pDataInicio, pDataFim, pDataInicio2, pDataFim2, pStatus, pResponsavel, pDestinatario);
@@ -146,14 +299,7 @@ public class Controller {
     	vDaoReserva.inserir(pReserva);    	
     }
     
-    public List<recurso> ListaRecurso(){
-    	try {
-			return vDaoRecurso.listar();
-		} catch (Exception e) {
-			// TODO: handle exception
-			return null;
-		}    	
-    }
+   
     
     public List<reserva> ListaReserva(){
     	try {
@@ -164,38 +310,7 @@ public class Controller {
 		}
     }
     
-    public List<usuario> ListaUsuario(){
-    	try {
-			return vDaoUser.listar();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			return null;			
-		}		
-    }
-    
-    public List<funcao> ListaFuncao() {
-    	try {
-			return vDaoFuncao.listar();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			return null;
-		}
-    }
-    
-    public void InserirInstituicao(instituicao pInstituicao){
-    	vDaoInstituicao.inserir(pInstituicao);    	
-    }
-    
-    public void InserirFuncao(funcao pFuncao){
-    	vDaoFuncao.inserir(pFuncao);    	
-    }
-    
-    public void InserirUnidade(unidade pUnidade){
-    	vDaoUnidade.inserir(pUnidade);    	
-    }
-    
-    public void InserirUsuario(usuario pUser){
-        vDaoUser.inserir(pUser);
-    }
-        
+   
+   
+   
 }

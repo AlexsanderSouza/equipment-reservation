@@ -62,9 +62,9 @@
                               <Label layoutX="62.0" layoutY="240.0" text="Permissão" />
                            </children>
                         </AnchorPane>
-                        <RadioButton fx:id="chkAtivo" layoutX="146.0" layoutY="310.0" mnemonicParsing="false" text="ATIVO" />
                         <ListView fx:id="listViewPermissao" layoutX="441.0" layoutY="131.0" prefHeight="200.0" prefWidth="200.0" />
                         <Label layoutX="484.0" layoutY="106.0" text="Permissões da função" />
+                        <CheckBox fx:id="chkAtivo" layoutX="146.0" layoutY="323.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

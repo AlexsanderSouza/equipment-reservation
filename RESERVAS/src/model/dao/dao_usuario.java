@@ -11,7 +11,6 @@ import java.util.List;
 
 import model.alerta;
 import model.DAO.ConexaoDataBase;
-import model.ENTITY.funcao;
 import model.ENTITY.usuario;
 
 
@@ -131,7 +130,7 @@ public class dao_usuario {
 	}
     
     
-    @SuppressWarnings("unused")
+  
 	public List<usuario> filtrar(Integer id,String nome, String matricula) {
     	try {
     		

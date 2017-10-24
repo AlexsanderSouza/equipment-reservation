@@ -16,6 +16,8 @@ public class unidade {
     private String email;
     private String telefone;
     private String endereco;
+    private String instituicao;
+    private boolean ativo;
 
     /**
      * @return the id
@@ -75,5 +77,19 @@ public class unidade {
 		this.telefone = telefone;
 	}
     
-    
+	public boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getInstituicao() {
+		return instituicao;
+	}
+
+	public void setInstituicao(String pinstituicao) {
+		this.instituicao = pinstituicao;
+	}
 }

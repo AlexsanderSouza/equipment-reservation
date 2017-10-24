@@ -6,7 +6,7 @@ public class instituicao {
 	private String nome; 
 	private String email; 
 	private String telefone; 
-	private String ativo;
+	private boolean ativo;
 	
 	public int getId() {
 		return id;
@@ -32,10 +32,10 @@ public class instituicao {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public String getAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
-	public void setAtivo(String ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 	

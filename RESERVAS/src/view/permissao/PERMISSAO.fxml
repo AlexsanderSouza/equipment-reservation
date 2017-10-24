@@ -60,7 +60,7 @@
                               <TextField fx:id="txtDescricao" layoutX="139.0" layoutY="187.0" />
                            </children>
                         </AnchorPane>
-                        <RadioButton fx:id="chkAtivo" layoutX="142.0" layoutY="248.0" mnemonicParsing="false" text="ATIVO" />
+                        <CheckBox fx:id="chkAtivo" layoutX="139.0" layoutY="253.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

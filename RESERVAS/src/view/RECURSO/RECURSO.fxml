@@ -63,7 +63,6 @@
                               <TextField fx:id="txtEtiqueta" layoutX="139.0" layoutY="134.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
                               <Label layoutX="499.0" layoutY="147.0" text="RESTRIÇÕES" />
                               <ListView fx:id="txtRestricao" layoutX="457.0" layoutY="176.0" prefHeight="162.0" prefWidth="149.0" />
-                              <RadioButton fx:id="chkAtivo" layoutX="641.0" layoutY="307.0" mnemonicParsing="false" text="ATIVO" />
                               <Label layoutX="60.0" layoutY="249.0" text="OBS:" />
                               <TextArea fx:id="txtObs" layoutX="141.0" layoutY="240.0" prefHeight="98.0" prefWidth="185.0" />
                               <Label layoutX="365.0" layoutY="88.0" text="UNIDADE" />
@@ -71,6 +70,7 @@
                               <ComboBox fx:id="cbxTipo" layoutX="141.0" layoutY="187.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
                            </children>
                         </AnchorPane>
+                        <CheckBox layoutX="625.0" layoutY="330.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

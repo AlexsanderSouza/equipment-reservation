@@ -105,7 +105,7 @@ alerta vAlerta = new alerta();
     	
     }
     
-    @SuppressWarnings("unused")
+  
 	public List<permissao> filtrar(Integer id,String nome) {
     	try {
     		
