@@ -17,13 +17,13 @@ import javafx.scene.control.MenuItem;
 import view.DISPONIVEL.viewDisponivel;
 import view.FUNCAO.viewFuncao;
 import view.INSTITUICAO.viewInstituicao;
+import view.PERMISSAO.viewPermissao;
 import view.RECURSO.viewRecurso;
 import view.RESERVA.viewReserva;
 import view.RESTRICAO_RECURSO.viewRestricaoRecurso;
 import view.TIPO_RECURSO.viewTipoRecurso;
 import view.UNIDADE.viewUnidade;
 import view.USUARIO.viewUsuario;
-import view.permissao.viewPermissao;
 
 
 

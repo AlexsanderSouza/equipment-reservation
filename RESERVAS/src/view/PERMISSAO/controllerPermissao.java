@@ -1,4 +1,4 @@
-package view.permissao;
+package view.PERMISSAO;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -196,7 +196,7 @@ public class controllerPermissao implements Initializable{
 		// TODO Auto-generated method stub
 		
 		
-		onShow();
+		this.onShow();
 		
 		btnSalvar.setOnAction(new EventHandler<ActionEvent>() {
 			

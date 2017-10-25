@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class controllerReserva implements Initializable{
 	
@@ -173,6 +174,11 @@ public class controllerReserva implements Initializable{
    // String nome = "Vinícius Mendonça";
    // String primeiroNome = nome.substring(0, nome.indexOf(" "));
    
+    public void fecharJanela() {
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+    	stage.close();
+    }
+    
     public void inserirReserva(){
     	
     	reserva vReserva = new reserva();
@@ -182,9 +188,7 @@ public class controllerReserva implements Initializable{
     	String vRecurso = cbxRecurso.getValue();
     	String vDataInicio = dataTimeAutor.getTextField().getText();
     	String vDataFinal = dataTimeDestinatario.getTextField().getText();
-    	
-    	
-    	    	
+    	 	
     	vReserva.setId_responsavel( Integer.parseInt(vResponsavel.substring(0, vResponsavel.indexOf(" ")).trim() ));
     	vReserva.setId_destinatario(Integer.parseInt(vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim() ));
     	vReserva.setId_recurso(Integer.parseInt(vRecurso.substring(0, vRecurso.indexOf(" ")).trim() ));
@@ -358,6 +362,15 @@ public class controllerReserva implements Initializable{
 	
 		this.dataTimePicker();
 		this.onShow();	
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				fecharJanela();
+			}
+		});
 		
 		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
 

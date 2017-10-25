@@ -11,6 +11,19 @@ import model.ENTITY.reserva;
 public class dao_reserva {
 	alerta vAlerta = new alerta();
 
+	public void alterar(reserva pReserva) {
+		try {
+			String vSQL = "";
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função alterar! \n" + "Erro: " + e.getMessage());
+		}
+	}
+	
 	public List<reserva> listarFiltroDisponivel(String pId, String pDataInicio, String pDataFim, String pDataInicio2,
 			String pDataFim2, String pStatus, String pResponsavel, String pDestinatario) throws Exception {
 		String vSQL = "select ((select count(rc.id_tipo_recurso) qtde_estoque " + "from recurso rc "

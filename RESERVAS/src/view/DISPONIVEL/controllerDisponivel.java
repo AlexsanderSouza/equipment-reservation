@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class controllerDisponivel implements Initializable {
 	
@@ -27,7 +28,7 @@ public class controllerDisponivel implements Initializable {
 	private TableView<disponivel> tbGrid;
 	
 	@FXML
-    private Button btnPesquisar,btnReserva;
+    private Button btnPesquisar,btnReserva,btnSair;
 	
 	@FXML
 	private VBox vboxDisponivel; //Para usar o botão dinamico de data e hora
@@ -47,6 +48,11 @@ public class controllerDisponivel implements Initializable {
     	vboxDisponivel.setSpacing(05);
     	vboxDisponivel.getChildren().add(vDataTimeInicial);
     	vboxDisponivel.getChildren().add(vDataTimeFinal);
+    }
+	
+	public void fecharJanela() {
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+    	stage.close();
     }
 	
 	public void Filtro(){
@@ -98,6 +104,15 @@ public class controllerDisponivel implements Initializable {
 		// TODO Auto-generated method stub
 		this.dataTimePicker();
 		this.onShow();
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				fecharJanela();
+			}
+		});
 		
 		btnReserva.setOnAction(new EventHandler<ActionEvent>() {
 
