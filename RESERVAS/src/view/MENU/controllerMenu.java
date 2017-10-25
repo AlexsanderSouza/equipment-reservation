@@ -37,7 +37,7 @@ public class controllerMenu implements Initializable{
     private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel;
     
     @FXML
-    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuSair,menuRecurso,menuPermissao;
+    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuRecurso,menuPermissao;
 
     alerta vAlerta = new alerta();
     

@@ -74,13 +74,12 @@ alerta vAlerta = new alerta();
     		
     		String vSQL = "UPDATE tipo_recurso SET `nome`='" + pTipo_recurso.getNome()
     		+ "',`ativo`='" + permissaoAtiva + "' WHERE `id` ='" + pTipo_recurso.getId() + "'";
-    		System.out.println(vSQL);
-    		System.out.println(pTipo_recurso.getAtivo());
+    		
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
 
 			st.execute();
 			st.close();
-			vAlerta.mensagemAlerta("Alterado com Sucesso!");
+			
 			ConexaoDataBase.FecharConexao();
 
 		} catch (SQLException e) {

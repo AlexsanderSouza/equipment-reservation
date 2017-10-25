@@ -95,17 +95,10 @@ public class controllerUnidade implements Initializable{
 		}
 
 	}
-    
-    
-    
-      
-        
-        //vCtrl.InserirUnidade(vUnidade);
-        
+            
     public void inserirUnidade() {
 		String[] instituicaoSelecionada;
 		instituicaoSelecionada = ccBoxInstituicao.getSelectionModel().getSelectedItem().split(" ");
-		
 
 		 unidade vUnidade = new unidade();
 		 
@@ -115,18 +108,14 @@ public class controllerUnidade implements Initializable{
 	        vUnidade.setEndereco(txtEndereco.getText()); 
 		    vUnidade.setAtivo(chkAtivo.isSelected());
 		    vUnidade.setInstituicao(instituicaoSelecionada[0]);
-		    
 
-		
-		
 		if(this.salvar.equals("salvarNovo")) {
 			vCtrl.InserirUnidade(vUnidade);
     	}else if(this.salvar.equals("alterar")) {
     		vUnidade.setId(vUnidadeSelecionado.getId());
     		vCtrl.alterarUnidade(vUnidade);
     	}
-		
-		
+	
 	}
 	
 	public void alimentaCcBoxInstituicao() {
@@ -136,6 +125,7 @@ public class controllerUnidade implements Initializable{
 		}
 
 	}
+	
 	public void filtrar() {
 		Integer aux;
 
@@ -220,8 +210,7 @@ public class controllerUnidade implements Initializable{
 		 txtTelefone.setText(vUnidadeSelecionado.getTelefone());
 		 txtEndereco.setText(vUnidadeSelecionado.getEndereco());
 		 chkAtivo.setSelected(vUnidadeSelecionado.getAtivo());
-		 
-		
+
 	}
 	
 	public void fecharJanela() {

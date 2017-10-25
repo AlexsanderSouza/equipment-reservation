@@ -1,12 +1,10 @@
 package model.ENTITY;
 
 public class recurso {
-	private String  nomeTipoRecurso, nomeUnidade, etiqueta, observacao, ativo;
-	int id, id_unidade, id_tipo_recurso;
-	
-	
-	
-	
+	private String  nomeTipoRecurso, nomeUnidade, etiqueta, observacao;
+	private int id, id_unidade, id_tipo_recurso;
+	private boolean ativo;
+		
 	public String getNomeTipoRecurso() {
 		return nomeTipoRecurso;
 	}
@@ -24,12 +22,6 @@ public class recurso {
 	}
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
-	}
-	public String getAtivo() {
-		return ativo;
-	}
-	public void setAtivo(String ativo) {
-		this.ativo = ativo;
 	}
 	public int getId() {
 		return id;
@@ -54,6 +46,12 @@ public class recurso {
 	}
 	public void setNomeUnidade(String nomeUnidade) {
 		this.nomeUnidade = nomeUnidade;
+	}
+	public boolean GetAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 	

@@ -247,10 +247,6 @@ public class Controller {
 		}    	
     }
     
-   
-    
-    
-    
     public void inserirTipo_Recurso (tipoRecurso pTipoRecurso) {
     	vDaoTipoRecurso.inserir(pTipoRecurso);
     }
@@ -268,6 +264,9 @@ public class Controller {
     	vDaoTipoRecurso.alterar(pTipoRecurso);
     }
     
+    public void alterarRecurso(recurso pRecurso) {
+    	vDaoRecurso.alterar(pRecurso);
+    }
     
     public List<tipoRecurso> filtrarTipoRecurso(Integer pId, String pNome) {
         return	vDaoTipoRecurso.filtrar(pId, pNome);

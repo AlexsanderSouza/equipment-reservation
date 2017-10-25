@@ -37,18 +37,18 @@
                               <Label alignment="CENTER" layoutX="-1.0" layoutY="38.0" prefHeight="17.0" prefWidth="192.0" text="ID" />
                               <Label alignment="CENTER" layoutY="209.0" prefHeight="17.0" prefWidth="193.0" text="UNIDADE" />
                               <Label alignment="CENTER" layoutX="-3.0" layoutY="164.0" prefHeight="17.0" prefWidth="192.0" text="TIPO" />
-                              <TextField layoutX="24.0" layoutY="55.0" />
+                              <TextField fx:id="txtPesqId" layoutX="24.0" layoutY="55.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="30.0" prefWidth="94.0" text="PESQUISA">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
                               <ComboBox fx:id="cbxPesqTipo" layoutX="21.0" layoutY="181.0" prefWidth="150.0" />
-                              <ComboBox layoutX="22.0" layoutY="226.0" prefWidth="150.0" />
-                              <TextField layoutX="27.0" layoutY="97.0" />
+                              <ComboBox fx:id="cbxPesqUnidade" layoutX="22.0" layoutY="226.0" prefWidth="150.0" />
+                              <TextField fx:id="txtPesqEtiqueta" layoutX="27.0" layoutY="97.0" />
                               <Label layoutX="70.0" layoutY="80.0" text="ETIQUETA" />
                               <Label layoutX="66.0" layoutY="122.0" text="Observação" />
-                              <TextField layoutX="26.0" layoutY="139.0" />
+                              <TextField fx:id="txtPesqObservacao" layoutX="26.0" layoutY="139.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -60,21 +60,17 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="93.0" layoutY="88.0" text="NOME" />
-                              <Label layoutX="75.0" layoutY="138.0" text="ETIQUETA" />
-                              <Label layoutX="46.0" layoutY="191.0" text="TIPO RECURSO" />
-                              <TextField fx:id="txtNome" layoutX="139.0" layoutY="84.0" prefHeight="25.0" prefWidth="184.0" />
-                              <TextField fx:id="txtEtiqueta" layoutX="139.0" layoutY="134.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
-                              <Label layoutX="457.0" layoutY="147.0" text="RESTRIÇÕES" />
-                              <ListView fx:id="txtRestricao" layoutX="457.0" layoutY="176.0" prefHeight="162.0" prefWidth="149.0" />
-                              <Label layoutX="59.0" layoutY="284.0" text="OBS:" />
-                              <TextArea fx:id="txtObs" layoutX="140.0" layoutY="275.0" prefHeight="98.0" prefWidth="185.0" />
-                              <Label layoutX="75.0" layoutY="236.0" text="UNIDADE" />
-                              <ComboBox fx:id="cbxUnidade" layoutX="139.0" layoutY="232.0" prefHeight="25.0" prefWidth="186.0" />
-                              <ComboBox fx:id="cbxTipo" layoutX="141.0" layoutY="187.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
+                              <Label layoutX="75.0" layoutY="58.0" text="ETIQUETA" />
+                              <Label layoutX="46.0" layoutY="98.0" text="TIPO RECURSO" />
+                              <TextField fx:id="txtEtiqueta" layoutX="139.0" layoutY="54.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
+                              <Label layoutX="59.0" layoutY="185.0" text="OBS:" />
+                              <TextArea fx:id="txtObs" layoutX="140.0" layoutY="176.0" prefHeight="98.0" prefWidth="185.0" />
+                              <Label layoutX="75.0" layoutY="139.0" text="UNIDADE" />
+                              <ComboBox fx:id="cbxUnidade" layoutX="139.0" layoutY="135.0" prefHeight="25.0" prefWidth="186.0" />
+                              <ComboBox fx:id="cbxTipo" layoutX="139.0" layoutY="94.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.leftAnchor="139.0" />
+                              <CheckBox fx:id="chkAtivo" layoutX="270.0" layoutY="303.0" mnemonicParsing="false" selected="true" text="ATIVO" />
                            </children>
                         </AnchorPane>
-                        <CheckBox layoutX="625.0" layoutY="330.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

@@ -28,7 +28,6 @@
                   <MenuItem fx:id="menuRestricaoRecurso" mnemonicParsing="false" text="Restrição do Recurso" />
               </items>
             </Menu>
-            <Menu fx:id="menuSair" mnemonicParsing="false" text="Sair" />
         </menus>
       </MenuBar>
    </children>

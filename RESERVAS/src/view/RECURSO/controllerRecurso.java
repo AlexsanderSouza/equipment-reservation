@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import model.alerta;
 import model.ENTITY.recurso;
 import model.ENTITY.tipoRecurso;
+import model.ENTITY.unidade;
 import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,9 +15,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -32,13 +33,13 @@ public class controllerRecurso implements Initializable{
     private Button btnVoltar,btnNovo,btnAlterar,btnExcluir,btnSalvar,btnImprimir,btnSair,btnFiltrar;
 	
 	@FXML
-	private TextField txtNome,txtEtiqueta;
+	private TextField txtEtiqueta,txtPesqId,txtPesqEtiqueta,txtPesqObservacao;
 	
 	@FXML
-	private ComboBox<String> cbxTipo,cbxPesqTipo,cbxUnidade;
+	private ComboBox<String> cbxTipo,cbxPesqTipo,cbxUnidade,cbxPesqUnidade;
 	
 	@FXML
-    private RadioButton chkAtivo;
+    private CheckBox chkAtivo;
 	
 	@FXML
 	private Tab ctrlPag1,ctrlPag2;
@@ -55,13 +56,17 @@ public class controllerRecurso implements Initializable{
 	@FXML
 	private ListView<?> txtRestricao;
 	
+	private recurso vRecurso;
+	
+	@SuppressWarnings("unused")
+	private String vSalvar = "salvarNovo";
+	
 	private TableColumn<recurso, Integer> tbColum1 = new TableColumn<recurso, Integer>(); 		
 	private TableColumn<recurso, String> tbColum2 = new TableColumn<recurso, String>(); 
 	private TableColumn<recurso, String> tbColum3 = new TableColumn<recurso, String>(); 
-	private TableColumn<recurso, Integer> tbColum4  = new TableColumn<recurso, Integer>(); 
+	private TableColumn<recurso, String> tbColum4  = new TableColumn<recurso, String>(); 
 	private TableColumn<recurso, String> tbColum5  = new TableColumn<recurso, String>(); 
 	
-
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
     
@@ -76,8 +81,8 @@ public class controllerRecurso implements Initializable{
 			
 			tbColum1.setCellValueFactory(new PropertyValueFactory<recurso, Integer>("id"));
 			tbColum2.setCellValueFactory(new PropertyValueFactory<recurso, String>("etiqueta"));
-			tbColum3.setCellValueFactory(new PropertyValueFactory<recurso, String>("nome")); //Nome do tipo de recurso
-			tbColum4.setCellValueFactory(new PropertyValueFactory<recurso, Integer>("id_unidade"));
+			tbColum3.setCellValueFactory(new PropertyValueFactory<recurso, String>("nomeTipoRecurso")); //Nome do tipo de recurso
+			tbColum4.setCellValueFactory(new PropertyValueFactory<recurso, String>("nomeUnidade"));
 			tbColum5.setCellValueFactory(new PropertyValueFactory<recurso, String>("Observacao"));
 			
 			tbGrid.getColumns().addAll(tbColum1,tbColum2,tbColum3,tbColum4,tbColum5);
@@ -90,6 +95,21 @@ public class controllerRecurso implements Initializable{
 		}
     }
 	
+    public void alterarDados() {
+    	this.vSalvar = "alterar";
+    	
+    	this.vRecurso = (tbGrid.getSelectionModel().getSelectedItem());
+    	
+    	txtEtiqueta.setText(vRecurso.getEtiqueta());
+    	txtObs.setText(vRecurso.getObservacao());
+    	
+    	cbxTipo.getSelectionModel().select(vRecurso.getId_tipo_recurso()+"-"+vRecurso.getNomeTipoRecurso());    	
+    	cbxUnidade.getSelectionModel().select(vRecurso.getId_unidade()+"-"+vRecurso.getNomeUnidade());
+    	
+    	chkAtivo.setSelected(vRecurso.GetAtivo());
+    	
+    }
+    
     public void excluir() {
     	recurso vRecurso = tbGrid.getSelectionModel().getSelectedItem();
     	
@@ -105,15 +125,21 @@ public class controllerRecurso implements Initializable{
 		tbGrid.setItems(vRecursoLista);
     }
     
-    public void alimentaComboBosTipoPesquisa() {
+    public void alimentaComboBosPesquisa() {
     	for(tipoRecurso aux: vCtrl.ListaTipoRecurso())
         	cbxPesqTipo.getItems().add(aux.getId() +"-"+ aux.getNome());
+    	
+    	for(unidade aux: vCtrl.ListaUnidade())
+    		cbxPesqUnidade.getItems().add(aux.getId() +"-"+ aux.getNome());
     } 
     
-    public void alimentaComboBoxTipo() {
+    public void alimentaComboBoxCadastro() {
     	
     	for(tipoRecurso aux: vCtrl.ListaTipoRecurso())
-    	cbxTipo.getItems().add(aux.getId() +"-"+ aux.getNome());
+    	  cbxTipo.getItems().add(aux.getId() +"-"+ aux.getNome());
+    	
+    	for(unidade aux: vCtrl.ListaUnidade())
+    		cbxUnidade.getItems().add(aux.getId() +"-"+ aux.getNome());
     }
         
     public void fecharJanela() {
@@ -121,37 +147,45 @@ public class controllerRecurso implements Initializable{
     	stage.close();
     }
     
+    public void limparCampo() {
+    	txtEtiqueta.clear();
+    	cbxTipo.getSelectionModel().select(" ");
+    	cbxUnidade.getSelectionModel().select(" ");
+    	txtObs.clear();
+    }
+    
     public void inserirRecurso() {
     	
     	recurso vRecurso = new recurso();
-    	String[] nomeTipo = new String[3];
-    	
+    	    	
     	// Seleciona o id do tipo para inserir no banco
     	String[] vIdTipoString = cbxTipo.getSelectionModel().getSelectedItem().toString().split("-");
+    	String[] vIdUnidadeString = cbxUnidade.getSelectionModel().getSelectedItem().toString().split("-");
     	
     	int vIdtipo = Integer.parseInt(vIdTipoString[0]);
-    	
-    	String vAtivo = "";
-    	if (chkAtivo.isSelected() == true) {
-    		vAtivo = "S";
-    	} else {
-    		vAtivo = "N";
-    	}
-    	
-    	nomeTipo = cbxTipo.getValue().split("-");
-
+    	int vIdUnidade = Integer.parseInt(vIdUnidadeString[0]);
+    	    	
     	vRecurso.setEtiqueta(txtEtiqueta.getText());
     	vRecurso.setObservacao(txtObs.getText());
-    	vRecurso.setAtivo(vAtivo);
+    	vRecurso.setAtivo(chkAtivo.isSelected());
     	vRecurso.setId_tipo_recurso(vIdtipo);
-    	vRecurso.setNomeTipoRecurso(nomeTipo[1]);
-    	System.out.println(nomeTipo[1]);
+    	vRecurso.setId_unidade(vIdUnidade);
     	
-    	vCtrl.InserirRecurso(vRecurso);
+    	if (this.vSalvar.equals("salvarnovo")) {
+    		vCtrl.InserirRecurso(vRecurso);
+    		limparCampo();
+    	} 
+    	if (this.vSalvar.equals("alterar")) {
+    		vRecurso.setId(this.vRecurso.getId());
+    		vCtrl.alterarRecurso(vRecurso);
+    		limparCampo();
+    		this.vSalvar = "salvarnovo";
+    	}
+    	
     }
     
     public void moverPag2() {
-    	tabPane.getSelectionModel().select(ctrlPag2);
+    	tabPane.getSelectionModel().select(ctrlPag2);    	
     }
     
     public void moverPag1() {
@@ -161,11 +195,45 @@ public class controllerRecurso implements Initializable{
     }
     
     public void filtrar() {
-    	Integer vAux;
+    	Integer vId_recurso;
+    	Integer vIdTipoRecurso;
+    	Integer vIdUnidade;
+    	String vEtiqueta;
+    	String vObs;
+    	String vAux;
     	
-    	//ObservableList<recurso> vRecursoLista = FXCollections.observableArrayList(vCtrl.filtrarRecurso(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs)ListaRecurso());
+    	try {
+    		vId_recurso = Integer.parseInt(txtPesqId.getText());
+		} catch (Exception e) {
+			// TODO: handle exception
+			vId_recurso = null;
+		}	
+    
+    	try {
+    		vAux = cbxPesqTipo.getValue();
+    		vAux = vAux.substring(0, vAux.indexOf(" ")).trim();
+    		vIdTipoRecurso = Integer.parseInt(vAux);
+		} catch (Exception e) {
+			// TODO: handle exception
+			vIdTipoRecurso = null;
+		}
+    	
+    	try {
+    		vAux = cbxPesqUnidade.getValue();
+    		vAux = vAux.substring(0, vAux.indexOf(" ")).trim();
+    		vIdUnidade = Integer.parseInt(vAux);
+		} catch (Exception e) {
+			// TODO: handle exception
+			vIdUnidade = null;
+		}
+    	    	
+    	vEtiqueta = txtPesqEtiqueta.getText();
+    	
+    	vObs = txtPesqObservacao.getText();
+    	    	
+    	ObservableList<recurso> vRecursoLista = FXCollections.observableArrayList(vCtrl.filtrarRecurso( vId_recurso, vIdTipoRecurso, vIdUnidade, vEtiqueta, vObs));
 		
-		//tbGrid.setItems(vRecursoLista);    	
+		tbGrid.setItems(vRecursoLista);    	
     }    
     
     public void ControlaBotao(String pBotao){
@@ -196,8 +264,9 @@ public class controllerRecurso implements Initializable{
     
     public void onShow() {
     	this.inserirTabela();
-    	this.alimentaComboBosTipoPesquisa();
+    	this.alimentaComboBosPesquisa();
     	this.ControlaBotao("novo");
+    	this.vSalvar = "salvarnovo";
     }
     
 	@Override
@@ -205,6 +274,27 @@ public class controllerRecurso implements Initializable{
 		// TODO Auto-generated method stub
 		
 		this.onShow();
+		
+		btnAlterar.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				alimentaComboBoxCadastro();
+				alterarDados();
+				moverPag2();
+				ControlaBotao("voltar");
+			}
+		});
+		
+		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub				
+				filtrar();
+			}
+		});
 		
 		btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -224,7 +314,7 @@ public class controllerRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub				
-				moverPag1();
+				moverPag1();				
 				ControlaBotao("novo");				
 			}
 		});
@@ -234,8 +324,9 @@ public class controllerRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				alimentaComboBoxTipo();
+				alimentaComboBoxCadastro();
 				moverPag2();
+				limparCampo();
 				ControlaBotao("voltar");
 			}
 		});
