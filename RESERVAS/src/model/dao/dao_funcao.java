@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import model.alerta;
 import model.ENTITY.funcao;
 
@@ -41,29 +43,34 @@ public class dao_funcao {
 		return vListaFuncao;
 	}
 
-	public void inserir(funcao pFuncao) {
+	public int inserir(funcao pFuncao) {
 		try {
-			String vSQL = "INSERT INTO funcao(id, nome, descricao, id_permissao1, id_permissao2, id_permissao3, id_permissao4, id_permissao5, id_permissao6) "
-					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
-			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			String vSQL = "INSERT INTO funcao(id, nome, descricao) "
+					+ "VALUES(?, ?, ?);";
+			int lastId = 0;
+			
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS); //Statement.RETURN_GENERATED_KEYS  retorna o id gerado para essa função
+			
 			st.setString(1, Integer.toString(pFuncao.getId()));
 			st.setString(2, pFuncao.getNome());
 			st.setString(3, pFuncao.getDescricao());
-			st.setInt(4, pFuncao.getId_permissao1());
-			st.setInt(5, pFuncao.getId_permissao2());
-			st.setInt(6, pFuncao.getId_permissao3());
-			st.setInt(7, pFuncao.getId_permissao4());
-			st.setInt(8, pFuncao.getId_permissao5());
-			st.setInt(9, pFuncao.getId_permissao6());
 			st.execute();
-			st.close();
 
+			final ResultSet rs = st.getGeneratedKeys();  //atribui o id gerado
+			if (rs.next()) {
+			     lastId = rs.getInt(1);
+			}
+			st.close();
+			
 			vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			
 			ConexaoDataBase.FecharConexao();
+			return lastId;
 
 		} catch (Exception e) {
 			vAlerta.mensagemAlerta("Erro na Função INSERIR! \n" + "Erro: " + e.getMessage());
+			return 0;
 		}
 	}
 
@@ -97,29 +104,7 @@ public class dao_funcao {
 		}
 	}
 	
-	public List<String> listViewAlterar(funcao pFuncao) {
-		try {
-			String vSQL = "SELECT per.id, per.nome FROM permissao per left join funcao fc on per.id = fc.id_permissao1 or per.id = fc.id_permissao2 or per.id = fc.id_permissao3 or per.id = fc.id_permissao4\r\n" + 
-					"or per.id = fc.id_permissao5 or per.id = fc.id_permissao6 where  fc.id = "+pFuncao.getId()+"";
-			
-			List<String> vListaFuncao = new ArrayList<String>();
-			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
-			st.executeQuery(vSQL);
-			ResultSet rs = st.getResultSet();
-			while (rs.next()) {
-				
-				vListaFuncao.add(rs.getInt("id") + " - "+ rs.getString("nome"));
-			}
-			rs.close();
-			st.close();
-
-			return vListaFuncao;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			vAlerta.mensagemAlerta("Erro no metodo listViewAlterar na classe dao_funcao! \n" + "Erro: " + e.getMessage());
-			return null;
-		}
-	}
+	
 	
 	public void excluir(funcao pFuncao) {
     	try {

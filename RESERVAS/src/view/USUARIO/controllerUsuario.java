@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import model.alerta;
 import model.ENTITY.funcao;
+import model.ENTITY.permissao;
 import model.ENTITY.usuario;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -163,7 +164,13 @@ public class controllerUsuario implements Initializable {
 		listaCcBox = ccBoxFuncao.getSelectionModel().getSelectedItem().split(" ");
 
 		pFuncao.setId(Integer.parseInt(listaCcBox[0]));
-		listViewPermissao.getItems().addAll(vCtrl.listViewAlterarFuncao(pFuncao));
+		
+		List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(pFuncao.getId());
+    	
+    	
+    	for(permissao aux: listaPermissaoDaFuncao) {
+    		listViewPermissao.getItems().add(aux.getId() + " - " + aux.getNome());
+    	}
 	}
 
 	public void filtrar() {

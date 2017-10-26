@@ -76,20 +76,20 @@ public class controllerFuncao implements Initializable{
     public void alimentaListViewPermissao() {
     	String listaCcBox;
     	boolean duplicados = false;
-    	int qtd = 0;
-    	
+    	// int qtd = 0; limitar qtd de permissão
+     	
     	List<String> listPermissao = listViewPermissao.getItems();
     	
     	listaCcBox = ccBoxPermissao.getSelectionModel().getSelectedItem();
     
     	for(String aux: listPermissao) {  //atribui o validador de valores duplicados
-    		qtd = qtd + 1;
+    		//qtd = qtd + 1; limitar qtd de permissão
     		if(aux.equals(listaCcBox)) {
     			duplicados = true;		
     		}
     	}
     	
-    	if(duplicados != true && qtd <=5) {  //não deixa a choiceBox acrescertar valores repetidos e não permite um numero maior que 6 permisões
+    	if(duplicados != true ) { // acrescentar && qtd <=5 para limitar qtd de permissão      //não deixa a choiceBox acrescertar valores repetidos e não permite um numero maior que 6 permisões
     		listViewPermissao.getItems().add(listaCcBox);
     	}	
     }
@@ -132,31 +132,19 @@ public class controllerFuncao implements Initializable{
 	
     	listaCcBox = ccBoxPermissao.getSelectionModel().getSelectedItem();
     
-    	for(String aux: listPermissao) {  //atribui o validador de valores duplicados
-    		String[] separaId = new String[4]; 
-    		separaId = aux.split(" ");
-    		///////////////////////////////   Revisar
-    	  if(vFuncao.getId_permissao1() == 0) {
-    		  vFuncao.setId_permissao1(Integer.parseInt(separaId[0]));
-    		  System.out.println(vFuncao.getId_permissao1());
-    	  }else if(vFuncao.getId_permissao2() == 0) {
-    		  vFuncao.setId_permissao2(Integer.parseInt(separaId[0]));
-    		  System.out.println(vFuncao.getId_permissao2());
-    	  }else if(vFuncao.getId_permissao3() == 0) {
-    		  vFuncao.setId_permissao3(Integer.parseInt(separaId[0]));
-    		  System.out.println(vFuncao.getId_permissao3());
-    	  }else if(vFuncao.getId_permissao4() == 0) {
-    		  vFuncao.setId_permissao4(Integer.parseInt(separaId[0]));
-    	  }else if(vFuncao.getId_permissao5() == 0) {
-    		  vFuncao.setId_permissao5(Integer.parseInt(separaId[0]));
-    	  }else if(vFuncao.getId_permissao6() == 0) {
-    		  vFuncao.setId_permissao6(Integer.parseInt(separaId[0]));
-    	  }
-    	}
+    	
   
         
         if(this.salvar.equals("salvarNovo")) {
-            vCtrl.InserirFuncao(vFuncao);
+          int lastId =  vCtrl.InserirFuncao(vFuncao);  //retorna oultimo id da função inserida
+            
+            for(String aux: listPermissao) {  //atribui o validador de valores duplicados
+        		String[] separaId = new String[4]; 
+        		separaId = aux.split(" ");
+        		System.out.println(separaId[0]);
+        		vCtrl.InserirFuncaoPermissao(separaId[0],lastId); //insere na tabela de relacionamento
+        		
+        	}
     	}else if(this.salvar.equals("alterar")) {
     		vFuncao.setId(vFuncaoSelecionada.getId());
     		vCtrl.alterarFuncao(vFuncao);
@@ -261,9 +249,13 @@ public class controllerFuncao implements Initializable{
     	txtNome.setText(vFuncaoSelecionada.getNome());
     	txtDescricao.setText(vFuncaoSelecionada.getDescricao());
     	chkAtivo.setSelected(vFuncaoSelecionada.getAtivo());
+    	List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(vFuncaoSelecionada.getId());
     	
     	
-    	listViewPermissao.getItems().addAll(vCtrl.listViewAlterarFuncao(vFuncaoSelecionada));
+    	for(permissao aux: listaPermissaoDaFuncao) {
+    		listViewPermissao.getItems().add(aux.getId() + " - " + aux.getNome());
+    	}
+    	
     }    
     
     

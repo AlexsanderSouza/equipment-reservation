@@ -10,6 +10,7 @@ import java.util.List;
 import model.alerta;
 import model.DAO.dao_disponivel;
 import model.DAO.dao_funcao;
+import model.DAO.dao_funcaoPermissao;
 import model.DAO.dao_instituicao;
 import model.DAO.dao_permissao;
 import model.DAO.dao_recurso;
@@ -42,6 +43,7 @@ public class Controller {
     dao_tipoRecurso vDaoTipoRecurso = new dao_tipoRecurso();
     dao_disponivel vDaoDisponivel = new dao_disponivel();
     dao_permissao vDaoPermissao = new dao_permissao();
+    dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
     
     alerta vAlerta = new alerta();
     
@@ -56,7 +58,20 @@ public class Controller {
 			return null;
 		}    	    
     }
+   
     
+    public List<permissao> listaFuncaoPermissao(int pIdFuncao){
+    	try {
+			return vDaoFuncaoPermissao.listar(pIdFuncao);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+    }
+    
+    
+    
+
     public List<permissao> ListaPermissao(){
     	try {
 			return vDaoPermissao.listar();
@@ -75,6 +90,7 @@ public class Controller {
 		}		
     }
     
+
     public List<funcao> ListaFuncao() {
     	try {
 			return vDaoFuncao.listar();
@@ -83,7 +99,7 @@ public class Controller {
 			return null;
 		}
     }
-    
+
     public List<instituicao> ListaInstituicao(){
     	try {
     		return vDaoInstituicao.listar();
@@ -128,10 +144,6 @@ public class Controller {
 			vAlerta.mensagemAlerta("Erro no Filtro: \n"+e.getMessage());
 			return null;
 		}    	    
-    }
-    
-    public List<String> listViewAlterarFuncao(funcao pFuncao){
-    	return vDaoFuncao.listViewAlterar(pFuncao);
     }
     /*FIM >> Funções LISTAR*/
     
@@ -216,6 +228,11 @@ public class Controller {
     /*FIM >> Funções ALTERAR*/
         
     /*INICIO >> Funções INSERIR*/
+    
+    public void InserirFuncaoPermissao(String pPermissao, int pLastId) {
+    	vDaoFuncaoPermissao.inserir(pPermissao, pLastId);
+    }
+    
     public void inserirPermissao(permissao pPermissao) {
     	vDaoPermissao.inserir(pPermissao);
     }
@@ -224,8 +241,8 @@ public class Controller {
         vDaoUser.inserir(pUser);
     }
     
-    public void InserirFuncao(funcao pFuncao){
-    	vDaoFuncao.inserir(pFuncao);    	
+    public int InserirFuncao(funcao pFuncao){
+    	return vDaoFuncao.inserir(pFuncao);    	
     }
     
     public void inserirInstituicao(instituicao pInstituicao) {

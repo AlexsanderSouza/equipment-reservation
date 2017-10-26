@@ -39,7 +39,7 @@ public class ConexaoDataBase {
             String mydatabase = "locacao";
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
             String username = "root";
-            String password = "reis12345";
+            String password = "root";
             //String password = "2220"; 
 
             
