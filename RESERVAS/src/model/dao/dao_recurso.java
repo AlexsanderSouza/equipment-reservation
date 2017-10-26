@@ -38,8 +38,6 @@ public class dao_recurso {
 			st.execute();
 			st.close();
 			
-			vAlerta.mensagemAlerta("Alterado com Sucesso!");
-			
 			ConexaoDataBase.FecharConexao();
 			
 		} catch (Exception e) {
@@ -115,8 +113,7 @@ public class dao_recurso {
 			
 			st.execute();
 	        st.close();
-	        
-	        vAlerta.mensagemAlerta("Excluido com Sucesso!");
+
 	        ConexaoDataBase.FecharConexao();
 			
 		} catch (Exception e) {
@@ -172,8 +169,7 @@ public class dao_recurso {
             
             st.execute();
             st.close();
-      
-           vAlerta.mensagemAlerta("Inserido com Sucesso!"); 
+
             ConexaoDataBase.FecharConexao();
             
         } catch (Exception e) {
