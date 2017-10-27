@@ -93,13 +93,12 @@
       </TabPane>
       <AnchorPane layoutY="35.0" prefHeight="419.0" prefWidth="63.0">
          <children>
-            <Button fx:id="btnImprimir" layoutY="239.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Imprimir" />
+            <Button fx:id="btnImprimir" layoutY="180.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Imprimir" />
             <Button fx:id="btnSair" layoutY="370.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" />
             <Button fx:id="btnVoltar" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Voltar" />
             <Button fx:id="btnNovo" layoutY="61.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Novo" />
-            <Button fx:id="btnAlterar" layoutY="121.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
-            <Button fx:id="btnExcluir" layoutY="179.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
-            <Button fx:id="btnSalvar" layoutX="7.0" layoutY="297.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Salvar" AnchorPane.leftAnchor="0.0" />
+            <Button fx:id="btnExcluir" layoutY="120.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
+            <Button fx:id="btnSalvar" layoutY="238.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Salvar" AnchorPane.leftAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="30.0" prefWidth="780.0">

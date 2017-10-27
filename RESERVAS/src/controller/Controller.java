@@ -15,6 +15,7 @@ import model.DAO.dao_instituicao;
 import model.DAO.dao_permissao;
 import model.DAO.dao_recurso;
 import model.DAO.dao_reserva;
+import model.DAO.dao_restricaoRecurso;
 import model.DAO.dao_tipoRecurso;
 import model.DAO.dao_unidade;
 import model.DAO.dao_usuario;
@@ -24,6 +25,7 @@ import model.ENTITY.instituicao;
 import model.ENTITY.permissao;
 import model.ENTITY.recurso;
 import model.ENTITY.reserva;
+import model.ENTITY.restricaoRecurso;
 import model.ENTITY.tipoRecurso;
 import model.ENTITY.unidade;
 import model.ENTITY.usuario;
@@ -44,10 +46,10 @@ public class Controller {
     dao_disponivel vDaoDisponivel = new dao_disponivel();
     dao_permissao vDaoPermissao = new dao_permissao();
     dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
+    dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
     
     alerta vAlerta = new alerta();
-    
-    
+        
     /*INICIO >> Funções LISTAR*/
     public List<disponivel> ListaDisponivel(String pDataInicio,String pDataFim){
     	try {
@@ -58,8 +60,7 @@ public class Controller {
 			return null;
 		}    	    
     }
-   
-    
+       
     public List<permissao> listaFuncaoPermissao(int pIdFuncao){
     	try {
 			return vDaoFuncaoPermissao.listar(pIdFuncao);
@@ -69,9 +70,6 @@ public class Controller {
 		}
     }
     
-    
-    
-
     public List<permissao> ListaPermissao(){
     	try {
 			return vDaoPermissao.listar();
@@ -263,6 +261,10 @@ public class Controller {
     
     public void InserirReserva(reserva pReserva){
     	vDaoReserva.inserir(pReserva);    	
+    }
+    
+    public void InserirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
+    	vDaoRestricaoRecurso.inserir(pRestricaoRecurso);
     }
     /*FIM >> Funções INSERIR*/
     

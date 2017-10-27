@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.alerta;
-import model.ENTITY.funcao;
 import model.ENTITY.permissao;
 
 public class dao_funcaoPermissao {

@@ -14,13 +14,7 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tbGrid" layoutX="2.0" layoutY="118.0" prefHeight="280.0" prefWidth="712.0">
-                          <columns>
-                            <TableColumn fx:id="tbColum1" prefWidth="75.0" text="Código" />
-                            <TableColumn fx:id="tbColum2" prefWidth="132.0" text="Tipo de Recurso" />
-                              <TableColumn fx:id="tbColum3" minWidth="7.0" prefWidth="144.0" text="Função" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="tbGrid" layoutX="2.0" layoutY="118.0" prefHeight="280.0" prefWidth="712.0" />
                         <ComboBox fx:id="cbxTipoRecurso" layoutX="31.0" layoutY="69.0" prefWidth="150.0" />
                         <ComboBox fx:id="cbxFuncao" layoutX="239.0" layoutY="69.0" prefWidth="150.0" />
                         <Button fx:id="btnAdicionar" layoutX="479.0" layoutY="69.0" mnemonicParsing="false" text="Adicionar" />
@@ -33,12 +27,9 @@
       </TabPane>
       <AnchorPane layoutY="35.0" prefHeight="419.0" prefWidth="63.0">
          <children>
-            <Button fx:id="btnImprimir" layoutY="239.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Imprimir" />
-            <Button fx:id="btnSair" layoutY="299.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
-            <Button fx:id="btnVoltar" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Voltar" />
-            <Button fx:id="btnNovo" layoutY="61.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Novo" />
-            <Button fx:id="btnAlterar" layoutY="121.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
-            <Button fx:id="btnGravar" layoutY="179.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Gravar" />
+            <Button fx:id="btnSair" layoutY="356.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
+            <Button fx:id="btnAlterar" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
+            <Button fx:id="btnExcluir" layoutY="58.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="30.0" prefWidth="780.0">
