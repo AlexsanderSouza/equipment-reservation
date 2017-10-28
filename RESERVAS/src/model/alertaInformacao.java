@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
  *
  * @author WIGOR
  */
-public class alerta {
+public class alertaInformacao {
     public void mensagemAlerta(String pMensagem){
       Alert vAlerta = new Alert(Alert.AlertType.INFORMATION);
             vAlerta.setTitle("Informativo!");

@@ -3,7 +3,7 @@ package view.TIPO_RECURSO;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.tipoRecurso;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -49,7 +49,7 @@ public class controllerTipoRecurso implements Initializable{
 	private TableColumn<tipoRecurso, String> tbColum2 = new TableColumn<tipoRecurso, String>();
 	
 	Controller vCtrl = new Controller();
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
 	@SuppressWarnings("unchecked")
 	public void inserirTabela(){

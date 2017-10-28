@@ -5,12 +5,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.reserva;
 
 public class dao_reserva {
 	
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
 
 	public void excluir(reserva pReserva) {
 		try {

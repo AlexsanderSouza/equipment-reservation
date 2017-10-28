@@ -7,9 +7,11 @@ package view.USUARIO;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.alerta;
+import model.alertaConfirmacao;
+import model.alertaInformacao;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
 import model.ENTITY.usuario;
@@ -20,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -69,7 +72,7 @@ public class controllerUsuario implements Initializable {
 
 	// Variavel local
 	private usuario vUsuarioSelecionado; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e
-										// alterar ao salvar
+											// alterar ao salvar
 	private String salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
 
 	private TableColumn<usuario, Integer> tbColum1 = new TableColumn<usuario, Integer>();
@@ -81,7 +84,7 @@ public class controllerUsuario implements Initializable {
 	private TableColumn<usuario, String> tbColum7 = new TableColumn<usuario, String>();
 
 	Controller vCtrl = new Controller();
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
 
 	@SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -95,7 +98,8 @@ public class controllerUsuario implements Initializable {
 			tbColum6.setText("Telefone");
 			tbColum7.setText("Status");
 
-			tbColum1.setCellValueFactory(new PropertyValueFactory<usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
+			tbColum1.setCellValueFactory(
+					new PropertyValueFactory<usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
 			tbColum2.setCellValueFactory(new PropertyValueFactory<usuario, String>("matricula"));
 			tbColum3.setCellValueFactory(new PropertyValueFactory<usuario, String>("nome"));
 			tbColum4.setCellValueFactory(new PropertyValueFactory<usuario, String>("funcao"));
@@ -119,7 +123,7 @@ public class controllerUsuario implements Initializable {
 	public void inserirUsuario() {
 		String[] funcaoSelecionada = new String[3];
 		funcaoSelecionada = ccBoxFuncao.getSelectionModel().getSelectedItem().split(" ");
-		
+
 		usuario vUsuario = new usuario();
 
 		vUsuario.setNome(txtNome.getText());
@@ -131,20 +135,21 @@ public class controllerUsuario implements Initializable {
 		vUsuario.setFuncao(funcaoSelecionada[0]);
 		vUsuario.setStatus(cBoxStatus.getSelectionModel().getSelectedItem().toString());
 
-		
-		
-		if(this.salvar.equals("salvarNovo")) {
+		if (this.salvar.equals("salvarNovo")) {
 			vCtrl.InserirUsuario(vUsuario);
-    	}else if(this.salvar.equals("alterar")) {
-    		vUsuario.setId(vUsuarioSelecionado.getId());
-    		vCtrl.alterarUsuario(vUsuario);
-    	}
-		
-		
+		} else if (this.salvar.equals("alterar")) {
+			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
+
+			if (result.get() == ButtonType.OK) {
+			vUsuario.setId(vUsuarioSelecionado.getId());
+			vCtrl.alterarUsuario(vUsuario);
+		}
+		}
+
 	}
-	
+
 	public void alimentaCBoxStatus() {
-		cBoxStatus.getItems().addAll("Ok","Pendente","Suspenso");
+		cBoxStatus.getItems().addAll("Ok", "Pendente", "Suspenso");
 	}
 
 	public void alimentaCcBoxFuncao() {
@@ -164,55 +169,57 @@ public class controllerUsuario implements Initializable {
 		listaCcBox = ccBoxFuncao.getSelectionModel().getSelectedItem().split(" ");
 
 		pFuncao.setId(Integer.parseInt(listaCcBox[0]));
-		
+
 		List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(pFuncao.getId());
-    	
-    	
-    	for(permissao aux: listaPermissaoDaFuncao) {
-    		listViewPermissao.getItems().add(aux.getId() + " - " + aux.getNome());
-    	}
+
+		for (permissao aux : listaPermissaoDaFuncao) {
+			listViewPermissao.getItems().add(aux.getId() + " - " + aux.getNome());
+		}
 	}
 
 	public void filtrar() {
 		Integer aux;
 
-		 try {
-		 aux = Integer.parseInt(txtIdPesquisa.getText());
-		 } catch (NumberFormatException e) {
-		 // TODO Auto-generated catch block
-		 aux = null;
-		 }
-		
-		 ObservableList<usuario> vLista =
-		 FXCollections.observableArrayList(vCtrl.filtrarUsuario(aux,
-		 txtNomePesquisa.getText(),txtMatricula.getText()));
-		
-		 tbGrid.setItems(vLista);
+		try {
+			aux = Integer.parseInt(txtIdPesquisa.getText());
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			aux = null;
+		}
+
+		ObservableList<usuario> vLista = FXCollections
+				.observableArrayList(vCtrl.filtrarUsuario(aux, txtNomePesquisa.getText(), txtMatricula.getText()));
+
+		tbGrid.setItems(vLista);
 
 	}
 
 	public void excluir() {
-		int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
-		usuario vUsuarioSelecionado2 = tbGrid.getSelectionModel().getSelectedItem();
-		
-		vCtrl.excluirUsuario(vUsuarioSelecionado2);
-		tbGrid.getItems().remove(attTabela);
+		Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Excluir?").getResult();
+
+		if (result.get() == ButtonType.OK) {
+			int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
+			usuario vUsuarioSelecionado2 = tbGrid.getSelectionModel().getSelectedItem();
+
+			vCtrl.excluirUsuario(vUsuarioSelecionado2);
+			tbGrid.getItems().remove(attTabela);
+		}
 	}
 
 	public void moverPag1() {
-		 txtNome.clear();
-		 txtEmail.clear();
-		 txtSenha.clear();
-		 txtMatricula.clear();
-		 txtTelefone.clear();
-		 chkAtivo.setSelected(true);
-		 
+		txtNome.clear();
+		txtEmail.clear();
+		txtSenha.clear();
+		txtMatricula.clear();
+		txtTelefone.clear();
+		chkAtivo.setSelected(true);
+
 		listViewPermissao.getItems().clear();
 		this.salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
-		
+
 		ObservableList<usuario> vLista = FXCollections.observableArrayList(vCtrl.ListaUsuario());
 		tbGrid.setItems(vLista);
-		
+
 		tabPane.getSelectionModel().select(ctrlPag1);
 	}
 
@@ -249,18 +256,17 @@ public class controllerUsuario implements Initializable {
 
 	public void alterarDados() {
 
-		 this.salvar = "alterar";
-		
-		 vUsuarioSelecionado = tbGrid.getSelectionModel().getSelectedItem();
-		 
-		 txtNome.setText(vUsuarioSelecionado.getNome());
-		 txtEmail.setText(vUsuarioSelecionado.getEmail());
-		 txtSenha.setText(vUsuarioSelecionado.getSenha());
-		 txtMatricula.setText(vUsuarioSelecionado.getMatricula());
-		 txtTelefone.setText(vUsuarioSelecionado.getTelefone());
-		 chkAtivo.setSelected(vUsuarioSelecionado.getAtivo());
-		 
-		
+		this.salvar = "alterar";
+
+		vUsuarioSelecionado = tbGrid.getSelectionModel().getSelectedItem();
+
+		txtNome.setText(vUsuarioSelecionado.getNome());
+		txtEmail.setText(vUsuarioSelecionado.getEmail());
+		txtSenha.setText(vUsuarioSelecionado.getSenha());
+		txtMatricula.setText(vUsuarioSelecionado.getMatricula());
+		txtTelefone.setText(vUsuarioSelecionado.getTelefone());
+		chkAtivo.setSelected(vUsuarioSelecionado.getAtivo());
+
 	}
 
 	public void fecharJanela() {

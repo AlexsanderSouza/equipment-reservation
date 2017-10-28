@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.instituicao;
 
 public class dao_instituicao {
 	
-alerta vAlerta = new alerta();
+alertaInformacao vAlerta = new alertaInformacao();
 
     
     public List<instituicao> listar() throws Exception{

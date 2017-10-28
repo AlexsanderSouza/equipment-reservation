@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.unidade;
 
 /**
@@ -19,7 +19,7 @@ import model.ENTITY.unidade;
  * @author WigorPaulo
  */
 public class dao_unidade {
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
 	
 	
     public List<unidade> listar() throws Exception{

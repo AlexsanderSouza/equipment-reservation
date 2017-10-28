@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.funcao;
 import model.ENTITY.restricaoRecurso;
 import model.ENTITY.tipoRecurso;
@@ -32,7 +32,7 @@ public class controllerRestricaoRecurso implements Initializable{
 	TableView<restricaoRecurso> tbGrid;
 	
 	Controller vCtrl = new Controller();
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
     public void inserirRestricaoRecurso() {
     	restricaoRecurso vRestricaoRecurso = new restricaoRecurso();
