@@ -51,10 +51,10 @@ CREATE TABLE `funcao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `descricao` varchar(100) DEFAULT NULL,
-  `ativo` varchar(1) DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +63,6 @@ CREATE TABLE `funcao` (
 
 LOCK TABLES `funcao` WRITE;
 /*!40000 ALTER TABLE `funcao` DISABLE KEYS */;
-INSERT INTO `funcao` VALUES (48,'ygkuyg','uygkjgk',NULL),(49,'ttt','hgfhf',NULL);
 /*!40000 ALTER TABLE `funcao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,8 +74,12 @@ DROP TABLE IF EXISTS `funcao_permissao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `funcao_permissao` (
-  `id_funcao` int(10) DEFAULT NULL,
-  `id_permissao` int(10) DEFAULT NULL
+  `id_funcao` int(10) unsigned DEFAULT NULL,
+  `id_permissao` int(10) unsigned DEFAULT NULL,
+  KEY `id_permissao_idx` (`id_permissao`),
+  KEY `id_funcao_idx` (`id_funcao`),
+  CONSTRAINT `id_funcao` FOREIGN KEY (`id_funcao`) REFERENCES `funcao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `id_permissao` FOREIGN KEY (`id_permissao`) REFERENCES `permissao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,7 +89,6 @@ CREATE TABLE `funcao_permissao` (
 
 LOCK TABLES `funcao_permissao` WRITE;
 /*!40000 ALTER TABLE `funcao_permissao` DISABLE KEYS */;
-INSERT INTO `funcao_permissao` VALUES (48,13),(48,16),(48,18),(49,13),(49,16),(49,19);
 /*!40000 ALTER TABLE `funcao_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +115,6 @@ CREATE TABLE `instituicao` (
 
 LOCK TABLES `instituicao` WRITE;
 /*!40000 ALTER TABLE `instituicao` DISABLE KEYS */;
-INSERT INTO `instituicao` VALUES (11,'alfa','alfa@gamil.com','12222222','1'),(12,'coac','coac@kg','46343',NULL);
 /*!40000 ALTER TABLE `instituicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,12 +127,12 @@ DROP TABLE IF EXISTS `permissao`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permissao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) DEFAULT NULL,
+  `nome` varchar(100) NOT NULL,
   `descricao` varchar(100) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +141,6 @@ CREATE TABLE `permissao` (
 
 LOCK TABLES `permissao` WRITE;
 /*!40000 ALTER TABLE `permissao` DISABLE KEYS */;
-INSERT INTO `permissao` VALUES (13,'sala','att',1),(14,'objetos','att2',1),(15,'admin','att4',1),(16,'auditorio','att2',1),(17,'bloco a','att9',1),(18,'cinema','aaa',1),(19,'video show','gfd',1);
 /*!40000 ALTER TABLE `permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ CREATE TABLE `tipo_recurso` (
   `ativo` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,7 +307,6 @@ CREATE TABLE `unidade` (
 
 LOCK TABLES `unidade` WRITE;
 /*!40000 ALTER TABLE `unidade` DISABLE KEYS */;
-INSERT INTO `unidade` VALUES (10,'Perreimetral','aaaa@jhgjhg','123456','hrfhtrk3135','1',11),(11,'edeee','erews','wdfsr','dghdfgh','1',12);
 /*!40000 ALTER TABLE `unidade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,12 +324,14 @@ CREATE TABLE `usuario` (
   `senha` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(100) DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
-  `id_funcao` int(10) DEFAULT NULL,
+  `ativo` varchar(1) DEFAULT NULL,
+  `id_funcao` int(10) unsigned DEFAULT NULL,
   `status` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `id` (`id`),
+  KEY `id_funcao_idx` (`id_funcao`),
+  CONSTRAINT `id_funcao_user` FOREIGN KEY (`id_funcao`) REFERENCES `funcao` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,4 +352,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26 20:15:16
+-- Dump completed on 2017-10-28 16:39:17
