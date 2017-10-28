@@ -1,6 +1,8 @@
 /.settings/
 /RESERVAS/bin/**/*
 
-*.classpath
-*.project
+/RESERVAS/.classpath
+/RESERVAS/.project
 
+/.metadata/**/*
+/.recommenders/**/*

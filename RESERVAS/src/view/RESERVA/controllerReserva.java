@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import view.COMPONENTE_DATAHORA.DateTimePicker;
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.*;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -26,11 +26,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class controllerReserva implements Initializable{
 	
 	@FXML
-    private Button btnVoltar,btnNovo,btnAlterar,btnExcluir,btnSalvar,btnImprimir,btnSair,btnFiltrar;
+    private Button btnVoltar,btnNovo,btnExcluir,btnSalvar,btnImprimir,btnSair,btnFiltrar;
 		
 	@FXML
 	private ComboBox<String> cbxResponsavel,cbxRecurso,cbxdestinatario,cbxTipoRepeticao,cbxStatus,cbxPesqStatus,cbxPesqAutor,cbxPesqDestinatario;
@@ -52,7 +53,7 @@ public class controllerReserva implements Initializable{
 	
 	@FXML
 	private TextField txtPesqID,txtPesqAutor,txtPesqDestinatario,txtCadHoraInicio,txtCadHoraFim,txtFimHoraInicio,txtFimHoraFim,txtHoraInicio,txtHoraFim;
-	
+			
 	//Variavel local
 	private TableColumn<reserva, Integer> tbColum1 = new TableColumn<reserva, Integer>(); 		
 	private TableColumn<reserva, Integer> tbColum2 = new TableColumn<reserva, Integer>(); 
@@ -68,7 +69,7 @@ public class controllerReserva implements Initializable{
 	DateTimePicker dataTimePesqDataFinal = new DateTimePicker();
 	
 	Controller vCtrl = new Controller();
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
     int vTipoComboBox = 0;
     
@@ -131,6 +132,15 @@ public class controllerReserva implements Initializable{
     	tbGrid.setItems(vLista);
     
     }
+     
+    public void excluir() {
+    	reserva vReserva = tbGrid.getSelectionModel().getSelectedItem();
+    	
+    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
+    	
+    	vCtrl.excluirReserva(vReserva);
+    	tbGrid.getItems().remove(vTabelaRemover);
+    }
     
     public void dataTimePicker() {                                  //insere o botão dinamico de data e hora
     	vboxReserva.setSpacing(05);
@@ -173,6 +183,17 @@ public class controllerReserva implements Initializable{
    // String nome = "Vinícius Mendonça";
    // String primeiroNome = nome.substring(0, nome.indexOf(" "));
    
+    public void fecharJanela() {
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+    	stage.close();
+    }
+    
+    public void alimentaTabela() {
+    	ObservableList<reserva> vReservaLista = FXCollections.observableArrayList(vCtrl.ListaReserva());
+		
+		tbGrid.setItems(vReservaLista);
+    }
+    
     public void inserirReserva(){
     	
     	reserva vReserva = new reserva();
@@ -182,9 +203,7 @@ public class controllerReserva implements Initializable{
     	String vRecurso = cbxRecurso.getValue();
     	String vDataInicio = dataTimeAutor.getTextField().getText();
     	String vDataFinal = dataTimeDestinatario.getTextField().getText();
-    	
-    	
-    	    	
+    	 	
     	vReserva.setId_responsavel( Integer.parseInt(vResponsavel.substring(0, vResponsavel.indexOf(" ")).trim() ));
     	vReserva.setId_destinatario(Integer.parseInt(vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim() ));
     	vReserva.setId_recurso(Integer.parseInt(vRecurso.substring(0, vRecurso.indexOf(" ")).trim() ));
@@ -201,7 +220,7 @@ public class controllerReserva implements Initializable{
     	String vListaRecurso = "";
     	
     	for (recurso vrec : rec){
-    		vListaRecurso = Integer.toString(vrec.getId())+" - "+vrec.getEtiqueta();
+    		vListaRecurso = Integer.toString(vrec.getId())+" - "+vrec.getNomeTipoRecurso();
     		cbxRecurso.getItems().addAll(vListaRecurso);    		
     	}
     	
@@ -319,6 +338,8 @@ public class controllerReserva implements Initializable{
     }
     
     public void moverPag1(){
+    	alimentaTabela();
+    	
     	tabPane.getSelectionModel().select(ctrlPag1);
     }
     
@@ -331,7 +352,6 @@ public class controllerReserva implements Initializable{
 		case "novo":
 			btnVoltar.setDisable(true);	
 			btnNovo.setDisable(false);
-			btnAlterar.setDisable(false);
 			btnExcluir.setDisable(false);
 			btnImprimir.setDisable(true);
 			btnSalvar.setDisable(true);
@@ -340,7 +360,6 @@ public class controllerReserva implements Initializable{
 		case "voltar":
 			btnVoltar.setDisable(false);	
 			btnNovo.setDisable(true);
-			btnAlterar.setDisable(true);
 			btnExcluir.setDisable(true);
 			btnImprimir.setDisable(true);
 			btnSalvar.setDisable(false);
@@ -358,6 +377,28 @@ public class controllerReserva implements Initializable{
 	
 		this.dataTimePicker();
 		this.onShow();	
+				
+		btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					excluir();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+		});
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				fecharJanela();
+			}
+		});
 		
 		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {
 

@@ -9,9 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.DAO.ConexaoDataBase;
-import model.ENTITY.funcao;
 import model.ENTITY.usuario;
 
 
@@ -23,7 +22,7 @@ import model.ENTITY.usuario;
  * @author WigorPaulo
  */
 public class dao_usuario {
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
     public List<usuario> listar() throws Exception{
     	
@@ -131,7 +130,7 @@ public class dao_usuario {
 	}
     
     
-    @SuppressWarnings("unused")
+  
 	public List<usuario> filtrar(Integer id,String nome, String matricula) {
     	try {
     		

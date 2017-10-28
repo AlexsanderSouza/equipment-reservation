@@ -8,7 +8,7 @@ package view.MENU;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.alerta;
+import model.alertaInformacao;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,13 +17,13 @@ import javafx.scene.control.MenuItem;
 import view.DISPONIVEL.viewDisponivel;
 import view.FUNCAO.viewFuncao;
 import view.INSTITUICAO.viewInstituicao;
+import view.PERMISSAO.viewPermissao;
 import view.RECURSO.viewRecurso;
 import view.RESERVA.viewReserva;
 import view.RESTRICAO_RECURSO.viewRestricaoRecurso;
 import view.TIPO_RECURSO.viewTipoRecurso;
 import view.UNIDADE.viewUnidade;
 import view.USUARIO.viewUsuario;
-import view.permissao.viewPermissao;
 
 
 
@@ -37,9 +37,9 @@ public class controllerMenu implements Initializable{
     private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel;
     
     @FXML
-    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuSair,menuRecurso,menuPermissao;
+    private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuRecurso,menuPermissao;
 
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {

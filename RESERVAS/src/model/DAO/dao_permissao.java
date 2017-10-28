@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.permissao;
 
 public class dao_permissao {
 			
-alerta vAlerta = new alerta();
+alertaInformacao vAlerta = new alertaInformacao();
     
     public List<permissao> listar() throws Exception{
         
@@ -105,7 +105,7 @@ alerta vAlerta = new alerta();
     	
     }
     
-    @SuppressWarnings("unused")
+  
 	public List<permissao> filtrar(Integer id,String nome) {
     	try {
     		

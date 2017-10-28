@@ -2,7 +2,9 @@ package model.ENTITY;
 
 public class tipoRecurso {
 	    int id;
-		String nome, ativo;
+		String nome;
+		
+		boolean ativo;
 		
 		
 		public int getId() {
@@ -17,10 +19,10 @@ public class tipoRecurso {
 		public void setNome(String nome) {
 			this.nome = nome;
 		}
-		public String getAtivo() {
+		public boolean getAtivo() {
 			return ativo;
 		}
-		public void setAtivo(String ativo) {
+		public void setAtivo(boolean ativo) {
 			this.ativo = ativo;
 		}
 		

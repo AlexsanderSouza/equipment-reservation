@@ -5,12 +5,61 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.reserva;
 
 public class dao_reserva {
-	alerta vAlerta = new alerta();
+	
+	alertaInformacao vAlerta = new alertaInformacao();
 
+	public void excluir(reserva pReserva) {
+		try {
+			String vSQL = "DELETE FROM reserva WHERE `id` = '"+pReserva.getId()+"'";
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			
+			st.execute();
+	        st.close();
+	        
+	        ConexaoDataBase.FecharConexao();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função DELETAR! \n"+"Erro: "+e.getMessage());
+		}
+	}
+	
+	public void alterar(reserva pReserva) {
+		try {
+			String vSQL = "";
+			
+			String vIdResponsavel = Integer.toString(pReserva.getId_responsavel());
+			String vIdDestinatario = Integer.toString(pReserva.getId_destinatario());
+			String vIdRecurso = Integer.toString(pReserva.getId_recurso());
+			String vId = Integer.toString(pReserva.getId());
+			
+			vSQL =  "update reserva set id_responsavel = "+vIdResponsavel + 
+					"                , id_destinatario = "+vIdDestinatario+ 
+					"                     , id_recurso = "+vIdRecurso+ 
+					"			   , data_hora_reserva = "+"'"+pReserva.getData_hora_reserva()+"'"+ 
+					"                , data_hora_final = "+"'"+pReserva.getData_hora_final()+"'"+ 
+					"                      , repeticao = "+"'"+pReserva.getRepeticao()+"'"+ 
+					"                         , status = "+"'"+pReserva.getStatus()+"'"+ 
+					"                         where id = "+vId;
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			
+			st.execute();
+			st.close();
+			
+			ConexaoDataBase.FecharConexao();			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função alterar! \n" + "Erro: " + e.getMessage());
+		}
+	}
+	
 	public List<reserva> listarFiltroDisponivel(String pId, String pDataInicio, String pDataFim, String pDataInicio2,
 			String pDataFim2, String pStatus, String pResponsavel, String pDestinatario) throws Exception {
 		String vSQL = "select ((select count(rc.id_tipo_recurso) qtde_estoque " + "from recurso rc "

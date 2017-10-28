@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import view.COMPONENTE_DATAHORA.DateTimePicker;
 import view.RESERVA.viewReserva;
 import controller.Controller;
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.disponivel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class controllerDisponivel implements Initializable {
 	
@@ -27,7 +28,7 @@ public class controllerDisponivel implements Initializable {
 	private TableView<disponivel> tbGrid;
 	
 	@FXML
-    private Button btnPesquisar,btnReserva;
+    private Button btnPesquisar,btnReserva,btnSair;
 	
 	@FXML
 	private VBox vboxDisponivel; //Para usar o botão dinamico de data e hora
@@ -41,12 +42,17 @@ public class controllerDisponivel implements Initializable {
 	DateTimePicker vDataTimeFinal = new DateTimePicker();
 	
 	Controller vCtrl = new Controller();
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
 	
 	public void dataTimePicker() {                                  //insere o botão dinamico de data e hora
     	vboxDisponivel.setSpacing(05);
     	vboxDisponivel.getChildren().add(vDataTimeInicial);
     	vboxDisponivel.getChildren().add(vDataTimeFinal);
+    }
+	
+	public void fecharJanela() {
+    	Stage stage = (Stage) btnSair.getScene().getWindow();
+    	stage.close();
     }
 	
 	public void Filtro(){
@@ -98,6 +104,15 @@ public class controllerDisponivel implements Initializable {
 		// TODO Auto-generated method stub
 		this.dataTimePicker();
 		this.onShow();
+		
+		btnSair.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				fecharJanela();
+			}
+		});
 		
 		btnReserva.setOnAction(new EventHandler<ActionEvent>() {
 

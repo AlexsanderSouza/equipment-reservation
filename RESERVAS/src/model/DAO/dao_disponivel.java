@@ -4,12 +4,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.disponivel;
 
 public class dao_disponivel {
 
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
     
 	public List<disponivel> listarDisponivel(String pDataInicio,String pDataFim) throws Exception{
 	    
