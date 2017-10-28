@@ -59,7 +59,7 @@ public class Controller {
 			vAlerta.mensagemAlerta("Erro no Filtro: \n"+e.getMessage());
 			return null;
 		}    	    
-    }
+    } 
        
     public List<permissao> listaFuncaoPermissao(int pIdFuncao){
     	try {
@@ -112,6 +112,15 @@ public class Controller {
     		return vDaoUnidade.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			return null;
+		}
+    }
+    
+    public List<restricaoRecurso> ListaRestricaoRecurso(){
+    	try {
+			return vDaoRestricaoRecurso.listar();
+		} catch (Exception e) {
+			// TODO: handle exception
 			return null;
 		}
     }
@@ -271,6 +280,10 @@ public class Controller {
     /*INICIO >> Funções EXCLUIR*/
     public void excluirPermissao(permissao pPermissao) {
     	vDaoPermissao.excluir(pPermissao);
+    }
+    
+    public void excluirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
+    	vDaoRestricaoRecurso.excluir(pRestricaoRecurso);
     }
     
     public void excluirReserva(reserva pReserva) {
