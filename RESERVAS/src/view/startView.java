@@ -10,7 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.alerta;
+import model.alertaInformacao;
 import view.LOGIN.viewlogin;
 
 /**
@@ -20,7 +20,7 @@ import view.LOGIN.viewlogin;
 public class startView extends Application{
     
     private static Stage stage;
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     @Override
     public void start(Stage primaryStage) throws IOException {    
             stage = primaryStage;

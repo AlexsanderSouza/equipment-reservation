@@ -51,10 +51,16 @@ CREATE TABLE `funcao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `descricao` varchar(100) DEFAULT NULL,
-  `ativo` tinyint(1) DEFAULT NULL,
+  `ativo` varchar(1) DEFAULT NULL,
+  `id_permissao1` int(10) DEFAULT NULL,
+  `id_permissao2` int(10) DEFAULT NULL,
+  `id_permissao3` int(10) DEFAULT NULL,
+  `id_permissao4` int(10) DEFAULT NULL,
+  `id_permissao5` int(10) DEFAULT NULL,
+  `id_permissao6` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,33 +69,8 @@ CREATE TABLE `funcao` (
 
 LOCK TABLES `funcao` WRITE;
 /*!40000 ALTER TABLE `funcao` DISABLE KEYS */;
+INSERT INTO `funcao` VALUES (1,'teste','ddd','1',NULL,NULL,NULL,NULL,NULL,NULL),(2,'ghg','jhgg','0',NULL,NULL,NULL,NULL,NULL,NULL),(3,'jij','oijlj','1',NULL,NULL,NULL,NULL,NULL,NULL),(7,'Teset','sgxcv',NULL,1,1,1,1,1,1),(8,'teste','kufghtf','0',1,7,0,0,0,0),(9,'htfjytf','ygkug',NULL,7,7,7,7,7,7),(10,'ygukg','uygtfgiu',NULL,3,3,3,3,3,3),(11,'fcgsdaS','sdfgtrgt',NULL,1,1,1,1,1,1),(12,'zdfgd','sdfgszdfhg',NULL,2,2,2,2,2,2),(13,'ersgdfg','zdfgzdf',NULL,1,7,0,2,3,9),(14,'sadtgsdrztg','dsrgs',NULL,1,7,10,8,9,3),(15,'sdfte','aseras',NULL,2,8,10,0,0,0),(16,'ssdfds','dfgs',NULL,2,10,7,0,0,0),(17,'oi','uhu',NULL,3,1,7,0,0,0);
 /*!40000 ALTER TABLE `funcao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `funcao_permissao`
---
-
-DROP TABLE IF EXISTS `funcao_permissao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `funcao_permissao` (
-  `id_funcao` int(10) unsigned DEFAULT NULL,
-  `id_permissao` int(10) unsigned DEFAULT NULL,
-  KEY `id_permissao_idx` (`id_permissao`),
-  KEY `id_funcao_idx` (`id_funcao`),
-  CONSTRAINT `id_funcao` FOREIGN KEY (`id_funcao`) REFERENCES `funcao` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `id_permissao` FOREIGN KEY (`id_permissao`) REFERENCES `permissao` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `funcao_permissao`
---
-
-LOCK TABLES `funcao_permissao` WRITE;
-/*!40000 ALTER TABLE `funcao_permissao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `funcao_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -100,13 +81,14 @@ DROP TABLE IF EXISTS `instituicao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `instituicao` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(100) DEFAULT NULL,
   `ativo` varchar(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,12 +109,12 @@ DROP TABLE IF EXISTS `permissao`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `permissao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
+  `nome` varchar(30) DEFAULT NULL,
   `descricao` varchar(100) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,6 +123,7 @@ CREATE TABLE `permissao` (
 
 LOCK TABLES `permissao` WRITE;
 /*!40000 ALTER TABLE `permissao` DISABLE KEYS */;
+INSERT INTO `permissao` VALUES (1,'kjhg','gkhgk',1),(2,'admin12','oiar56',1),(3,'administrador','Master',1),(7,'tesete','teste',1),(8,'tesete2','teste',1),(9,'tesete23','teste',1),(10,'rr','rrrr',1);
 /*!40000 ALTER TABLE `permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +143,7 @@ CREATE TABLE `recurso` (
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,6 +152,7 @@ CREATE TABLE `recurso` (
 
 LOCK TABLES `recurso` WRITE;
 /*!40000 ALTER TABLE `recurso` DISABLE KEYS */;
+INSERT INTO `recurso` VALUES (1,'rd-5642','lkjlh',0,4,NULL),(2,'cabo02','',0,4,NULL),(3,'ETI012','teste',0,6,NULL),(4,'ETI013','teste',0,6,NULL),(5,'','teste',0,7,NULL),(6,'ETI123','teste',0,2,NULL),(7,'ETI123','teste',0,3,NULL),(8,'ETI126','teste',0,3,NULL);
 /*!40000 ALTER TABLE `recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +203,7 @@ CREATE TABLE `reserva` (
   `status` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,32 +212,8 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
+INSERT INTO `reserva` VALUES (1,1,2,1,'2017-10-08 11:39:00','2017-10-20 11:39:00','EVENTO UNICO','CONCLUIDO'),(2,4,6,4,'2017-10-09 17:44:00','2017-10-09 17:44:00','EVENTO UNICO','CONCLUIDO'),(3,3,4,2,'2017-10-14 09:20:00','2017-10-18 09:20:00','EVENTO UNICO','CONCLUIDO');
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `restricao_recurso`
---
-
-DROP TABLE IF EXISTS `restricao_recurso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `restricao_recurso` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_tipo_recurso` int(11) NOT NULL,
-  `id_funcao` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `restricao_recurso`
---
-
-LOCK TABLES `restricao_recurso` WRITE;
-/*!40000 ALTER TABLE `restricao_recurso` DISABLE KEYS */;
-/*!40000 ALTER TABLE `restricao_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -269,7 +229,7 @@ CREATE TABLE `tipo_recurso` (
   `ativo` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,6 +238,7 @@ CREATE TABLE `tipo_recurso` (
 
 LOCK TABLES `tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `tipo_recurso` DISABLE KEYS */;
+INSERT INTO `tipo_recurso` VALUES (1,'cabo',NULL),(2,'teclado',NULL),(3,'mouse',NULL),(4,'CABO HDMI 1mm',NULL),(5,'CABO HDMI 2mm',NULL),(6,'CABO HDMI 3mm',NULL),(7,'SALA BLOCO B',NULL),(8,'SALA BLOCO c',NULL),(9,'SALA BLOCO d',NULL);
 /*!40000 ALTER TABLE `tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,10 +256,9 @@ CREATE TABLE `unidade` (
   `telefone` varchar(100) DEFAULT NULL,
   `endereco` varchar(200) DEFAULT NULL,
   `ativo` varchar(1) DEFAULT NULL,
-  `id_instituicao` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -307,6 +267,7 @@ CREATE TABLE `unidade` (
 
 LOCK TABLES `unidade` WRITE;
 /*!40000 ALTER TABLE `unidade` DISABLE KEYS */;
+INSERT INTO `unidade` VALUES (1,'teste1','teste@teste.com','9999-9999','rua',NULL);
 /*!40000 ALTER TABLE `unidade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -324,14 +285,12 @@ CREATE TABLE `usuario` (
   `senha` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefone` varchar(100) DEFAULT NULL,
-  `ativo` varchar(1) DEFAULT NULL,
-  `id_funcao` int(10) unsigned DEFAULT NULL,
+  `ativo` tinyint(1) DEFAULT NULL,
+  `id_funcao` int(10) DEFAULT NULL,
   `status` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `id_funcao_idx` (`id_funcao`),
-  CONSTRAINT `id_funcao_user` FOREIGN KEY (`id_funcao`) REFERENCES `funcao` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,6 +299,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Alexsander','6463878435','12346','alexsander@teste.com','33384343485',1,7,'Ok'),(2,'Alexsander22','6463878435','12346','alexsander@teste.com','33384343485',1,8,'Ok'),(3,'Alexsander23','6463878435','12346','alexsander@teste.com','33384343485',1,13,'Pendente'),(4,'Alexsander33','6463878435','12346','alexsander@teste.com','33384343485',1,7,'Suspenso'),(5,'Alexsander44','6463878435','12346','alexsander@teste.com','33384343485',1,8,'Pendente'),(7,'Teste','123456r','123455','uhjhg@jgy','jhjhg4556',1,13,'Ok');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -352,4 +312,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-28 16:39:17
+-- Dump completed on 2017-10-16  7:01:43

@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.recurso;
 
 public class dao_recurso {
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
     
 	public void alterar(recurso pRecurso) {
 		try {

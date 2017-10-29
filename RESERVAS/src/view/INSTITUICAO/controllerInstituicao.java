@@ -3,7 +3,7 @@ package view.INSTITUICAO;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.instituicao;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -57,7 +57,7 @@ public class controllerInstituicao implements Initializable{
 		
 
 	Controller vCtrl = new Controller();
-    alerta vAlerta = new alerta();
+    alertaInformacao vAlerta = new alertaInformacao();
     
     
     

@@ -1,5 +1,16 @@
 CREATE SCHEMA `locacao` ;
 
+CREATE TABLE locacao.usuario (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+nome VARCHAR(100) NOT NULL,
+matricula VARCHAR(100),
+senha VARCHAR(45),
+email VARCHAR(100),
+telefone VARCHAR(100),
+ativo VARCHAR(1),
+PRIMARY KEY (`id`),
+UNIQUE INDEX `id` (`id` ASC)
+);
 
 CREATE TABLE locacao.unidade(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -22,60 +33,14 @@ PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC)
 );
 
-CREATE TABLE locacao.usuario (
-id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-matricula VARCHAR(100),
-senha VARCHAR(45),
-email VARCHAR(100),
-telefone VARCHAR(100),
-ativo VARCHAR(1),
-id_funcao INT UNSIGNED,
-status varchar(25),
-PRIMARY KEY (`id`),
-UNIQUE INDEX `id` (`id` ASC) ,
-INDEX `id_funcao_idx` (`id_funcao` ASC) ,
-	CONSTRAINT `id_funcao_user`
-	FOREIGN KEY (`id_funcao` )
-	REFERENCES `funcao` (`id` )
-);
-
 CREATE TABLE locacao.funcao(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
 nome VARCHAR(100) NOT NULL,
 descricao VARCHAR(100),
-ativo boolean,
+ativo VARCHAR(1),
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC)
-)ENGINE = InnoDB;
-
-
-CREATE TABLE locacao.permissao(
-id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-nome VARCHAR(100) NOT NULL,
-descricao VARCHAR(100),
-ativo boolean,
-PRIMARY KEY (`id`),
-UNIQUE INDEX `id` (`id` ASC)
-)ENGINE = InnoDB;
-
-CREATE TABLE locacao.funcao_permissao (
-id_funcao INT UNSIGNED,
-id_permissao int UNSIGNED,
-INDEX `id_permissao_idx` (`id_permissao` ASC) ,
-	CONSTRAINT `id_permissao`
-	FOREIGN KEY (`id_permissao` )
-	REFERENCES `permissao` (`id` )
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION,
-    INDEX `id_funcao_idx` (`id_funcao` ASC) ,
-	CONSTRAINT `id_funcao`
-	FOREIGN KEY (`id_funcao` )
-	REFERENCES `funcao` (`id` )
-	ON DELETE CASCADE 
-    ON UPDATE CASCADE
-    
-) ENGINE = InnoDB;
+);
 
 CREATE TABLE locacao.tipo_recurso (
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,

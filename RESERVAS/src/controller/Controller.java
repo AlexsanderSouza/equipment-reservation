@@ -7,7 +7,7 @@ package controller;
 
 import java.util.List;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.DAO.dao_disponivel;
 import model.DAO.dao_funcao;
 import model.DAO.dao_funcaoPermissao;
@@ -35,86 +35,90 @@ import model.ENTITY.usuario;
  * @author WigorPaulo
  */
 public class Controller {
-    
-    dao_usuario vDaoUser = new dao_usuario();
-    dao_unidade vDaoUnidade = new dao_unidade();
-    dao_funcao vDaoFuncao = new dao_funcao();
-    dao_instituicao vDaoInstituicao = new dao_instituicao();
-    dao_reserva vDaoReserva = new dao_reserva();
-    dao_recurso vDaoRecurso = new dao_recurso();
-    dao_tipoRecurso vDaoTipoRecurso = new dao_tipoRecurso();
-    dao_disponivel vDaoDisponivel = new dao_disponivel();
-    dao_permissao vDaoPermissao = new dao_permissao();
-    dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
-    dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
-    
-    alerta vAlerta = new alerta();
-        
-    /*INICIO >> Funções LISTAR*/
-    public List<disponivel> ListaDisponivel(String pDataInicio,String pDataFim){
-    	try {
-    		return vDaoDisponivel.listarDisponivel(pDataInicio, pDataFim);
+
+	dao_usuario vDaoUser = new dao_usuario();
+	dao_unidade vDaoUnidade = new dao_unidade();
+	dao_funcao vDaoFuncao = new dao_funcao();
+	dao_instituicao vDaoInstituicao = new dao_instituicao();
+	dao_reserva vDaoReserva = new dao_reserva();
+	dao_recurso vDaoRecurso = new dao_recurso();
+	dao_tipoRecurso vDaoTipoRecurso = new dao_tipoRecurso();
+	dao_disponivel vDaoDisponivel = new dao_disponivel();
+	dao_permissao vDaoPermissao = new dao_permissao();
+	dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
+	dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
+
+	alertaInformacao vAlerta = new alertaInformacao();
+
+	/* INICIO >> Funções LISTAR */
+	public List<disponivel> ListaDisponivel(String pDataInicio, String pDataFim) {
+		try {
+			return vDaoDisponivel.listarDisponivel(pDataInicio, pDataFim);
 		} catch (Exception e) {
 			// TODO: handle exception
-			vAlerta.mensagemAlerta("Erro no Filtro: \n"+e.getMessage());
+			vAlerta.mensagemAlerta("Erro no Filtro: \n" + e.getMessage());
 			return null;
-		}    	    
-    } 
-       
-    public List<permissao> listaFuncaoPermissao(int pIdFuncao){
-    	try {
-			return vDaoFuncaoPermissao.listar(pIdFuncao);
+		}
+	}
+
+	public List<permissao> listaFuncaoPermissao(int pIdFuncao) {
+		try {
+			return	vDaoFuncaoPermissao.listar(pIdFuncao);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
-    
-    public List<permissao> ListaPermissao(){
-    	try {
+		    	    
+    } 
+       
+
+	public List<permissao> ListaPermissao() {
+		try {
 			return vDaoPermissao.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
-    
-    public List<usuario> ListaUsuario(){
-    	try {
+	}
+
+	public List<usuario> ListaUsuario() {
+		try {
 			return vDaoUser.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			return null;			
-		}		
-    }
-    
+			return null;
+		}
+	}
 
-    public List<funcao> ListaFuncao() {
-    	try {
+	public List<funcao> ListaFuncao() {
+		try {
 			return vDaoFuncao.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
+	}
 
-    public List<instituicao> ListaInstituicao(){
-    	try {
-    		return vDaoInstituicao.listar();
+	public List<instituicao> ListaInstituicao() {
+		try {
+			return vDaoInstituicao.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
-    
-    public List<unidade> ListaUnidade(){
-    	try {
-    		return vDaoUnidade.listar();
+	}
+
+	public List<unidade> ListaUnidade() {
+		try {
+			return vDaoUnidade.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
+
+	}
+
+	
     
     public List<restricaoRecurso> ListaRestricaoRecurso(){
     	try {
@@ -131,61 +135,85 @@ public class Controller {
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
-		}    	
-    }
-    
-    public List<reserva> ListaReserva(){
-    	try {
+		}
+	}
+
+	public List<reserva> ListaReserva() {
+		try {
 			return vDaoReserva.listar();
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
 		}
-    }    
-    
-    public List<reserva> ListaFiltrosReserva(String pId,String pDataInicio,String pDataFim, String pDataInicio2,String pDataFim2, String pStatus, String pResponsavel, String pDestinatario){
-    	try {
-    		return vDaoReserva.listarFiltro(pId, pDataInicio, pDataFim, pDataInicio2, pDataFim2, pStatus, pResponsavel, pDestinatario);
+	}
+
+	public List<reserva> ListaFiltrosReserva(String pId, String pDataInicio, String pDataFim, String pDataInicio2,
+			String pDataFim2, String pStatus, String pResponsavel, String pDestinatario) {
+		try {
+			return vDaoReserva.listarFiltro(pId, pDataInicio, pDataFim, pDataInicio2, pDataFim2, pStatus, pResponsavel,
+					pDestinatario);
 		} catch (Exception e) {
 			// TODO: handle exception
-			vAlerta.mensagemAlerta("Erro no Filtro: \n"+e.getMessage());
+			vAlerta.mensagemAlerta("Erro no Filtro: \n" + e.getMessage());
 			return null;
-		}    	    
-    }
-    /*FIM >> Funções LISTAR*/
-    
-    /*INICIO >> Funções FILTRAR*/
-    public List<usuario> filtrarUsuario(Integer pId, String pNome, String pMatricula) {
-        return	vDaoUser.filtrar(pId, pNome, pMatricula);
-        	
-        }
-    
-    public List<permissao> filtrarPermissao(Integer id, String nome) {
-    	try {
+		}
+	}
+	/* FIM >> Funções LISTAR */
+
+	/* INICIO >> Funções FILTRAR */
+	public List<usuario> filtrarUsuario(Integer pId, String pNome, String pMatricula) {
+		return vDaoUser.filtrar(pId, pNome, pMatricula);
+
+	}
+
+	public List<permissao> filtrarPermissao(Integer id, String nome) {
+		try {
 			return vDaoPermissao.filtrar(id, nome);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-    }
-    
-    public List<tipoRecurso> filtrarTipoRecurso(Integer pId, String pNome) {
-        return	vDaoTipoRecurso.filtrar(pId, pNome);
-    }
-    
-    public List<recurso> filtrarRecurso( Integer pIdRecurso, Integer pIdTipoRecurso, Integer pIdUnidade, String pEtiqueta, String pObs ){
-    	return vDaoRecurso.filtrar(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs);
-    }
-    
-    public List<tipoRecurso> ListaTipoRecurso(){
-    	try {
+	}
+
+	public List<tipoRecurso> filtrarTipoRecurso(Integer pId, String pNome) {
+		return vDaoTipoRecurso.filtrar(pId, pNome);
+	}
+
+	public List<recurso> filtrarRecurso(Integer pIdRecurso, Integer pIdTipoRecurso, Integer pIdUnidade,
+			String pEtiqueta, String pObs) {
+		return vDaoRecurso.filtrar(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs);
+	}
+
+	public List<tipoRecurso> ListaTipoRecurso() {
+		try {
 			return vDaoTipoRecurso.listar();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
+
+
+	}
+
+	
+	
+
+	
+
+	/* INICIO >> Funções EXCLUIR */
+
+	public void excluirFuncaoPermissao(funcao pFuncao) {
+		vDaoFuncaoPermissao.excluirFuncao(pFuncao);
+	}
+
+	public void excluirPermissaoFuncao(permissao pPermissao) {
+		vDaoFuncaoPermissao.excluirPermissao(pPermissao);
+	}
+
+
+	/* FIM >> Funções EXCLUIR */
     	
-    }
+ 
     
     public List<funcao> filtrarFuncao(Integer pId, String pNome) {
     	return vDaoFuncao.filtrar(pId, pNome);
@@ -314,5 +342,6 @@ public class Controller {
     	vDaoRecurso.excluir(pRecurso);
     }  
     /*FIM >> Funções EXCLUIR*/    
+
 
 }

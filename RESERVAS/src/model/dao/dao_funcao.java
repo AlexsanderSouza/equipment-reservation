@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.funcao;
 
 
@@ -22,7 +22,7 @@ import model.ENTITY.funcao;
  * @author WigorPaulo
  */
 public class dao_funcao {
-	alerta vAlerta = new alerta();
+	alertaInformacao vAlerta = new alertaInformacao();
 
 	public List<funcao> listar() throws Exception {
 
@@ -45,8 +45,8 @@ public class dao_funcao {
 
 	public int inserir(funcao pFuncao) {
 		try {
-			String vSQL = "INSERT INTO funcao(id, nome, descricao) "
-					+ "VALUES(?, ?, ?);";
+			String vSQL = "INSERT INTO funcao(id, nome, descricao,ativo) "
+					+ "VALUES(?, ?, ?,?);";
 			int lastId = 0;
 			
 			
@@ -55,6 +55,7 @@ public class dao_funcao {
 			st.setString(1, Integer.toString(pFuncao.getId()));
 			st.setString(2, pFuncao.getNome());
 			st.setString(3, pFuncao.getDescricao());
+			st.setBoolean(4, pFuncao.getAtivo());
 			st.execute();
 
 			final ResultSet rs = st.getGeneratedKeys();  //atribui o id gerado
@@ -86,9 +87,7 @@ public class dao_funcao {
 				permissaoAtiva = 0;
 			}
 
-			String vSQL = "UPDATE funcao SET `nome`='" + pFuncao.getNome() + "', `descricao`='"
-					+ pFuncao.getDescricao() + "', `ativo`='" + permissaoAtiva + "', `id_permissao1`='"+ pFuncao.getId_permissao1() +"', `id_permissao2`='"+ pFuncao.getId_permissao2() +"', "
-					+ "`id_permissao3`='"+ pFuncao.getId_permissao3() +"', `id_permissao4`='"+ pFuncao.getId_permissao4() +"', `id_permissao5`='"+ pFuncao.getId_permissao5() +"', `id_permissao6`='"+ pFuncao.getId_permissao6() +"' WHERE `id`='" + pFuncao.getId() + "'";
+			String vSQL = "UPDATE funcao SET `nome`='" + pFuncao.getNome() + "', `descricao`='" + pFuncao.getDescricao() + "', `ativo`=" + permissaoAtiva + " WHERE `id`='" + pFuncao.getId() + "'";
 			System.out.println(vSQL);
 			System.out.println(pFuncao.getAtivo());
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);

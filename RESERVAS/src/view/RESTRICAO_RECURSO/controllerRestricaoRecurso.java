@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import model.alerta;
+import model.alertaInformacao;
 import model.ENTITY.funcao;
 import model.ENTITY.restricaoRecurso;
 import model.ENTITY.tipoRecurso;
@@ -37,7 +37,9 @@ public class controllerRestricaoRecurso implements Initializable{
 	private TableColumn<restricaoRecurso, String> tbColum2 = new TableColumn<restricaoRecurso, String>();
 	
 	Controller vCtrl = new Controller();
-    alerta vAlerta = new alerta();
+
+    alertaInformacao vAlerta = new alertaInformacao();
+
 
     @SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -59,6 +61,7 @@ public class controllerRestricaoRecurso implements Initializable{
 		}
     }
     
+
     
     public void inserirRestricaoRecurso() {
     	restricaoRecurso vRestricaoRecurso = new restricaoRecurso();
