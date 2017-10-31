@@ -48,7 +48,9 @@ public class controllerPermissao implements Initializable {
 	// Variavel local
 
 	private permissao vPermissaoSelecionada;
-	private String salvar = "salvarNovo";
+	
+	private String vSalvar = "";
+	
 	private TableColumn<permissao, Integer> tbColum1 = new TableColumn<permissao, Integer>();
 	private TableColumn<permissao, String> tbColum2 = new TableColumn<permissao, String>();
 	private TableColumn<permissao, String> tbColum3 = new TableColumn<permissao, String>();
@@ -82,6 +84,10 @@ public class controllerPermissao implements Initializable {
 		}
 
 	}
+	
+	public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
 
 	public void inserirPermissao() {
 
@@ -91,9 +97,9 @@ public class controllerPermissao implements Initializable {
 		vPermissao.setDescricao(txtDescricao.getText());
 		vPermissao.setAtivo(chkAtivo.isSelected());
 
-		if (this.salvar.equals("salvarNovo")) {
+		if (this.vSalvar.equals("novo")) {
 			vCtrl.inserirPermissao(vPermissao);
-		} else if (this.salvar.equals("alterar")) {
+		} else if (this.vSalvar.equals("alterar")) {
 			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
 
 			if (result.get() == ButtonType.OK) {
@@ -140,7 +146,6 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void moverPag1() {
-		this.salvar = "salvarNovo";
 		ObservableList<permissao> vLista = FXCollections.observableArrayList(vCtrl.ListaPermissao());
 
 		tbGrid.setItems(vLista);
@@ -180,8 +185,7 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void alterarDados() {
-		this.salvar = "alterar";
-
+		
 		vPermissaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
 
 		txtNome.setText(vPermissaoSelecionada.getNome());
@@ -197,6 +201,7 @@ public class controllerPermissao implements Initializable {
 	public void onShow() {
 		this.inserirTabela();
 		this.ControlaBotao("novo");
+		this.alteraVariavelControle("novo");
 	}
 
 	@Override
@@ -236,6 +241,7 @@ public class controllerPermissao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag2();
 				ControlaBotao("voltar");
 			}
@@ -246,6 +252,7 @@ public class controllerPermissao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag1();
 				ControlaBotao("novo");
 			}
@@ -265,6 +272,7 @@ public class controllerPermissao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("alterar");
 				alterarDados();
 				moverPag2();
 				ControlaBotao("voltar");

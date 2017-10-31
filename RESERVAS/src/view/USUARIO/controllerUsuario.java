@@ -73,7 +73,7 @@ public class controllerUsuario implements Initializable {
 	// Variavel local
 	private usuario vUsuarioSelecionado; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e
 											// alterar ao salvar
-	private String salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
+	private String vSalvar = ""; // variavel de validação para quando clicar em novo o botaõ salvar volta a
 
 	private TableColumn<usuario, Integer> tbColum1 = new TableColumn<usuario, Integer>();
 	private TableColumn<usuario, String> tbColum2 = new TableColumn<usuario, String>();
@@ -135,9 +135,9 @@ public class controllerUsuario implements Initializable {
 		vUsuario.setFuncao(funcaoSelecionada[0]);
 		vUsuario.setStatus(cBoxStatus.getSelectionModel().getSelectedItem().toString());
 
-		if (this.salvar.equals("salvarNovo")) {
+		if (this.vSalvar.equals("novo")) {
 			vCtrl.InserirUsuario(vUsuario);
-		} else if (this.salvar.equals("alterar")) {
+		} else if (this.vSalvar.equals("alterar")) {
 			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
 
 			if (result.get() == ButtonType.OK) {
@@ -215,8 +215,7 @@ public class controllerUsuario implements Initializable {
 		chkAtivo.setSelected(true);
 
 		listViewPermissao.getItems().clear();
-		this.salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
-
+		
 		ObservableList<usuario> vLista = FXCollections.observableArrayList(vCtrl.ListaUsuario());
 		tbGrid.setItems(vLista);
 
@@ -255,9 +254,7 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void alterarDados() {
-
-		this.salvar = "alterar";
-
+		
 		vUsuarioSelecionado = tbGrid.getSelectionModel().getSelectedItem();
 
 		txtNome.setText(vUsuarioSelecionado.getNome());
@@ -274,11 +271,16 @@ public class controllerUsuario implements Initializable {
 		stage.close();
 	}
 
+	public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
+	
 	public void onShow() {
 		this.alimentaCBoxStatus();
 		this.alimentaCcBoxFuncao();
 		this.inserirTabela();
 		this.ControlaBotao("novo");
+		this.alteraVariavelControle("novo");
 
 	}
 
@@ -333,6 +335,7 @@ public class controllerUsuario implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag2();
 				ControlaBotao("voltar");
 			}
@@ -343,6 +346,7 @@ public class controllerUsuario implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag1();
 				ControlaBotao("novo");
 			}
@@ -362,6 +366,7 @@ public class controllerUsuario implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("alterar");
 				alterarDados();
 				moverPag2();
 				ControlaBotao("voltar");

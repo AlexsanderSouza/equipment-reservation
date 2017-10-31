@@ -51,6 +51,16 @@ public class Controller {
 	alertaInformacao vAlerta = new alertaInformacao();
 
 	/* INICIO >> Funções LISTAR */
+	public List<usuario> ValidarLogin(usuario pUser){
+		try {
+			return vDaoUser.ValidaLogin(pUser);
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro no ValidarLogin: \n" + e.getMessage());
+			return null;
+		}
+	}
+	
 	public List<disponivel> ListaDisponivel(String pDataInicio, String pDataFim) {
 		try {
 			return vDaoDisponivel.listarDisponivel(pDataInicio, pDataFim);

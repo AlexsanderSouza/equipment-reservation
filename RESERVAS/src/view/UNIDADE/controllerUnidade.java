@@ -50,7 +50,7 @@ public class controllerUnidade implements Initializable{
 	// Variavel local
 		private unidade vUnidadeSelecionado; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e
 											// alterar ao salvar
-		private String salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
+		private String vSalvar = ""; // variavel de validação para quando clicar em novo o botaõ salvar volta a
 
 		private TableColumn<unidade, Integer> tbColum1 = new TableColumn<unidade, Integer>();
 		private TableColumn<unidade, String> tbColum2 = new TableColumn<unidade, String>();
@@ -109,9 +109,9 @@ public class controllerUnidade implements Initializable{
 		    vUnidade.setAtivo(chkAtivo.isSelected());
 		    vUnidade.setInstituicao(instituicaoSelecionada[0]);
 
-		if(this.salvar.equals("salvarNovo")) {
+		if(this.vSalvar.equals("novo")) {
 			vCtrl.InserirUnidade(vUnidade);
-    	}else if(this.salvar.equals("alterar")) {
+    	}else if(this.vSalvar.equals("alterar")) {
     		vUnidade.setId(vUnidadeSelecionado.getId());
     		vCtrl.alterarUnidade(vUnidade);
     	}
@@ -157,9 +157,7 @@ public class controllerUnidade implements Initializable{
 		 txtTelefone.clear();
 		 txtEndereco.clear();
 		 chkAtivo.setSelected(true);
-		 
-		this.salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
-		
+						
 		ObservableList<unidade> vLista = FXCollections.observableArrayList(vCtrl.ListaUnidade());
 		tbGrid.setItems(vLista);
 		
@@ -171,6 +169,10 @@ public class controllerUnidade implements Initializable{
 		tabPane.getSelectionModel().select(ctrlPag2);
 	}
 
+	public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
+	
 	public void ControlaBotao(String pBotao) {
 		switch (pBotao) {
 		case "novo":
@@ -200,9 +202,6 @@ public class controllerUnidade implements Initializable{
 	
 	
 	public void alterarDados() {
-
-		 this.salvar = "alterar";
-		
 		 vUnidadeSelecionado = tbGrid.getSelectionModel().getSelectedItem();
 		 
 		 txtNome.setText(vUnidadeSelecionado.getNome());
@@ -223,6 +222,7 @@ public class controllerUnidade implements Initializable{
 		this.alimentaCcBoxInstituicao();
 		this.inserirTabela();
 		this.ControlaBotao("novo");
+		this.alteraVariavelControle("novo");
 
 	}
 	
@@ -279,8 +279,9 @@ public class controllerUnidade implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag2();
-				ControlaBotao("voltar");
+				ControlaBotao("voltar");				
 			}
 		});
 
@@ -289,6 +290,7 @@ public class controllerUnidade implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag1();
 				ControlaBotao("novo");
 			}
@@ -308,9 +310,10 @@ public class controllerUnidade implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("alterar");
 				alterarDados();
 				moverPag2();
-				ControlaBotao("voltar");
+				ControlaBotao("voltar");				
 			}
 		});
 		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {

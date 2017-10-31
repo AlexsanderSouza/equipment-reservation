@@ -24,10 +24,37 @@ import model.ENTITY.usuario;
 public class dao_usuario {
     alertaInformacao vAlerta = new alertaInformacao();
     
-    public List<usuario> listar() throws Exception{
+    public List<usuario> ValidaLogin(usuario pUser) throws Exception{
+    	String vSQL = "select user.id, " + 
+    			"      user.nome, " +
+    			"	   user.matricula, " + 
+    			"	   user.senha " + 
+    			"  from usuario user " + 
+    			" where user.matricula = '"+pUser.getMatricula()+"'"+ 
+    			"   and user.senha = '"+pUser.getSenha()+"'";
     	
+    	List<usuario> vListaUser = new ArrayList<usuario>();
     	
+    	java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
+    	st.executeQuery(vSQL);
+    	
+    	ResultSet rs = st.getResultSet();
+    	while(rs.next()){
+            usuario vUser = new usuario();
+            vUser.setId(rs.getInt("id"));  
+            vUser.setNome(rs.getString("nome"));
+            vUser.setMatricula(rs.getString("matricula"));
+            vUser.setSenha("senha");
+            vListaUser.add(vUser);
+    	}
+    	rs.close();
+        st.close();
         
+        return vListaUser;     	
+    }
+    
+    public List<usuario> listar() throws Exception{
+
         List<usuario> vListaUser = new ArrayList<usuario>();
         java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
         st.executeQuery("SELECT us.id, us.nome, us.matricula, us.senha, us.email, us.telefone, us.ativo, us.id_funcao, us.status, fc.nome as nome_funcao FROM usuario us left join funcao fc on us.id_funcao = fc.id");
@@ -147,8 +174,6 @@ public class dao_usuario {
 			if(!matricula.equals("")) {
 				vSQL = vSQL + " and us.matricula = '"+ matricula +"'";
 			}
-			
-			
 			
 			List<usuario> vListaUsuario = new ArrayList<usuario>();
 			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
