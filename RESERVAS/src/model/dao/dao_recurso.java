@@ -171,6 +171,7 @@ public class dao_recurso {
             st.close();
 
             ConexaoDataBase.FecharConexao();
+            vAlerta.mensagemAlerta("Inserido com Sucesso!"); 
             
         } catch (Exception e) {
         	vAlerta.mensagemAlerta("Erro na Função INSERIR! \n"+"Erro: "+e.getMessage());

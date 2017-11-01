@@ -60,7 +60,7 @@ public class controllerFuncao implements Initializable {
 	// Variavel local
 	private funcao vFuncaoSelecionada; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e
 										// alterar ao salvar
-	private String salvar = "salvarNovo"; // variavel de validação para quando clicar em novo o botaõ salvar volta a
+	private String vSalvar = ""; // variavel de validação para quando clicar em novo o botaõ salvar volta a
 											// inserir e não a alterar objetos
 	private String listTable = "table"; // variavel de validação para o botão excluir saber se deve excluir da tabela ou
 										// do listView
@@ -79,6 +79,10 @@ public class controllerFuncao implements Initializable {
 
 	}
 
+	public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
+	
 	public void alimentaListViewPermissao() {
 		String listaCcBox;
 		boolean duplicados = false;
@@ -139,7 +143,7 @@ public class controllerFuncao implements Initializable {
 
 		listaCcBox = ccBoxPermissao.getSelectionModel().getSelectedItem();
 
-		if (this.salvar.equals("salvarNovo")) {
+		if (this.vSalvar.equals("novo")) {
 			int lastId = vCtrl.InserirFuncao(vFuncao); // retorna oultimo id da função inserida
 
 			for (String aux : listPermissao) { // atribui o validador de valores duplicados
@@ -149,7 +153,7 @@ public class controllerFuncao implements Initializable {
 				vCtrl.InserirFuncaoPermissao(separaId[0], lastId); // insere na tabela de relacionamento
 
 			}
-		} else if (this.salvar.equals("alterar")) {
+		} else if (this.vSalvar.equals("alterar")) {
 			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
 
 			if (result.get() == ButtonType.OK) {
@@ -210,9 +214,8 @@ public class controllerFuncao implements Initializable {
 	}
 
 	public void moverPag1() {
-		listViewPermissao.getItems().clear();
-		this.salvar = "salvarNovo"; // variavel de validação paraquando clicar em novo o botaõ salvar volta a
-									// inserir e não a alterar objetos
+		listViewPermissao.getItems().clear();		
+									
 		this.listTable = "table";
 
 		ObservableList<funcao> vLista = FXCollections.observableArrayList(vCtrl.ListaFuncao());
@@ -254,9 +257,7 @@ public class controllerFuncao implements Initializable {
 		}
 	}
 
-	public void alterarDados() {
-		this.salvar = "alterar";
-
+	public void alterarDados() {		
 		vFuncaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
 
 		txtNome.setText(vFuncaoSelecionada.getNome());
@@ -279,6 +280,7 @@ public class controllerFuncao implements Initializable {
 		this.alimentaCcBoxPermissao();
 		this.inserirTabela();
 		this.ControlaBotao("novo");
+		this.alteraVariavelControle("novo");
 
 	}
 
@@ -333,6 +335,7 @@ public class controllerFuncao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag2();
 				ControlaBotao("voltar");
 			}
@@ -343,6 +346,7 @@ public class controllerFuncao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag1();
 				ControlaBotao("novo");
 			}
@@ -362,6 +366,7 @@ public class controllerFuncao implements Initializable {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("alterar");
 				alterarDados();
 				moverPag2();
 				ControlaBotao("voltar");
