@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.alertaConfirmacao;
-import model.alertaInformacao;
+import javax.security.auth.callback.Callback;
+
+import model.alerta;
+import model.alerta;
 import model.ENTITY.permissao;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -56,7 +58,7 @@ public class controllerPermissao implements Initializable {
 	private TableColumn<permissao, String> tbColum3 = new TableColumn<permissao, String>();
 
 	Controller vCtrl = new Controller();
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	@SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -100,7 +102,9 @@ public class controllerPermissao implements Initializable {
 		if (this.vSalvar.equals("novo")) {
 			vCtrl.inserirPermissao(vPermissao);
 		} else if (this.vSalvar.equals("alterar")) {
-			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
+			alerta vMsg = new alerta();
+			vMsg.alertaConfirmacao("Deseja realmente Alterar?");
+			Optional<ButtonType> result = vMsg.getResult();
 
 			if (result.get() == ButtonType.OK) {
 			vPermissao.setId(vPermissaoSelecionada.getId());
@@ -132,8 +136,9 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void excluir() {
-		Optional<ButtonType> result = new alertaConfirmacao(
-				"Deseja realmente Excluir? funções podem perder a permissão.").getResult();
+		alerta vMsg = new alerta();
+		vMsg.alertaConfirmacao("Deseja realmente Excluir?");
+		Optional<ButtonType> result = vMsg.getResult();
 
 		if (result.get() == ButtonType.OK) {
 			permissao vPermissaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
@@ -204,6 +209,8 @@ public class controllerPermissao implements Initializable {
 		this.alteraVariavelControle("novo");
 	}
 
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub

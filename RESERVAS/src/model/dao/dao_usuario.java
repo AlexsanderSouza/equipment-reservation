@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.DAO.ConexaoDataBase;
 import model.ENTITY.usuario;
 
@@ -22,7 +22,7 @@ import model.ENTITY.usuario;
  * @author WigorPaulo
  */
 public class dao_usuario {
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     public List<usuario> ValidaLogin(usuario pUser) throws Exception{
     	String vSQL = "select user.id, " + 

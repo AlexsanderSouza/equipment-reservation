@@ -3,7 +3,7 @@ package view.UNIDADE;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.instituicao;
 import model.ENTITY.unidade;
 import controller.Controller;
@@ -61,7 +61,7 @@ public class controllerUnidade implements Initializable{
 		
 	
 	Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
 	
     @SuppressWarnings("unchecked")
 	public void inserirTabela() {

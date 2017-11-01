@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.tipoRecurso;
 
 public class dao_tipoRecurso {
-alertaInformacao vAlerta = new alertaInformacao();
+alerta vAlerta = new alerta();
 
 
 

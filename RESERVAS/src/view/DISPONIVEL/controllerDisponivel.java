@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import view.COMPONENTE_DATAHORA.DateTimePicker;
 import view.RESERVA.viewReserva;
 import controller.Controller;
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.disponivel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +42,7 @@ public class controllerDisponivel implements Initializable {
 	DateTimePicker vDataTimeFinal = new DateTimePicker();
 	
 	Controller vCtrl = new Controller();
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 	
 	public void dataTimePicker() {                                  //insere o botão dinamico de data e hora
     	vboxDisponivel.setSpacing(05);

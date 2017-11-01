@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.restricaoRecurso;
 
 public class dao_restricaoRecurso {
-alertaInformacao vAlerta = new alertaInformacao();
+alerta vAlerta = new alerta();
     
     public List<restricaoRecurso> listar() throws Exception{
         

@@ -7,7 +7,7 @@ package controller;
 
 import java.util.List;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.DAO.dao_disponivel;
 import model.DAO.dao_funcao;
 import model.DAO.dao_funcaoPermissao;
@@ -48,7 +48,7 @@ public class Controller {
 	dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
 	dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
 
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	/* INICIO >> Funções LISTAR */
 	public List<usuario> ValidarLogin(usuario pUser){
@@ -274,7 +274,7 @@ public class Controller {
         
     /*INICIO >> Funções INSERIR*/
     
-    public void InserirFuncaoPermissao(String pPermissao, int pLastId) {
+    public void InserirFuncaoPermissao(int pPermissao, int pLastId) {
     	vDaoFuncaoPermissao.inserir(pPermissao, pLastId);
     }
     

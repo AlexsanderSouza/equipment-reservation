@@ -58,13 +58,13 @@
                               <Label layoutX="61.0" layoutY="191.0" text="Descrição" />
                               <TextField fx:id="txtNome" layoutX="139.0" layoutY="134.0" prefHeight="25.0" prefWidth="186.0" />
                               <TextField fx:id="txtDescricao" layoutX="139.0" layoutY="187.0" />
-                              <ChoiceBox fx:id="ccBoxPermissao" layoutX="139.0" layoutY="237.0" prefWidth="150.0" />
                               <Label layoutX="62.0" layoutY="240.0" text="Permissão" />
                            </children>
                         </AnchorPane>
                         <ListView fx:id="listViewPermissao" layoutX="441.0" layoutY="131.0" prefHeight="200.0" prefWidth="200.0" />
                         <Label layoutX="484.0" layoutY="106.0" text="Permissões da função" />
                         <CheckBox fx:id="chkAtivo" layoutX="146.0" layoutY="323.0" mnemonicParsing="false" text="ATIVO" />
+                        <ComboBox fx:id="cBoxPermissao" layoutX="140.0" layoutY="278.0" prefWidth="150.0" AnchorPane.topAnchor="237.0" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>

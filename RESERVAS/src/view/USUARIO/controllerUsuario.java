@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.alertaConfirmacao;
-import model.alertaInformacao;
+import model.alerta;
+import model.alerta;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
 import model.ENTITY.usuario;
@@ -84,7 +84,7 @@ public class controllerUsuario implements Initializable {
 	private TableColumn<usuario, String> tbColum7 = new TableColumn<usuario, String>();
 
 	Controller vCtrl = new Controller();
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	@SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -138,7 +138,9 @@ public class controllerUsuario implements Initializable {
 		if (this.vSalvar.equals("novo")) {
 			vCtrl.InserirUsuario(vUsuario);
 		} else if (this.vSalvar.equals("alterar")) {
-			Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Alterar?").getResult();
+			alerta vMsg = new alerta();
+			vMsg.alertaConfirmacao("Deseja realmente alterar?");
+			Optional<ButtonType> result = vMsg.getResult();
 
 			if (result.get() == ButtonType.OK) {
 			vUsuario.setId(vUsuarioSelecionado.getId());
@@ -195,7 +197,9 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void excluir() {
-		Optional<ButtonType> result = new alertaConfirmacao("Deseja realmente Excluir?").getResult();
+		alerta vMsg = new alerta();
+		vMsg.alertaConfirmacao("Deseja realmente Excluir?");
+		Optional<ButtonType> result = vMsg.getResult();
 
 		if (result.get() == ButtonType.OK) {
 			int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
