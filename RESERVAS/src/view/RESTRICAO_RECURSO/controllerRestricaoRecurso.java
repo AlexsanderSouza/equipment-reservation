@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.funcao;
 import model.ENTITY.restricaoRecurso;
 import model.ENTITY.tipoRecurso;
@@ -38,7 +38,7 @@ public class controllerRestricaoRecurso implements Initializable{
 	
 	Controller vCtrl = new Controller();
 
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
 
 
     @SuppressWarnings("unchecked")

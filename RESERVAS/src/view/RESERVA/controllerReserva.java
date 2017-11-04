@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import view.COMPONENTE_DATAHORA.DateTimePicker;
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.*;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -69,7 +69,7 @@ public class controllerReserva implements Initializable{
 	DateTimePicker dataTimePesqDataFinal = new DateTimePicker();
 	
 	Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     int vTipoComboBox = 0;
     

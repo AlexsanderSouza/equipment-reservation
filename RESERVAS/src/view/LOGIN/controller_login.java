@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.usuario;
 import view.MENU.view_menu;
 /**
@@ -31,7 +31,7 @@ public class controller_login implements Initializable{
     private Button btnAlterarSenha,btnEntrar;
     
     Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     public Boolean validaUsuario() {
     	try {

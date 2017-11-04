@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.funcao;
 
 
@@ -22,7 +22,7 @@ import model.ENTITY.funcao;
  * @author WigorPaulo
  */
 public class dao_funcao {
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	public List<funcao> listar() throws Exception {
 
