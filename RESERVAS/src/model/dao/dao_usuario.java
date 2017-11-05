@@ -9,8 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 import com.mysql.jdbc.Statement;
 
+=======
+>>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 import model.alerta;
 import model.DAO.ConexaoDataBase;
 import model.ENTITY.usuario;

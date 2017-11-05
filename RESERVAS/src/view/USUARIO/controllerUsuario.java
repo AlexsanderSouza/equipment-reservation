@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import model.maskFild;
+=======
+import model.alerta;
+>>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 import model.alerta;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
@@ -96,6 +100,7 @@ public class controllerUsuario implements Initializable {
 
 	Controller vCtrl = new Controller();
 	alerta vAlerta = new alerta();
+<<<<<<< HEAD
 	Callback cellFactoryFuncao = new Callback<ListView<funcao>, ListCell<funcao>>() {
 		@Override
 		public ListCell<funcao> call(ListView<funcao> param) {
@@ -167,6 +172,8 @@ public class controllerUsuario implements Initializable {
 			return cell;
 		}
 	};
+=======
+>>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 
 	@SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -217,6 +224,7 @@ public class controllerUsuario implements Initializable {
 		vUsuario.setId_funcao(funcaoSelecionada.getId());
 		vUsuario.setStatus(cBoxStatus.getSelectionModel().getSelectedItem().toString());
 
+<<<<<<< HEAD
 		if (passSenha.getText().equals(passConfirmarSenha.getText())) {
 			if (this.vSalvar.equals("novo")) {
 				int lastId = vCtrl.InserirUsuario(vUsuario);
@@ -240,6 +248,19 @@ public class controllerUsuario implements Initializable {
 			}
 		} else {
 			vAlerta.mensagemAlerta("Senhas diferentes \n ERRO ");
+=======
+		if (this.vSalvar.equals("novo")) {
+			vCtrl.InserirUsuario(vUsuario);
+		} else if (this.vSalvar.equals("alterar")) {
+			alerta vMsg = new alerta();
+			vMsg.alertaConfirmacao("Deseja realmente alterar?");
+			Optional<ButtonType> result = vMsg.getResult();
+
+			if (result.get() == ButtonType.OK) {
+			vUsuario.setId(vUsuarioSelecionado.getId());
+			vCtrl.alterarUsuario(vUsuario);
+		}
+>>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 		}
 
 	}
@@ -324,6 +345,12 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void excluir() {
+<<<<<<< HEAD
+=======
+		alerta vMsg = new alerta();
+		vMsg.alertaConfirmacao("Deseja realmente Excluir?");
+		Optional<ButtonType> result = vMsg.getResult();
+>>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 
 		if (this.ctrlPag1.isSelected()) {
 			alerta vMsg = new alerta();
