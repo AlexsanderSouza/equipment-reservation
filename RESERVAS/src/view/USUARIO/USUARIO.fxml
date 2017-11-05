@@ -54,24 +54,27 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane prefHeight="397.0" prefWidth="712.0">
                            <children>
-                              <Label layoutX="61.0" layoutY="88.0" text="NOME" />
-                              <Label layoutX="61.0" layoutY="135.0" text="E-MAIL" AnchorPane.topAnchor="140.0" />
-                              <Label layoutX="61.0" layoutY="191.0" text="SENHA" />
-                              <Label layoutX="55.0" layoutY="246.0" text="MATRÍCULA" />
-                              <Label layoutX="55.0" layoutY="315.0" text="TELEFONE" />
+                              <Label layoutX="61.0" layoutY="88.0" text="Nome" AnchorPane.leftAnchor="39.0" />
+                              <Label layoutX="61.0" layoutY="126.0" text="E-mail" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="126.0" />
+                              <Label layoutX="62.0" layoutY="166.0" text="Senha" AnchorPane.leftAnchor="39.0" />
+                              <Label layoutX="55.0" layoutY="246.0" text="Matrícula" AnchorPane.leftAnchor="39.0" />
                               <TextField fx:id="txtNome" layoutX="139.0" layoutY="84.0" prefHeight="25.0" prefWidth="184.0" />
-                              <TextField fx:id="txtEmail" layoutX="139.0" layoutY="134.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.topAnchor="134.0" />
-                              <TextField fx:id="txtSenha" layoutX="139.0" layoutY="187.0" AnchorPane.topAnchor="187.0" />
+                              <TextField fx:id="txtEmail" layoutX="138.0" layoutY="122.0" prefHeight="25.0" prefWidth="186.0" AnchorPane.topAnchor="122.0" />
                               <TextField fx:id="txtMatricula" layoutX="139.0" layoutY="242.0" />
-                              <TextField fx:id="txtTelefone" layoutX="139.0" layoutY="311.0" AnchorPane.bottomAnchor="13.0" />
-                              <Label layoutX="367.0" layoutY="126.0" text="FUNÇÃO" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="140.0" />
-                              <Label layoutX="500.0" layoutY="166.0" text="PERMISSÃO" />
-                              <ListView fx:id="listViewPermissao" layoutX="458.0" layoutY="186.0" prefHeight="162.0" prefWidth="149.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="187.0" />
-                              <ChoiceBox fx:id="ccBoxFuncao" layoutX="457.0" layoutY="131.0" prefWidth="150.0" AnchorPane.topAnchor="134.0" />
-                              <Label layoutX="380.0" layoutY="85.0" text="STATUS" AnchorPane.leftAnchor="380.0" />
-                              <ComboBox fx:id="cBoxStatus" layoutX="457.0" layoutY="81.0" prefWidth="150.0" />
+                              <TextField fx:id="txtTelefone" layoutX="139.0" layoutY="285.0" AnchorPane.bottomAnchor="87.0" />
+                              <Label layoutX="377.0" layoutY="130.0" text="Função" AnchorPane.leftAnchor="377.0" AnchorPane.topAnchor="130.0" />
+                              <Label layoutX="500.0" layoutY="205.0" text="PERMISSÃO" />
+                              <ListView fx:id="listViewPermissao" layoutX="458.0" layoutY="186.0" prefHeight="110.0" prefWidth="149.0" AnchorPane.bottomAnchor="80.0" AnchorPane.topAnchor="225.0" />
+                              <Label layoutX="380.0" layoutY="85.0" text="Status" AnchorPane.leftAnchor="380.0" />
+                              <ComboBox fx:id="cBoxStatus" layoutX="457.0" layoutY="81.0" prefWidth="150.0" AnchorPane.leftAnchor="457.0" />
+                              <PasswordField fx:id="passSenha" layoutX="139.0" layoutY="162.0" />
+                              <PasswordField fx:id="passConfirmarSenha" layoutX="139.0" layoutY="201.0" />
+                              <Label layoutX="43.0" layoutY="285.0" prefHeight="21.0" prefWidth="46.0" text="Telefone" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="285.0" />
+                              <Label layoutX="380.0" layoutY="179.0" text="Permissão" AnchorPane.leftAnchor="377.0" />
+                              <ComboBox fx:id="cBoxPermissao" layoutX="457.0" layoutY="171.0" prefWidth="150.0" AnchorPane.leftAnchor="457.0" />
+                              <ComboBox fx:id="cBoxFuncao" layoutX="457.0" layoutY="126.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
                         <CheckBox fx:id="chkAtivo" layoutX="140.0" layoutY="351.0" mnemonicParsing="false" text="ATIVO" />

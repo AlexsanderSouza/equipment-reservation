@@ -12,7 +12,8 @@ package model.ENTITY;
 public class usuario {
     
     private int id;
-    private String funcao;
+    private int id_funcao;
+    private String nomeFuncao;
     private String nome;
     private String matricula;
     private String senha;
@@ -24,12 +25,20 @@ public class usuario {
     
     
     
-    public String getFuncao() {
-		return funcao;
+    public String getNomeFuncao() {
+		return nomeFuncao;
 	}
 
-	public void setFuncao(String pfuncao) {
-		this.funcao = pfuncao;
+	public void setNomeFuncao(String nomeFuncao) {
+		this.nomeFuncao = nomeFuncao;
+	}
+
+	public int getId_funcao() {
+		return id_funcao;
+	}
+
+	public void setId_funcao(int pfuncao) {
+		this.id_funcao = pfuncao;
 	}
 
 	public String getStatus() {
