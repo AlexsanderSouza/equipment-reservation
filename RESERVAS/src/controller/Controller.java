@@ -19,6 +19,7 @@ import model.DAO.dao_restricaoRecurso;
 import model.DAO.dao_tipoRecurso;
 import model.DAO.dao_unidade;
 import model.DAO.dao_usuario;
+import model.DAO.dao_usuarioPermissao;
 import model.ENTITY.disponivel;
 import model.ENTITY.funcao;
 import model.ENTITY.instituicao;
@@ -47,11 +48,20 @@ public class Controller {
 	dao_permissao vDaoPermissao = new dao_permissao();
 	dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
 	dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
-
+	dao_usuarioPermissao vDaoUsuarioPermissao = new dao_usuarioPermissao();
 	alerta vAlerta = new alerta();
 
 	/* INICIO >> Funções LISTAR */
-	public List<usuario> ValidarLogin(usuario pUser){
+	public List<permissao> ListaPermissaoUsuario(int pIdUsuario) {
+		try {
+			return vDaoUsuarioPermissao.listarPermissao(pIdUsuario);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+
+	public List<usuario> ValidarLogin(usuario pUser) {
 		try {
 			return vDaoUser.ValidaLogin(pUser);
 		} catch (Exception e) {
@@ -60,7 +70,7 @@ public class Controller {
 			return null;
 		}
 	}
-	
+
 	public List<disponivel> ListaDisponivel(String pDataInicio, String pDataFim) {
 		try {
 			return vDaoDisponivel.listarDisponivel(pDataInicio, pDataFim);
@@ -73,14 +83,13 @@ public class Controller {
 
 	public List<permissao> listaFuncaoPermissao(int pIdFuncao) {
 		try {
-			return	vDaoFuncaoPermissao.listar(pIdFuncao);
+			return vDaoFuncaoPermissao.listar(pIdFuncao);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
-		    	    
-    } 
-       
+
+	}
 
 	public List<permissao> ListaPermissao() {
 		try {
@@ -128,19 +137,17 @@ public class Controller {
 
 	}
 
-	
-    
-    public List<restricaoRecurso> ListaRestricaoRecurso(){
-    	try {
+	public List<restricaoRecurso> ListaRestricaoRecurso() {
+		try {
 			return vDaoRestricaoRecurso.listar();
 		} catch (Exception e) {
 			// TODO: handle exception
 			return null;
 		}
-    }
-    
-    public List<recurso> ListaRecurso(){
-    	try {
+	}
+
+	public List<recurso> ListaRecurso() {
+		try {
 			return vDaoRecurso.listar();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -168,6 +175,21 @@ public class Controller {
 			return null;
 		}
 	}
+
+	public List<tipoRecurso> ListaTipoRecurso() {
+		try {
+			return vDaoTipoRecurso.listar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+
+	}
+	
+	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao){ 
+		return vDaoUsuarioPermissao.listarPermissaoUsuarioFuncao(pIdFuncao);
+	}
+	
 	/* FIM >> Funções LISTAR */
 
 	/* INICIO >> Funções FILTRAR */
@@ -194,23 +216,144 @@ public class Controller {
 		return vDaoRecurso.filtrar(pIdRecurso, pIdTipoRecurso, pIdUnidade, pEtiqueta, pObs);
 	}
 
-	public List<tipoRecurso> ListaTipoRecurso() {
-		try {
-			return vDaoTipoRecurso.listar();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			return null;
-		}
-
-
+	public List<funcao> filtrarFuncao(Integer pId, String pNome) {
+		return vDaoFuncao.filtrar(pId, pNome);
 	}
 
-	
-	
+	public List<unidade> filtrarunidade(Integer pId, String pNome) {
+		return vDaoUnidade.filtrar(pId, pNome);
+	}
 
+	public List<instituicao> filtrarinstituicao(Integer pId, String pNome) {
+		return vDaoInstituicao.filtrar(pId, pNome);
+	}
+	/* FIM >> Funções FILTRAR */
+
+	/* INICIO >> Funções ALTERAR */
+	public void alterarReserva(reserva pReserva) {
+		vDaoReserva.alterar(pReserva);
+	}
+
+	public void alterarPermissao(permissao pPermissao) {
+		vDaoPermissao.alterar(pPermissao);
+	}
+
+	public void alterarUsuario(usuario pUsuario) {
+		vDaoUser.alterar(pUsuario);
+	}
+
+	public void alterarFuncao(funcao pFuncao) {
+		vDaoFuncao.alterar(pFuncao);
+	}
+
+	public void alterarInstituicao(instituicao pInstituicao) {
+		vDaoInstituicao.alterar(pInstituicao);
+	}
+
+	public void alterarUnidade(unidade pUnidade) {
+		vDaoUnidade.alterar(pUnidade);
+	}
+
+	public void alterarTipoRecurso(tipoRecurso pTipoRecurso) {
+		vDaoTipoRecurso.alterar(pTipoRecurso);
+	}
+
+	public void alterarRecurso(recurso pRecurso) {
+		vDaoRecurso.alterar(pRecurso);
+	}
+	/* FIM >> Funções ALTERAR */
+
+	/* INICIO >> Funções INSERIR */
 	
+	public void inserirUsuarioPermissao(int pPermissao, int pLastId) {
+		vDaoUsuarioPermissao.inserir(pPermissao, pLastId);
+	}
+
+	public void InserirFuncaoPermissao(int pPermissao, int pLastId) {
+		vDaoFuncaoPermissao.inserir(pPermissao, pLastId);
+	}
+
+	public void inserirPermissao(permissao pPermissao) {
+		vDaoPermissao.inserir(pPermissao);
+	}
+
+	public int InserirUsuario(usuario pUser) {
+		return vDaoUser.inserir(pUser);
+	}
+
+	public int InserirFuncao(funcao pFuncao) {
+		return vDaoFuncao.inserir(pFuncao);
+	}
+
+	public void inserirInstituicao(instituicao pInstituicao) {
+		vDaoInstituicao.inserir(pInstituicao);
+	}
+
+	public void InserirUnidade(unidade pUnidade) {
+		vDaoUnidade.inserir(pUnidade);
+	}
+
+	public void InserirRecurso(recurso pRecurso) {
+		vDaoRecurso.inserir(pRecurso);
+	}
+
+	public void inserirTipo_Recurso(tipoRecurso pTipoRecurso) {
+		vDaoTipoRecurso.inserir(pTipoRecurso);
+	}
+
+	public void InserirReserva(reserva pReserva) {
+		vDaoReserva.inserir(pReserva);
+	}
+
+	public void InserirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
+		vDaoRestricaoRecurso.inserir(pRestricaoRecurso);
+	}
+	/* FIM >> Funções INSERIR */
 
 	/* INICIO >> Funções EXCLUIR */
+	public void excluirPermissao(permissao pPermissao) {
+		vDaoPermissao.excluir(pPermissao);
+	}
+
+	public void excluirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
+		vDaoRestricaoRecurso.excluir(pRestricaoRecurso);
+	}
+
+	public void excluirReserva(reserva pReserva) {
+		vDaoReserva.excluir(pReserva);
+	}
+
+	public void excluirUsuario(usuario pUsuario) {
+		vDaoUser.excluir(pUsuario);
+	}
+
+	public void excluirFuncao(funcao pFuncao) {
+		vDaoFuncao.excluir(pFuncao);
+	}
+
+	public void excluirInstituicao(instituicao pInstituicao) {
+		vDaoInstituicao.excluir(pInstituicao);
+	}
+
+	public void excluirUnidade(unidade pUnidade) {
+		vDaoUnidade.excluir(pUnidade);
+	}
+
+	public void excluirTipoRecurso(tipoRecurso pTipoRecurso) {
+		vDaoTipoRecurso.excluir(pTipoRecurso);
+	}
+
+	public void excluirRecurso(recurso pRecurso) {
+		vDaoRecurso.excluir(pRecurso);
+	}
+
+	public void excluirPermissaoUsuario(permissao pPermissao) {
+		vDaoUsuarioPermissao.excluirPermissaoUsuario(pPermissao);
+	}
+
+	public void excluirUsuarioPermissao(usuario pUsuario) {
+		vDaoUsuarioPermissao.excluirUsuarioPermissao(pUsuario);
+	}
 
 	public void excluirFuncaoPermissao(funcao pFuncao) {
 		vDaoFuncaoPermissao.excluirFuncao(pFuncao);
@@ -220,138 +363,6 @@ public class Controller {
 		vDaoFuncaoPermissao.excluirPermissao(pPermissao);
 	}
 
-
 	/* FIM >> Funções EXCLUIR */
-    	
- 
-    
-    public List<funcao> filtrarFuncao(Integer pId, String pNome) {
-    	return vDaoFuncao.filtrar(pId, pNome);
-    }   
-    
-    public List<unidade> filtrarunidade(Integer pId, String pNome) {
-        return	vDaoUnidade.filtrar(pId, pNome);
-    }
-        
-    public List<instituicao> filtrarinstituicao(Integer pId, String pNome) {
-        return	vDaoInstituicao.filtrar(pId, pNome);
-    }
-    /*FIM >> Funções FILTRAR*/
-    
-    /*INICIO >> Funções ALTERAR*/
-    public void alterarReserva(reserva pReserva) {
-    	vDaoReserva.alterar(pReserva);
-    }
-    
-    public void alterarPermissao(permissao pPermissao) {
-    	vDaoPermissao.alterar(pPermissao);
-    }
-        
-    public void alterarUsuario(usuario pUsuario) {
-    	vDaoUser.alterar(pUsuario);
-    }
-    
-    public void alterarFuncao(funcao pFuncao) {
-    	vDaoFuncao.alterar(pFuncao);
-    }
-    
-    public void alterarInstituicao(instituicao pInstituicao) {
-    	vDaoInstituicao.alterar(pInstituicao);
-    }
-    
-    public void alterarUnidade(unidade pUnidade) {
-    	vDaoUnidade.alterar(pUnidade);
-    }
-    
-    public void alterarTipoRecurso(tipoRecurso pTipoRecurso) {
-    	vDaoTipoRecurso.alterar(pTipoRecurso);
-    }
-    
-    public void alterarRecurso(recurso pRecurso) {
-    	vDaoRecurso.alterar(pRecurso);
-    }
-    /*FIM >> Funções ALTERAR*/
-        
-    /*INICIO >> Funções INSERIR*/
-    
-    public void InserirFuncaoPermissao(int pPermissao, int pLastId) {
-    	vDaoFuncaoPermissao.inserir(pPermissao, pLastId);
-    }
-    
-    public void inserirPermissao(permissao pPermissao) {
-    	vDaoPermissao.inserir(pPermissao);
-    }
-    
-    public void InserirUsuario(usuario pUser){
-        vDaoUser.inserir(pUser);
-    }
-    
-    public int InserirFuncao(funcao pFuncao){
-    	return vDaoFuncao.inserir(pFuncao);    	
-    }
-    
-    public void inserirInstituicao(instituicao pInstituicao) {
-    	vDaoInstituicao.inserir(pInstituicao);
-    }
-    
-    public void InserirUnidade(unidade pUnidade){
-    	vDaoUnidade.inserir(pUnidade);    	
-    }
-    
-    public void InserirRecurso(recurso pRecurso) {
-    	vDaoRecurso.inserir(pRecurso);
-    }
-      
-    public void inserirTipo_Recurso (tipoRecurso pTipoRecurso) {
-    	vDaoTipoRecurso.inserir(pTipoRecurso);
-    }
-    
-    public void InserirReserva(reserva pReserva){
-    	vDaoReserva.inserir(pReserva);    	
-    }
-    
-    public void InserirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
-    	vDaoRestricaoRecurso.inserir(pRestricaoRecurso);
-    }
-    /*FIM >> Funções INSERIR*/
-    
-    /*INICIO >> Funções EXCLUIR*/
-    public void excluirPermissao(permissao pPermissao) {
-    	vDaoPermissao.excluir(pPermissao);
-    }
-    
-    public void excluirRestricaoRecurso(restricaoRecurso pRestricaoRecurso) {
-    	vDaoRestricaoRecurso.excluir(pRestricaoRecurso);
-    }
-    
-    public void excluirReserva(reserva pReserva) {
-    	vDaoReserva.excluir(pReserva);
-    }
-    
-    public void excluirUsuario(usuario pUsuario) {
-    	vDaoUser.excluir(pUsuario);
-    }
-     
-    public void excluirFuncao(funcao pFuncao) {
-    		vDaoFuncao.excluir(pFuncao);
-    }
-        
-    public void excluirInstituicao(instituicao pInstituicao) {
-    	vDaoInstituicao.excluir(pInstituicao);
-    }
- 
-    public void excluirUnidade(unidade pUnidade) {
-    	vDaoUnidade.excluir(pUnidade);
-    }
-
-    public void excluirTipoRecurso(tipoRecurso pTipoRecurso) {
-    	vDaoTipoRecurso.excluir(pTipoRecurso);
-    }
-    
-    public void excluirRecurso(recurso pRecurso) {
-    	vDaoRecurso.excluir(pRecurso);
-    }  
-    /*FIM >> Funções EXCLUIR*/    
-
 
 }

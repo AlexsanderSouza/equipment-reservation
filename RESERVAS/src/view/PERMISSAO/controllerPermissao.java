@@ -146,6 +146,7 @@ public class controllerPermissao implements Initializable {
 
 			tbGrid.getItems().remove(attTabela); // atualiza tabela
 			vCtrl.excluirPermissaoFuncao(vPermissaoSelecionada);
+			vCtrl.excluirPermissaoUsuario(vPermissaoSelecionada);
 			vCtrl.excluirPermissao(vPermissaoSelecionada);
 		}
 	}

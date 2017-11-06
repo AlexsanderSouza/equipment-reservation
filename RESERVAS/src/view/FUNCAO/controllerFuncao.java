@@ -215,13 +215,15 @@ public class controllerFuncao implements Initializable {
 
 				}
 			}
+			
 		}
 		// Limpar dados
 		txtNome.clear();
 		txtDescricao.clear();
 		listViewPermissao.getItems().clear();
 		chkAtivo.setSelected(true);
-
+		this.listViewPermissao.setCellFactory(null);                 //Isso resolve um bug do callBack
+		this.listViewPermissao.setCellFactory(cellFactory); //Isso resolve um bug do callBack
 	}
 
 	public void filtrar() {
@@ -262,6 +264,8 @@ public class controllerFuncao implements Initializable {
 	}
 
 	public void moverPag1() {
+		this.listViewPermissao.setCellFactory(null);                 //Isso resolve um bug do callBack
+		this.listViewPermissao.setCellFactory(cellFactory); //Isso resolve um bug do callBack
 		listViewPermissao.getItems().clear();
 
 		this.listTable = "table";

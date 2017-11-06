@@ -73,6 +73,9 @@ public class controller_login implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
       
+    	txtSenha.setText("0"); //remover depois 
+    	txtUsuario.setText("0"); //remover depois
+    	
         btnEntrar.setOnAction(new EventHandler<ActionEvent>() {
           @Override
           public void handle(ActionEvent event) {
