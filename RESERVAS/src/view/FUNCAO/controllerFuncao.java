@@ -264,11 +264,8 @@ public class controllerFuncao implements Initializable {
 	}
 
 	public void moverPag1() {
-<<<<<<< HEAD
 		this.listViewPermissao.setCellFactory(null);                 //Isso resolve um bug do callBack
 		this.listViewPermissao.setCellFactory(cellFactory); //Isso resolve um bug do callBack
-=======
->>>>>>> 1c8a3ea72fab1c9bd4dee533cda3a1e1e47dc2bd
 		listViewPermissao.getItems().clear();
 
 		this.listTable = "table";
