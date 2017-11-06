@@ -105,7 +105,7 @@ public class dao_funcao {
 	
 	
 	
-	public void excluir(funcao pFuncao) {
+	public boolean excluir(funcao pFuncao) {
     	try {
     		
 			String vSQL = "DELETE FROM funcao WHERE `id`='" + pFuncao.getId() +"'";
@@ -116,10 +116,11 @@ public class dao_funcao {
 	        st.close();
 	        vAlerta.mensagemAlerta("Excluido com Sucesso!");
 	        ConexaoDataBase.FecharConexao();
-	        
+	        return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			vAlerta.mensagemAlerta("Erro na Função Excluir em dao_funcao! \n"+"Erro: "+e.getMessage());
+			return false;
 		}
     	
     }

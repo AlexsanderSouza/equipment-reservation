@@ -327,8 +327,8 @@ public class Controller {
 		vDaoUser.excluir(pUsuario);
 	}
 
-	public void excluirFuncao(funcao pFuncao) {
-		vDaoFuncao.excluir(pFuncao);
+	public boolean excluirFuncao(funcao pFuncao) {
+		return vDaoFuncao.excluir(pFuncao);
 	}
 
 	public void excluirInstituicao(instituicao pInstituicao) {
