@@ -89,6 +89,17 @@ public static void telefoneField(final TextField textField) {
     });
 }
 
+public boolean emailField(TextField textField) {
+	String value = textField.getText();
+	if(value.contains("@") && value.contains(".")) {
+		return true;
+	}else {
+		alerta alert = new alerta();
+		alert.mensagemAlerta("Email invalido");
+		return false;
+	}
+}
+
 /**
  * Campo que aceita somente numericos.
  *

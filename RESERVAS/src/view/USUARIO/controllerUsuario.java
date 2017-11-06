@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.maskFild;
+
 import model.alerta;
+import model.maskFild;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
 import model.ENTITY.usuario;
@@ -93,7 +94,9 @@ public class controllerUsuario implements Initializable {
 	private TableColumn<usuario, String> tbColum5 = new TableColumn<usuario, String>();
 	private TableColumn<usuario, String> tbColum6 = new TableColumn<usuario, String>();
 	private TableColumn<usuario, String> tbColum7 = new TableColumn<usuario, String>();
-
+	
+	maskFild mask = new maskFild() {
+	};
 	Controller vCtrl = new Controller();
 	alerta vAlerta = new alerta();
 	Callback cellFactoryFuncao = new Callback<ListView<funcao>, ListCell<funcao>>() {
@@ -217,14 +220,14 @@ public class controllerUsuario implements Initializable {
 		vUsuario.setId_funcao(funcaoSelecionada.getId());
 		vUsuario.setStatus(cBoxStatus.getSelectionModel().getSelectedItem().toString());
 
-		if (passSenha.getText().equals(passConfirmarSenha.getText())) {
-			if (this.vSalvar.equals("novo")) {
+		if (passSenha.getText().equals(passConfirmarSenha.getText()) ) {
+			if (this.vSalvar.equals("novo") && mask.emailField(txtEmail)) {
 				int lastId = vCtrl.InserirUsuario(vUsuario);
 				System.out.println(lastId);
 				for (permissao aux : vListViewPermissao) {
 					vCtrl.inserirUsuarioPermissao(aux.getId(), lastId);
 				}
-			} else if (this.vSalvar.equals("alterar")) {
+			} else if (this.vSalvar.equals("alterar") && mask.emailField(txtEmail)) {
 				alerta vMsg = new alerta();
 				vMsg.alertaConfirmacao("Deseja realmente alterar?");
 				Optional<ButtonType> result = vMsg.getResult();
@@ -251,7 +254,6 @@ public class controllerUsuario implements Initializable {
 	public void alimentaCcBoxFuncao() {
 		cBoxFuncao.getItems().add(null);
 		cBoxFuncao.getItems().addAll(vCtrl.ListaFuncao());
-
 		cBoxFuncao.setButtonCell((ListCell) cellFactoryFuncao.call(null));
 		cBoxFuncao.setCellFactory(cellFactoryFuncao);
 
@@ -266,13 +268,17 @@ public class controllerUsuario implements Initializable {
 
 	public void alimentaListViewPermissaoFuncao() {
 		listViewPermissao.getItems().clear();
-
+		
+		
+		
 		funcao vCBoxFuncao = new funcao();
 		vCBoxFuncao = cBoxFuncao.getSelectionModel().getSelectedItem();
 		List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(vCBoxFuncao.getId());
-		List<permissao> listPermissaoUsuarioFuncao =vCtrl.listarPermissaoUsuarioFuncao(this.vUsuarioSelecionado.getId_funcao());	
 		this.listViewPermissao.getItems().addAll(listaPermissaoDaFuncao);
-		this.listViewPermissao.getItems().addAll(listPermissaoUsuarioFuncao);
+		if(listTable.equals("alterar")) {
+			List<permissao> listPermissaoUsuarioFuncao =vCtrl.listarPermissaoUsuarioFuncao(this.vUsuarioSelecionado.getId_funcao());
+			this.listViewPermissao.getItems().addAll(listPermissaoUsuarioFuncao);
+		}
 		listViewPermissao.setCellFactory(null);
 		listViewPermissao.setCellFactory(cellFactoryPermissao);
 		
@@ -434,14 +440,10 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void txtMaskTelefone() {
-		maskFild mask = new maskFild() {
-		};
 		mask.telefoneField(this.txtTelefone);
 	}
 
-	public void txtMaskMatricula() {
-		maskFild mask = new maskFild() {
-		};
+	public void txtMaskMatricula() {	
 		mask.numericField(txtMatricula);
 	}
 
