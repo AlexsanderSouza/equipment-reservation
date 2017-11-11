@@ -91,7 +91,9 @@ public static void telefoneField(final TextField textField) {
 
 public boolean emailField(TextField textField) {
 	String value = textField.getText();
-	if(value.contains("@") && value.contains(".")) {
+	String[] valueSplit = new String[3];
+	valueSplit = textField.getText().split("@");
+	if(value.contains("@") && value.contains(".") && valueSplit.lenght < 3) {
 		return true;
 	}else {
 		alerta alert = new alerta();
