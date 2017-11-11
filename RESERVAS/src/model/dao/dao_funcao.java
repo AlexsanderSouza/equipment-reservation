@@ -13,8 +13,9 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.funcao;
+import model.ENTITY.usuario;
 
 
 /**
@@ -22,7 +23,7 @@ import model.ENTITY.funcao;
  * @author WigorPaulo
  */
 public class dao_funcao {
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	public List<funcao> listar() throws Exception {
 
@@ -105,7 +106,7 @@ public class dao_funcao {
 	
 	
 	
-	public void excluir(funcao pFuncao) {
+	public boolean excluir(funcao pFuncao) {
     	try {
     		
 			String vSQL = "DELETE FROM funcao WHERE `id`='" + pFuncao.getId() +"'";
@@ -116,10 +117,11 @@ public class dao_funcao {
 	        st.close();
 	        vAlerta.mensagemAlerta("Excluido com Sucesso!");
 	        ConexaoDataBase.FecharConexao();
-	        
+	        return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			vAlerta.mensagemAlerta("Erro na Função Excluir em dao_funcao! \n"+"Erro: "+e.getMessage());
+			return false;
 		}
     	
     }
@@ -150,12 +152,6 @@ public class dao_funcao {
 			    vFuncao.setNome(rs.getString("nome"));
 			    vFuncao.setDescricao(rs.getString("descricao"));   
 			    vFuncao.setAtivo(rs.getBoolean("ativo"));
-			    vFuncao.setId_permissao1(rs.getInt("id_permissao1"));
-			    vFuncao.setId_permissao2(rs.getInt("id_permissao2"));
-			    vFuncao.setId_permissao3(rs.getInt("id_permissao3"));
-			    vFuncao.setId_permissao4(rs.getInt("id_permissao4"));
-			    vFuncao.setId_permissao5(rs.getInt("id_permissao5"));
-			    vFuncao.setId_permissao6(rs.getInt("id_permissao6"));
 			    
 			    vListaFuncao.add(vFuncao);
 			}
@@ -169,5 +165,24 @@ public class dao_funcao {
 			vAlerta.mensagemAlerta("Erro na Função FILTRO! \n"+"Erro: "+e.getMessage());
 			return null;
 		} 
+    }
+	
+	public funcao listarFuncao(int pIdFuncao) throws Exception{
+
+        funcao vFuncao = new funcao();
+        java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
+        st.executeQuery("SELECT  * from funcao where id = "+pIdFuncao+"");
+        
+        ResultSet rs = st.getResultSet();
+        if(rs.next()){
+            vFuncao.setId(rs.getInt("id"));
+            vFuncao.setNome(rs.getString("nome"));
+            vFuncao.setDescricao(rs.getString("descricao"));
+            vFuncao.setAtivo(rs.getBoolean("ativo"));
+        }
+        rs.close();
+        st.close();
+        
+        return vFuncao;       
     }
 }

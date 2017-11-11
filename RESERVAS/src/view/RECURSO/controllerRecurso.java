@@ -3,7 +3,7 @@ package view.RECURSO;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.recurso;
 import model.ENTITY.tipoRecurso;
 import model.ENTITY.unidade;
@@ -58,8 +58,7 @@ public class controllerRecurso implements Initializable{
 	
 	private recurso vRecurso;
 	
-	@SuppressWarnings("unused")
-	private String vSalvar = "salvarNovo";
+	private String vSalvar = "";
 	
 	private TableColumn<recurso, Integer> tbColum1 = new TableColumn<recurso, Integer>(); 		
 	private TableColumn<recurso, String> tbColum2 = new TableColumn<recurso, String>(); 
@@ -68,7 +67,7 @@ public class controllerRecurso implements Initializable{
 	private TableColumn<recurso, String> tbColum5  = new TableColumn<recurso, String>(); 
 	
 	Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     @SuppressWarnings("unchecked")
     public void inserirTabela() {
@@ -95,9 +94,7 @@ public class controllerRecurso implements Initializable{
 		}
     }
 	
-    public void alterarDados() {
-    	this.vSalvar = "alterar";
-    	
+    public void alterarDados() {    	
     	this.vRecurso = (tbGrid.getSelectionModel().getSelectedItem());
     	
     	txtEtiqueta.setText(vRecurso.getEtiqueta());
@@ -171,7 +168,7 @@ public class controllerRecurso implements Initializable{
     	vRecurso.setId_tipo_recurso(vIdtipo);
     	vRecurso.setId_unidade(vIdUnidade);
     	
-    	if (this.vSalvar.equals("salvarnovo")) {
+    	if (this.vSalvar.equals("novo")) {
     		vCtrl.InserirRecurso(vRecurso);
     		limparCampo();
     	} 
@@ -262,11 +259,16 @@ public class controllerRecurso implements Initializable{
 		}
     }
     
+    public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
+    
     public void onShow() {
     	this.inserirTabela();
     	this.alimentaComboBosPesquisa();
+    	this.alimentaComboBoxCadastro();
     	this.ControlaBotao("novo");
-    	this.vSalvar = "salvarnovo";
+    	this.alteraVariavelControle("novo");
     }
     
 	@Override
@@ -280,7 +282,7 @@ public class controllerRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				alimentaComboBoxCadastro();
+				alteraVariavelControle("alterar");				
 				alterarDados();
 				moverPag2();
 				ControlaBotao("voltar");
@@ -315,7 +317,8 @@ public class controllerRecurso implements Initializable{
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub				
 				moverPag1();				
-				ControlaBotao("novo");				
+				ControlaBotao("novo");	
+				alteraVariavelControle("novo");
 			}
 		});
 		
@@ -324,7 +327,7 @@ public class controllerRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				alimentaComboBoxCadastro();
+				alteraVariavelControle("salvarnovo");
 				moverPag2();
 				limparCampo();
 				ControlaBotao("voltar");

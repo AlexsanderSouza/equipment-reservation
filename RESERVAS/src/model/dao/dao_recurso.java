@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.recurso;
 
 public class dao_recurso {
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
     
 	public void alterar(recurso pRecurso) {
 		try {
@@ -171,6 +171,7 @@ public class dao_recurso {
             st.close();
 
             ConexaoDataBase.FecharConexao();
+            vAlerta.mensagemAlerta("Inserido com Sucesso!"); 
             
         } catch (Exception e) {
         	vAlerta.mensagemAlerta("Erro na Função INSERIR! \n"+"Erro: "+e.getMessage());

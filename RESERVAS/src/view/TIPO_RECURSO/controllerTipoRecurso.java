@@ -3,7 +3,7 @@ package view.TIPO_RECURSO;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.tipoRecurso;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -43,13 +43,15 @@ public class controllerTipoRecurso implements Initializable{
 	private TableView<tipoRecurso> tbGrid;
 	
 	private tipoRecurso vTipoRecursoSelecionado;     //varialvel usada para pegar o id do objeto que foi selecionado na tabela e alterar ao salvar
-	private String salvar = "salvarNovo";  //variavel de validação para quando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+	
+	private String vSalvar = "";  //variavel de validação para quando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+	
 	//private String listTable = "table"; //variavel de validação para o botão excluir saber se deve excluir da tabela ou do listView
 	private TableColumn<tipoRecurso, Integer> tbColum1 = new TableColumn<tipoRecurso, Integer>(); 		
 	private TableColumn<tipoRecurso, String> tbColum2 = new TableColumn<tipoRecurso, String>();
 	
 	Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
 	@SuppressWarnings("unchecked")
 	public void inserirTabela(){
@@ -76,7 +78,9 @@ public class controllerTipoRecurso implements Initializable{
 		    	
     }
 	
-	
+	public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
 	
 	public void inserirTipo_Recurso(){
     
@@ -85,9 +89,9 @@ public class controllerTipoRecurso implements Initializable{
 		vTipoRecurso.setNome(txtNome.getText());
 	    vTipoRecurso.setAtivo(chkAtivo.isSelected());
 	    
-	    if(this.salvar.equals("salvarNovo")) {
+	    if(this.vSalvar.equals("novo")) {
 			vCtrl.inserirTipo_Recurso( vTipoRecurso);
-		}else if(this.salvar.equals("alterar")) {
+		}else if(this.vSalvar.equals("alterar")) {
 			 vTipoRecurso.setId(vTipoRecursoSelecionado.getId());
 			
 	    vCtrl.alterarTipoRecurso(vTipoRecurso);
@@ -127,8 +131,7 @@ public class controllerTipoRecurso implements Initializable{
 	}
 		
 	
-	public void moverPag1() {
-		this.salvar = "salvarNovo"; //variavel de validação paraquando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+	public void moverPag1() {	
 									 
 		ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.ListaTipoRecurso());
 		
@@ -169,8 +172,6 @@ public class controllerTipoRecurso implements Initializable{
 	}
 	
 	public void alterarDados() {
-	
-		 this.salvar = "alterar";
 		
 		 vTipoRecursoSelecionado = (tbGrid.getSelectionModel().getSelectedItem());
 		 
@@ -188,6 +189,7 @@ public class controllerTipoRecurso implements Initializable{
 	public void onShow() {
 		this.inserirTabela();
 		this.ControlaBotao("novo");
+		this.alteraVariavelControle("novo");
 	
 	}
 	   
@@ -228,6 +230,7 @@ public class controllerTipoRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				alteraVariavelControle("novo");
 				moverPag2();
 				ControlaBotao("voltar");
 			}
@@ -238,7 +241,8 @@ public class controllerTipoRecurso implements Initializable{
 	
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub				
+				// TODO Auto-generated method stub	
+				alteraVariavelControle("novo");
 				moverPag1();
 				ControlaBotao("novo");				
 			}
@@ -258,7 +262,8 @@ public class controllerTipoRecurso implements Initializable{
 	
 			@Override
 			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub				
+				// TODO Auto-generated method stub
+				alteraVariavelControle("alterar");
 				alterarDados();
 				moverPag2();
 				ControlaBotao("voltar");

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.alertaInformacao;
+import model.alerta;
 import view.startView;
 
 /**
@@ -19,7 +19,7 @@ import view.startView;
 public class Principal extends Application{
     
     startView vStart = new startView();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     @Override
     public void start(Stage primaryStage) throws IOException {

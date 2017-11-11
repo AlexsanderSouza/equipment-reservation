@@ -1,23 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-import javafx.scene.control.Alert;
+import java.util.Optional;
 
-/**
- *
- * @author WIGOR
- */
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 public class alerta {
-    public void mensagemAlerta(String pMensagem){
-      Alert vAlerta = new Alert(Alert.AlertType.INFORMATION);
-            vAlerta.setTitle("Informativo!");
-            vAlerta.setHeaderText(null);
-            vAlerta.setContentText(pMensagem);
-            vAlerta.showAndWait();
-    }
-    
+	Optional<ButtonType> result;
+	
+	public alerta() {
+		
+	}
+
+	public void alertaConfirmacao(String pMensagem) {
+
+		Alert vAlerta = new Alert(Alert.AlertType.CONFIRMATION);
+		vAlerta.setTitle("Informativo!");
+		vAlerta.setHeaderText(null);
+		vAlerta.setContentText(pMensagem);
+		// vAlerta.showAndWait();
+		result = vAlerta.showAndWait();
+
+	}
+
+	
+	    public void mensagemAlerta(String pMensagem){
+	      Alert vAlerta = new Alert(Alert.AlertType.INFORMATION);
+	            vAlerta.setTitle("Informativo!");
+	            vAlerta.setHeaderText(null);
+	            vAlerta.setContentText(pMensagem);
+	            vAlerta.showAndWait();
+	    }
+	
+
+	public Optional<ButtonType> getResult() {
+		return result;
+	}
+
+	public void setResult(Optional<ButtonType> result) {
+		this.result = result;
+	}
+	
+	
 }
+
