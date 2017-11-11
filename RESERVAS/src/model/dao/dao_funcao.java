@@ -103,10 +103,6 @@ public class dao_funcao {
 		}
 	}
 	
-<<<<<<< HEAD
-=======
-	
->>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 	
 	
 	public boolean excluir(funcao pFuncao) {
