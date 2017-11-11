@@ -258,6 +258,7 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void alimentacBoxPermissao() {
+		cBoxPermissao.getItems().clear();
 		cBoxPermissao.getItems().add(null);
 		cBoxPermissao.getItems().addAll(vCtrl.ListaPermissao());
 		cBoxPermissao.setButtonCell((ListCell) cellFactoryPermissao.call(null));
@@ -466,8 +467,6 @@ public class controllerUsuario implements Initializable {
 		this.alteraVariavelControle("novo");
 		this.txtMaskTelefone();
 		this.txtMaskMatricula();
-		this.alimentacBoxPermissao();
-
 		// estudar isso depois cBoxFuncao.getItems().contains(vUsuarioSelecionado);
 
 	}

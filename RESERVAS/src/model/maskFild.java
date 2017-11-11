@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+
 public abstract class maskFild {
 
 
@@ -91,7 +92,9 @@ public static void telefoneField(final TextField textField) {
 
 public boolean emailField(TextField textField) {
 	String value = textField.getText();
-	if(value.contains("@") && value.contains(".")) {
+	String[] valueSplit = new String[3];
+	valueSplit = textField.getText().split("@");
+	if(value.contains("@") && value.contains(".") && valueSplit.length < 3) {
 		return true;
 	}else {
 		alerta alert = new alerta();
