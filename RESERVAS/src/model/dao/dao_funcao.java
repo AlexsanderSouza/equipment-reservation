@@ -15,6 +15,7 @@ import com.mysql.jdbc.Statement;
 
 import model.alerta;
 import model.ENTITY.funcao;
+import model.ENTITY.usuario;
 
 
 /**
@@ -151,12 +152,6 @@ public class dao_funcao {
 			    vFuncao.setNome(rs.getString("nome"));
 			    vFuncao.setDescricao(rs.getString("descricao"));   
 			    vFuncao.setAtivo(rs.getBoolean("ativo"));
-			    vFuncao.setId_permissao1(rs.getInt("id_permissao1"));
-			    vFuncao.setId_permissao2(rs.getInt("id_permissao2"));
-			    vFuncao.setId_permissao3(rs.getInt("id_permissao3"));
-			    vFuncao.setId_permissao4(rs.getInt("id_permissao4"));
-			    vFuncao.setId_permissao5(rs.getInt("id_permissao5"));
-			    vFuncao.setId_permissao6(rs.getInt("id_permissao6"));
 			    
 			    vListaFuncao.add(vFuncao);
 			}
@@ -170,5 +165,24 @@ public class dao_funcao {
 			vAlerta.mensagemAlerta("Erro na Função FILTRO! \n"+"Erro: "+e.getMessage());
 			return null;
 		} 
+    }
+	
+	public funcao listarFuncao(int pIdFuncao) throws Exception{
+
+        funcao vFuncao = new funcao();
+        java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
+        st.executeQuery("SELECT  * from funcao where id = "+pIdFuncao+"");
+        
+        ResultSet rs = st.getResultSet();
+        if(rs.next()){
+            vFuncao.setId(rs.getInt("id"));
+            vFuncao.setNome(rs.getString("nome"));
+            vFuncao.setDescricao(rs.getString("descricao"));
+            vFuncao.setAtivo(rs.getBoolean("ativo"));
+        }
+        rs.close();
+        st.close();
+        
+        return vFuncao;       
     }
 }

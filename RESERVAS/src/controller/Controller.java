@@ -186,6 +186,15 @@ public class Controller {
 
 	}
 	
+	public funcao listarFuncao(int pIdFuncao) {
+		try {
+			return vDaoFuncao.listarFuncao(pIdFuncao);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+	
 	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao, int pIdUsuario){ 
 		return vDaoUsuarioPermissao.listarPermissaoUsuarioFuncao(pIdFuncao, pIdUsuario);
 	}
