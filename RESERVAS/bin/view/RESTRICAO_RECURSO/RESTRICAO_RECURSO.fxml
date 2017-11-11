@@ -28,8 +28,7 @@
       <AnchorPane layoutY="35.0" prefHeight="419.0" prefWidth="63.0">
          <children>
             <Button fx:id="btnSair" layoutY="356.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
-            <Button fx:id="btnAlterar" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
-            <Button fx:id="btnExcluir" layoutY="58.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
+            <Button fx:id="btnExcluir" layoutY="8.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Excluir" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="30.0" prefWidth="780.0">

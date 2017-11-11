@@ -3,7 +3,7 @@ package view.MENU;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import model.alertaInformacao;
+import model.alerta;
 import view.startView;
 
 /*
@@ -17,7 +17,7 @@ import view.startView;
  * @author WIGOR
  */
 public class view_menu {
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     public  void start() {
         try {

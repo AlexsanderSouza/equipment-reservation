@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.mysql.jdbc.Statement;
 
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.funcao;
 
 
@@ -22,7 +22,7 @@ import model.ENTITY.funcao;
  * @author WigorPaulo
  */
 public class dao_funcao {
-	alertaInformacao vAlerta = new alertaInformacao();
+	alerta vAlerta = new alerta();
 
 	public List<funcao> listar() throws Exception {
 
@@ -105,7 +105,7 @@ public class dao_funcao {
 	
 	
 	
-	public void excluir(funcao pFuncao) {
+	public boolean excluir(funcao pFuncao) {
     	try {
     		
 			String vSQL = "DELETE FROM funcao WHERE `id`='" + pFuncao.getId() +"'";
@@ -116,10 +116,11 @@ public class dao_funcao {
 	        st.close();
 	        vAlerta.mensagemAlerta("Excluido com Sucesso!");
 	        ConexaoDataBase.FecharConexao();
-	        
+	        return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			vAlerta.mensagemAlerta("Erro na Função Excluir em dao_funcao! \n"+"Erro: "+e.getMessage());
+			return false;
 		}
     	
     }

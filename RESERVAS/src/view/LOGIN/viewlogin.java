@@ -8,7 +8,7 @@ package view.LOGIN;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import model.alertaInformacao;
+import model.alerta;
 import view.startView;
 
 /**
@@ -16,7 +16,7 @@ import view.startView;
  * @author WIGOR
  */
 public class viewlogin {
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     public  void start() throws IOException{
         //try {

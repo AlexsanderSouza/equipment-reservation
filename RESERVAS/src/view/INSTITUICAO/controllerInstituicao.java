@@ -3,7 +3,7 @@ package view.INSTITUICAO;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import model.alertaInformacao;
+import model.alerta;
 import model.ENTITY.instituicao;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -46,18 +46,20 @@ public class controllerInstituicao implements Initializable{
 	
 	
 	//Variavel local
-		private instituicao vInstituicaoSelecionado;     //varialvel usada para pegar o id do objeto que foi selecionado na tabela e alterar ao salvar
-		private String salvar = "salvarNovo";  //variavel de validação para quando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
-		//private String listTable = "table"; //variavel de validação para o botão excluir saber se deve excluir da tabela ou do listView
-		private TableColumn<instituicao, Integer> tbColum1 = new TableColumn<instituicao, Integer>(); 		
-		private TableColumn<instituicao, String> tbColum2 = new TableColumn<instituicao, String>();
-		private TableColumn<instituicao, String> tbColum3 = new TableColumn<instituicao, String>();
-		private TableColumn<instituicao, String> tbColum4 = new TableColumn<instituicao, String>();
+	private instituicao vInstituicaoSelecionado;     //varialvel usada para pegar o id do objeto que foi selecionado na tabela e alterar ao salvar
+	
+	private String vSalvar = "";  //variavel de validação para quando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+	
+	//private String listTable = "table"; //variavel de validação para o botão excluir saber se deve excluir da tabela ou do listView
+	private TableColumn<instituicao, Integer> tbColum1 = new TableColumn<instituicao, Integer>(); 		
+	private TableColumn<instituicao, String> tbColum2 = new TableColumn<instituicao, String>();
+	private TableColumn<instituicao, String> tbColum3 = new TableColumn<instituicao, String>();
+	private TableColumn<instituicao, String> tbColum4 = new TableColumn<instituicao, String>();
 
 		
 
 	Controller vCtrl = new Controller();
-    alertaInformacao vAlerta = new alertaInformacao();
+    alerta vAlerta = new alerta();
     
     
     
@@ -89,6 +91,9 @@ public class controllerInstituicao implements Initializable{
 		    	
     }
     
+    public void alteraVariavelControle(String pTipo) {
+    	this.vSalvar = pTipo;
+    }
     
     public void inserirInstituicao(){
         
@@ -99,27 +104,22 @@ public class controllerInstituicao implements Initializable{
         vInstituicao.setTelefone(txtTelefone.getText());
         vInstituicao.setAtivo(chkAtivo.isSelected());
         
-        if(this.salvar.equals("salvarNovo")) {
+        if(this.vSalvar.equals("novo")) {
 			vCtrl.inserirInstituicao(vInstituicao);
-    	}else if(this.salvar.equals("alterar")) {
+    	}else if(this.vSalvar.equals("alterar")) {
     		vInstituicao.setId(vInstituicaoSelecionado.getId());
     		
         vCtrl.alterarInstituicao(vInstituicao);
-        
-    	
-    	
+
     	}
         
         txtNome.clear();
         txtEmail.clear();
         txtTelefone.clear();
         chkAtivo.setSelected(true);
-
-        
+ 
   }
-    
-    
-    
+
     public void filtrar() {
 		Integer aux;
 
@@ -145,8 +145,7 @@ public class controllerInstituicao implements Initializable{
 		tbGrid.getItems().remove(attTabela);
 	}
 
-	public void moverPag1() {
-		this.salvar = "salvarNovo"; //variavel de validação paraquando clicar em novo o botaõ salvar volta a inserir e não a alterar objetos
+	public void moverPag1() {		
     	//this.listTable = "table"; 
 		ObservableList<instituicao> vLista = FXCollections.observableArrayList(vCtrl.ListaInstituicao());
 		
@@ -189,8 +188,6 @@ public class controllerInstituicao implements Initializable{
 	}
 
 	public void alterarDados() {
-
-		 this.salvar = "alterar";
 		
 		 vInstituicaoSelecionado = (tbGrid.getSelectionModel().getSelectedItem());
 		 
@@ -210,7 +207,7 @@ public class controllerInstituicao implements Initializable{
 	public void onShow() {
 		this.inserirTabela();
 		this.ControlaBotao("novo");
-
+		this.alteraVariavelControle("novo");
 	}
 
   
@@ -234,7 +231,7 @@ public class controllerInstituicao implements Initializable{
 			}
 		});
 		
-btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
+		btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent event) {
@@ -253,6 +250,7 @@ btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 		public void handle(ActionEvent event) {
 			// TODO Auto-generated method stub
+			alteraVariavelControle("novo");
 			moverPag2();
 			ControlaBotao("voltar");
 		}
@@ -263,7 +261,8 @@ btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
+			// TODO Auto-generated method stub	
+			alteraVariavelControle("novo");
 			moverPag1();
 			ControlaBotao("novo");				
 		}
@@ -282,7 +281,8 @@ btnExcluir.setOnAction(new EventHandler<ActionEvent>() {
 
 		@Override
 		public void handle(ActionEvent event) {
-			// TODO Auto-generated method stub				
+			// TODO Auto-generated method stub	
+			alteraVariavelControle("alterar");
 			alterarDados();
 			moverPag2();
 			ControlaBotao("voltar");
