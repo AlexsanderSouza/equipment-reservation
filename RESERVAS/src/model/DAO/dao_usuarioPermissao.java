@@ -36,13 +36,13 @@ public class dao_usuarioPermissao {
 		return vListaPermissao;
 	}
 	
-	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao) { //retorna todas as permissões que estão relacionadas com usuario mas não com função
+	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao, int pIdUsuario) { //retorna todas as permissões que estão relacionadas com usuario mas não com função
 
 		try {
 			List<permissao> vListaPermissao = new ArrayList<permissao>();
 			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
 			st.executeQuery("SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (SELECT upe.id_permissao FROM usuario_permissao upe "
-					+ "WHERE upe.id_permissao NOT IN  (select id_permissao from funcao_permissao where id_funcao = "+pIdFuncao+")) fc on per.id = fc.id_permissao;");
+					+ "WHERE upe.id_permissao NOT IN  (select id_permissao from funcao_permissao where id_funcao = "+pIdFuncao+") and upe.id_usuario ="+pIdUsuario+") fc on per.id = fc.id_permissao;");
 			ResultSet rs = st.getResultSet();
 			while (rs.next()) {
 				permissao vPermissao = new permissao();

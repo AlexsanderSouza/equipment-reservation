@@ -54,7 +54,11 @@ CREATE TABLE `funcao` (
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +67,10 @@ CREATE TABLE `funcao` (
 
 LOCK TABLES `funcao` WRITE;
 /*!40000 ALTER TABLE `funcao` DISABLE KEYS */;
+<<<<<<< HEAD
+=======
 INSERT INTO `funcao` VALUES (14,'coordenador','khdbfjhb',1),(15,'hbb','kubkub',1),(16,'jygjk','bjh',1),(17,'uhkuyg','ugug',1),(18,'jvbhkgvkh','vjhvjhygv',1);
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40000 ALTER TABLE `funcao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +97,10 @@ CREATE TABLE `funcao_permissao` (
 
 LOCK TABLES `funcao_permissao` WRITE;
 /*!40000 ALTER TABLE `funcao_permissao` DISABLE KEYS */;
+<<<<<<< HEAD
+=======
 INSERT INTO `funcao_permissao` VALUES (14,6),(14,9),(14,8),(15,7),(15,9),(15,11),(15,8),(16,8),(16,11),(16,12),(17,9),(17,12),(18,8),(18,6),(18,11);
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40000 ALTER TABLE `funcao_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +118,11 @@ CREATE TABLE `instituicao` (
   `telefone` varchar(100) DEFAULT NULL,
   `ativo` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -134,7 +148,11 @@ CREATE TABLE `permissao` (
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +161,10 @@ CREATE TABLE `permissao` (
 
 LOCK TABLES `permissao` WRITE;
 /*!40000 ALTER TABLE `permissao` DISABLE KEYS */;
+<<<<<<< HEAD
+=======
 INSERT INTO `permissao` VALUES (6,'admin','ojhnkn',1),(7,'hgu','gbgbkjh',1),(8,'add','ghjgjh',1),(9,'salas','sdgsd',1),(10,'jvjkvkh','gvghvhg',1),(11,'jbhjgv','hjjhv',1),(12,'jkgghv','ghvhgv',1);
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40000 ALTER TABLE `permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +293,11 @@ CREATE TABLE `tipo_recurso` (
   `ativo` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +306,10 @@ CREATE TABLE `tipo_recurso` (
 
 LOCK TABLES `tipo_recurso` WRITE;
 /*!40000 ALTER TABLE `tipo_recurso` DISABLE KEYS */;
+<<<<<<< HEAD
+=======
 INSERT INTO `tipo_recurso` VALUES (4,'Cabo',NULL);
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40000 ALTER TABLE `tipo_recurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +330,11 @@ CREATE TABLE `unidade` (
   `id_instituicao` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,7 +367,11 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `id` (`id`),
   KEY `id_funcao_idx` (`id_funcao`),
   CONSTRAINT `id_funcao_user` FOREIGN KEY (`id_funcao`) REFERENCES `funcao` (`id`)
+<<<<<<< HEAD
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+=======
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,6 +380,10 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+<<<<<<< HEAD
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+=======
 INSERT INTO `usuario` VALUES (5,'gvjhgv','6516846','123456','hjgv','(16) 81968-1496','1',17,'Ok');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -374,6 +414,7 @@ LOCK TABLES `usuario_permissao` WRITE;
 INSERT INTO `usuario_permissao` VALUES (5,9),(5,12),(5,6);
 /*!40000 ALTER TABLE `usuario_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -384,4 +425,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
+-- Dump completed on 2017-10-28 16:39:17
+=======
 -- Dump completed on 2017-11-05 17:52:46
+>>>>>>> ba815774686670d106542ca6394d042cd8d44b12

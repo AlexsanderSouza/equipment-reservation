@@ -247,13 +247,15 @@ public class controllerFuncao implements Initializable {
 		alerta vMsg = new alerta();
 		vMsg.alertaConfirmacao("Deseja realmente Excluir?");
 		Optional<ButtonType> result = vMsg.getResult();
-
+		boolean val = true;
 		if (result.get() == ButtonType.OK) {
 			if (listTable.equals("table")) { // remove objetos da lista da tabela
-				funcao vFuncaoSelecionada2 = tbGrid.getSelectionModel().getSelectedItem();
+				funcao vFuncaoSelecionada2 = tbGrid.getSelectionModel().getSelectedItem(); 
+				val = vCtrl.excluirFuncao(vFuncaoSelecionada2);
 				int attTabela = tbGrid.getSelectionModel().getSelectedIndex();
-				tbGrid.getItems().remove(attTabela);
-				vCtrl.excluirFuncao(vFuncaoSelecionada2);
+				if(val == true) {
+					tbGrid.getItems().remove(attTabela); //
+				}
 			} else if (listTable.equals("listView")) {// remove objetos da lista de permissões
 
 				int listaIndex = listViewPermissao.getSelectionModel().getSelectedIndex();

@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.maskFild;
 import model.alerta;
+import model.maskFild;
 import model.ENTITY.funcao;
 import model.ENTITY.permissao;
 import model.ENTITY.usuario;
@@ -83,8 +83,6 @@ public class controllerUsuario implements Initializable {
 	private usuario vUsuarioSelecionado; // varialvel usada para pegar o id do objeto que foi selecionado na tabela e
 											// alterar ao salvar
 	private String vSalvar = ""; // variavel de validação para quando clicar em novo o botaõ salvar volta a
-	private String listTable = "table"; // variavel de validação para o botão excluir saber se deve excluir da tabela
-										// ou// do listView
 
 	private TableColumn<usuario, Integer> tbColum1 = new TableColumn<usuario, Integer>();
 	private TableColumn<usuario, String> tbColum2 = new TableColumn<usuario, String>();
@@ -94,6 +92,8 @@ public class controllerUsuario implements Initializable {
 	private TableColumn<usuario, String> tbColum6 = new TableColumn<usuario, String>();
 	private TableColumn<usuario, String> tbColum7 = new TableColumn<usuario, String>();
 
+	maskFild mask = new maskFild() {
+	};
 	Controller vCtrl = new Controller();
 	alerta vAlerta = new alerta();
 	Callback cellFactoryFuncao = new Callback<ListView<funcao>, ListCell<funcao>>() {
@@ -207,24 +207,25 @@ public class controllerUsuario implements Initializable {
 		funcaoSelecionada = cBoxFuncao.getSelectionModel().getSelectedItem();
 		List<permissao> vListViewPermissao = listViewPermissao.getItems();
 		usuario vUsuario = new usuario();
-
+		
+		vUsuario.setId_funcao(funcaoSelecionada.getId());
 		vUsuario.setNome(txtNome.getText());
 		vUsuario.setEmail(txtEmail.getText());
 		vUsuario.setSenha(passSenha.getText());
 		vUsuario.setMatricula(txtMatricula.getText());
 		vUsuario.setTelefone(txtTelefone.getText());
 		vUsuario.setAtivo(chkAtivo.isSelected());
-		vUsuario.setId_funcao(funcaoSelecionada.getId());
+
 		vUsuario.setStatus(cBoxStatus.getSelectionModel().getSelectedItem().toString());
 
 		if (passSenha.getText().equals(passConfirmarSenha.getText())) {
-			if (this.vSalvar.equals("novo")) {
+			if (this.vSalvar.equals("novo") && mask.emailField(txtEmail)) {
 				int lastId = vCtrl.InserirUsuario(vUsuario);
 				System.out.println(lastId);
 				for (permissao aux : vListViewPermissao) {
 					vCtrl.inserirUsuarioPermissao(aux.getId(), lastId);
 				}
-			} else if (this.vSalvar.equals("alterar")) {
+			} else if (this.vSalvar.equals("alterar") && mask.emailField(txtEmail)) {
 				alerta vMsg = new alerta();
 				vMsg.alertaConfirmacao("Deseja realmente alterar?");
 				Optional<ButtonType> result = vMsg.getResult();
@@ -249,15 +250,15 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void alimentaCcBoxFuncao() {
-		cBoxFuncao.getItems().add(null);
+		cBoxFuncao.getItems().clear();
 		cBoxFuncao.getItems().addAll(vCtrl.ListaFuncao());
-
 		cBoxFuncao.setButtonCell((ListCell) cellFactoryFuncao.call(null));
 		cBoxFuncao.setCellFactory(cellFactoryFuncao);
 
 	}
 
 	public void alimentacBoxPermissao() {
+		cBoxPermissao.getItems().clear();
 		cBoxPermissao.getItems().add(null);
 		cBoxPermissao.getItems().addAll(vCtrl.ListaPermissao());
 		cBoxPermissao.setButtonCell((ListCell) cellFactoryPermissao.call(null));
@@ -266,17 +267,34 @@ public class controllerUsuario implements Initializable {
 
 	public void alimentaListViewPermissaoFuncao() {
 		listViewPermissao.getItems().clear();
+		if (cBoxFuncao.getSelectionModel().getSelectedItem() != null) {
+			System.out.println(cBoxFuncao.getSelectionModel().getSelectedIndex());
+			boolean duplicados = false;
+			funcao vCBoxFuncao = new funcao();
 
-		funcao vCBoxFuncao = new funcao();
-		vCBoxFuncao = cBoxFuncao.getSelectionModel().getSelectedItem();
-		List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(vCBoxFuncao.getId());
-		List<permissao> listPermissaoUsuarioFuncao =vCtrl.listarPermissaoUsuarioFuncao(this.vUsuarioSelecionado.getId_funcao());	
-		this.listViewPermissao.getItems().addAll(listaPermissaoDaFuncao);
-		this.listViewPermissao.getItems().addAll(listPermissaoUsuarioFuncao);
-		listViewPermissao.setCellFactory(null);
-		listViewPermissao.setCellFactory(cellFactoryPermissao);
-		
-		
+			vCBoxFuncao = cBoxFuncao.getSelectionModel().getSelectedItem();
+			List<permissao> listaPermissaoDaFuncao = vCtrl.listaFuncaoPermissao(vCBoxFuncao.getId());
+			this.listViewPermissao.getItems().addAll(listaPermissaoDaFuncao);
+			if (vSalvar.equals("alterar")) {
+				List<permissao> listPermissaoUsuarioFuncao = vCtrl.listarPermissaoUsuarioFuncao(
+						this.vUsuarioSelecionado.getId_funcao(), this.vUsuarioSelecionado.getId());
+				for (permissao aux : listPermissaoUsuarioFuncao) {
+					duplicados = false;
+					for (permissao aux2 : listaPermissaoDaFuncao) {
+						if (aux.getId() == aux2.getId()) {
+							duplicados = true;
+						}
+					}
+					if (duplicados == false) {
+						this.listViewPermissao.getItems().add(aux);
+					}
+
+				}
+
+			}
+			listViewPermissao.setCellFactory(null);
+			listViewPermissao.setCellFactory(cellFactoryPermissao);
+		}
 	}
 
 	public void alimentaListViewPermissao() {
@@ -338,29 +356,29 @@ public class controllerUsuario implements Initializable {
 			}
 		}
 		if (this.ctrlPag2.isSelected()) {// remove objetos da lista de permissões
-			List<permissao> vListaPermissao = vCtrl.listaFuncaoPermissao(cBoxFuncao.getSelectionModel().getSelectedItem().getId());
+			List<permissao> vListaPermissao = vCtrl
+					.listaFuncaoPermissao(cBoxFuncao.getSelectionModel().getSelectedItem().getId());
 			permissao vPermissao = listViewPermissao.getSelectionModel().getSelectedItem();
 			boolean validaPermissaoFuncao = false;
-			for(permissao aux: vListaPermissao) {
-				if(aux.getId() == vPermissao.getId()) {
+			for (permissao aux : vListaPermissao) {
+				if (aux.getId() == vPermissao.getId()) {
 					validaPermissaoFuncao = true;
 				}
 			}
-			if(validaPermissaoFuncao == false) {
-			int listaIndex = listViewPermissao.getSelectionModel().getSelectedIndex();
-			listViewPermissao.getItems().remove(listaIndex);
-			this.listViewPermissao.setCellFactory(null);                 //Isso resolve um bug do callBack
-			this.listViewPermissao.setCellFactory(cellFactoryPermissao); //Isso resolve um bug do callBack
-			}else {
+			if (validaPermissaoFuncao == false) {
+				int listaIndex = listViewPermissao.getSelectionModel().getSelectedIndex();
+				listViewPermissao.getItems().remove(listaIndex);
+				this.listViewPermissao.setCellFactory(null); // Isso resolve um bug do callBack
+				this.listViewPermissao.setCellFactory(cellFactoryPermissao); // Isso resolve um bug do callBack
+			} else {
 				vAlerta.mensagemAlerta("Não é possivel excluir a permissao originaria de função");
 			}
 		}
 	}
 
 	public void moverPag1() {
-		this.listViewPermissao.setCellFactory(null);                 //Isso resolve um bug do callBack
-		this.listViewPermissao.setCellFactory(cellFactoryPermissao); //Isso resolve um bug do callBack
-		cBoxFuncao.getItems().clear();
+		this.listViewPermissao.setCellFactory(null); // Isso resolve um bug do callBack
+		this.listViewPermissao.setCellFactory(cellFactoryPermissao); // Isso resolve um bug do callBack
 		txtNome.clear();
 		txtEmail.clear();
 		passSenha.clear();
@@ -377,7 +395,7 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void moverPag2() {
-		alimentaCcBoxFuncao(); //remover futuramente e colocar no botão novo e carregalo no alterar
+		alimentaCcBoxFuncao(); // remover futuramente e colocar no botão novo e carregalo no alterar
 		tabPane.getSelectionModel().select(ctrlPag2);
 	}
 
@@ -409,9 +427,8 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void carregarDados() {
-
+		int indexFuncao = 0;
 		vUsuarioSelecionado = tbGrid.getSelectionModel().getSelectedItem();
-
 		txtNome.setText(vUsuarioSelecionado.getNome());
 		txtEmail.setText(vUsuarioSelecionado.getEmail());
 		passSenha.setText(vUsuarioSelecionado.getSenha());
@@ -419,29 +436,29 @@ public class controllerUsuario implements Initializable {
 		txtMatricula.setText(vUsuarioSelecionado.getMatricula());
 		txtTelefone.setText(vUsuarioSelecionado.getTelefone());
 		chkAtivo.setSelected(vUsuarioSelecionado.getAtivo());
+		alimentacBoxPermissao();
+		alimentaCcBoxFuncao();
 		alimentaListViewPermissaoAlterar();
+		funcao vFuncao = vCtrl.listarFuncao(vUsuarioSelecionado.getId_funcao());
+		cBoxFuncao.setPromptText(vFuncao.getId() + " - " + vFuncao.getNome());
+		cBoxStatus.setValue(vUsuarioSelecionado.getStatus());
 	}
 
 	public void fecharJanela() {
 		Stage stage = (Stage) btnSair.getScene().getWindow();
 		stage.close();
-		
+
 	}
 
 	public void alteraVariavelControle(String pTipo) {
 		this.vSalvar = pTipo;
-		cBoxPermissao.getItems().clear();
 	}
 
 	public void txtMaskTelefone() {
-		maskFild mask = new maskFild() {
-		};
 		mask.telefoneField(this.txtTelefone);
 	}
 
 	public void txtMaskMatricula() {
-		maskFild mask = new maskFild() {
-		};
 		mask.numericField(txtMatricula);
 	}
 
@@ -451,15 +468,12 @@ public class controllerUsuario implements Initializable {
 		txtTelefone.setPromptText("(99) 99999-9999");
 		txtEmail.setPromptText("exemplo@gmail.com");
 		this.alimentaCBoxStatus();
-		this.alimentaCcBoxFuncao();
 		this.inserirTabela();
 		this.ControlaBotao("novo");
 		this.alteraVariavelControle("novo");
 		this.txtMaskTelefone();
 		this.txtMaskMatricula();
-		this.alimentacBoxPermissao();
-		
-		//estudar isso depois cBoxFuncao.getItems().contains(vUsuarioSelecionado);
+		// estudar isso depois cBoxFuncao.getItems().contains(vUsuarioSelecionado);
 
 	}
 
@@ -561,10 +575,10 @@ public class controllerUsuario implements Initializable {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				alteraVariavelControle("alterar");
-				carregarDados();
 				moverPag2();
+				carregarDados();
 				ControlaBotao("voltar");
-				alimentacBoxPermissao();
+
 			}
 		});
 		btnFiltrar.setOnAction(new EventHandler<ActionEvent>() {

@@ -186,8 +186,17 @@ public class Controller {
 
 	}
 	
-	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao){ 
-		return vDaoUsuarioPermissao.listarPermissaoUsuarioFuncao(pIdFuncao);
+	public funcao listarFuncao(int pIdFuncao) {
+		try {
+			return vDaoFuncao.listarFuncao(pIdFuncao);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+	
+	public List<permissao> listarPermissaoUsuarioFuncao(int pIdFuncao, int pIdUsuario){ 
+		return vDaoUsuarioPermissao.listarPermissaoUsuarioFuncao(pIdFuncao, pIdUsuario);
 	}
 	
 	/* FIM >> Funções LISTAR */
@@ -327,8 +336,8 @@ public class Controller {
 		vDaoUser.excluir(pUsuario);
 	}
 
-	public void excluirFuncao(funcao pFuncao) {
-		vDaoFuncao.excluir(pFuncao);
+	public boolean excluirFuncao(funcao pFuncao) {
+		return vDaoFuncao.excluir(pFuncao);
 	}
 
 	public void excluirInstituicao(instituicao pInstituicao) {
