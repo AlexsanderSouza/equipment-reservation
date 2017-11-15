@@ -288,6 +288,9 @@ public class Controller {
 		vDaoUsuarioLogado.alterar(pUsuarioLogado);
 	}
 	
+	public void alterarReservaStatus(reserva pReserva) {
+		vDaoReserva.alterarStatus(pReserva);
+	}
 	/* FIM >> Funções ALTERAR */
 
 	/* INICIO >> Funções INSERIR */

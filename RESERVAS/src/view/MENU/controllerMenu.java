@@ -14,6 +14,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import view.BAIXA_RESERVA.viewBaixaReserva;
 import view.DISPONIVEL.viewDisponivel;
 import view.FUNCAO.viewFuncao;
 import view.INSTITUICAO.viewInstituicao;
@@ -34,7 +35,7 @@ import view.USUARIO.viewUsuario;
 public class controllerMenu implements Initializable{
     
     @FXML
-    private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel;
+    private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel,menuBaixaReserva;
     
     @FXML
     private MenuItem menuTipoRecurso, menuReserva, menuRestricaoRecurso, menuRecurso,menuPermissao;
@@ -44,6 +45,21 @@ public class controllerMenu implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	
+    	
+    	menuBaixaReserva.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					viewBaixaReserva vBaixaReserva = new viewBaixaReserva();
+					vBaixaReserva.start();
+				} catch (Exception e) {
+					// TODO: handle exception
+					vAlerta.mensagemAlerta("Erro ao Abrir Tela de Permissão! \n"+"Erro: "+e.getMessage());
+				}
+			}
+		});
     	
     	menuPermissao.setOnAction(new EventHandler<ActionEvent>() {
 

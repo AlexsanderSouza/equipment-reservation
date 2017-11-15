@@ -26,6 +26,7 @@
                   <MenuItem fx:id="menuRestricaoRecurso" mnemonicParsing="false" text="Restrição do Recurso" />
                 <MenuItem fx:id="menuReserva" mnemonicParsing="false" text="Reserva" />
                   <MenuItem fx:id="menuDisponivel" mnemonicParsing="false" text="Disponivel" />
+                  <MenuItem fx:id="menuBaixaReserva" mnemonicParsing="false" text="Baixa de Reserva" />
               </items>
             </Menu>
         </menus>

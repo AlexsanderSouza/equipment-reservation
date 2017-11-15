@@ -12,6 +12,28 @@ public class dao_reserva {
 	
 	alerta vAlerta = new alerta();
 
+	public void alterarStatus(reserva pReserva) {
+		try {
+			String vSQL = "";
+			
+			String vId = Integer.toString(pReserva.getId());
+			
+			vSQL =  "UPDATE reserva SET `status` = "+"'"+pReserva.getStatus()+"'"+
+			                        " WHERE `id` = "+vId;
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			
+			st.execute();
+			st.close();
+			
+			ConexaoDataBase.FecharConexao();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função alterar! \n" + "Erro: " + e.getMessage());
+		}
+	}
+	
 	public void excluir(reserva pReserva) {
 		try {
 			String vSQL = "DELETE FROM reserva WHERE `id` = '"+pReserva.getId()+"'";
@@ -208,15 +230,27 @@ public class dao_reserva {
 
 	public List<reserva> listar() throws Exception {
 
+		String vSQL = "SELECT rs.*, u1.nome nome_responsavel, u2.nome nome_destinatario,\r\n" + 
+				"       tr.nome nome_recurso \r\n" + 
+				"  FROM reserva rs\r\n" + 
+				"LEFT JOIN usuario u1 ON u1.id = rs.id_responsavel\r\n" + 
+				"LEFT JOIN usuario u2 ON u2.id = rs.id_destinatario\r\n" + 
+				"LEFT JOIN recurso r ON r.id = rs.id_recurso\r\n" + 
+				"LEFT JOIN tipo_recurso tr ON tr.id = r.id_tipo_recurso";
+		
 		List<reserva> vListaReserva = new ArrayList<reserva>();
 		java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
-		st.executeQuery("select * from reserva");
+		st.executeQuery(vSQL);
 		ResultSet rs = st.getResultSet();
 		while (rs.next()) {
 			reserva vReserva = new reserva();
 			vReserva.setId(rs.getInt("id"));
 			vReserva.setId_responsavel(rs.getInt("id_responsavel"));
+			vReserva.setNome_responsavel(rs.getString("nome_responsavel"));
 			vReserva.setId_destinatario(rs.getInt("id_destinatario"));
+			vReserva.setNome_destinatario(rs.getString("nome_destinatario"));
+			vReserva.setId_recurso(rs.getInt("id_recurso"));
+			vReserva.setNome_recurso(rs.getString("nome_recurso"));
 			vReserva.setData_hora_reserva(rs.getString("data_hora_reserva"));
 			vReserva.setData_hora_final(rs.getString("data_hora_final"));
 			vReserva.setRepeticao(rs.getString("repeticao"));

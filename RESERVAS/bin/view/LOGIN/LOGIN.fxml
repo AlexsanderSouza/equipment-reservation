@@ -13,6 +13,6 @@
       <TextField fx:id="txtUsuario" layoutX="104.0" layoutY="147.0" prefHeight="25.0" prefWidth="201.0" />
       <TextField fx:id="txtSenha" layoutX="104.0" layoutY="181.0" prefHeight="25.0" prefWidth="201.0" />
       <Button fx:id="btnEntrar" layoutX="245.0" layoutY="217.0" mnemonicParsing="false" text="ENTRAR" />
-      <Button fx:id="btnAlterarSenha" layoutX="104.0" layoutY="217.0" mnemonicParsing="false" text="ALTERAR SENHA" />
+      <Button fx:id="btnAlterarSenha" disable="true" layoutX="104.0" layoutY="217.0" mnemonicParsing="false" text="ALTERAR SENHA" visible="false" />
    </children>
 </AnchorPane>

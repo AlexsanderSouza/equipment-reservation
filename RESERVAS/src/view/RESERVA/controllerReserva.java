@@ -3,6 +3,7 @@ package view.RESERVA;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import view.COMPONENTE_DATAHORA.DateTimePicker;
@@ -16,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tab;
@@ -134,12 +136,18 @@ public class controllerReserva implements Initializable{
     }
      
     public void excluir() {
-    	reserva vReserva = tbGrid.getSelectionModel().getSelectedItem();
     	
-    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
+    	vAlerta.alertaConfirmacao("Deseja realmente Excluir?");
+		Optional<ButtonType> result = vAlerta.getResult();
+		if (result.get() == ButtonType.OK) {
     	
-    	vCtrl.excluirReserva(vReserva);
-    	tbGrid.getItems().remove(vTabelaRemover);
+	    	reserva vReserva = tbGrid.getSelectionModel().getSelectedItem();
+	    	
+	    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
+	    	
+	    	vCtrl.excluirReserva(vReserva);
+	    	tbGrid.getItems().remove(vTabelaRemover);
+		}
     }
     
     public void dataTimePicker() {                                  //insere o botão dinamico de data e hora

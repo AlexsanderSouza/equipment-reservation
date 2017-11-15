@@ -3,6 +3,7 @@ package model.ENTITY;
 public class reserva {
 	private int id, id_responsavel, id_destinatario, id_recurso, qtde_gasto, qtde_estoque, qtde_disponivel; 
 	private String  data_hora_reserva, data_hora_final, repeticao,status;
+	private String nome_responsavel, nome_destinatario, nome_recurso;
 	
 	
 	public int getId() {
@@ -70,6 +71,24 @@ public class reserva {
 	}
 	public void setQtde_estoque(int qtde_estoque) {
 		this.qtde_estoque = qtde_estoque;
+	}
+	public String getNome_destinatario() {
+		return nome_destinatario;
+	}
+	public void setNome_destinatario(String nome_destinatario) {
+		this.nome_destinatario = nome_destinatario;
+	}
+	public String getNome_responsavel() {
+		return nome_responsavel;
+	}
+	public void setNome_responsavel(String nome_responsavel) {
+		this.nome_responsavel = nome_responsavel;
+	}
+	public String getNome_recurso() {
+		return nome_recurso;
+	}
+	public void setNome_recurso(String nome_recurso) {
+		this.nome_recurso = nome_recurso;
 	}
 	 
 	
