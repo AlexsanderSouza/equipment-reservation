@@ -8,8 +8,6 @@ package view.LOGIN;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
-
 import controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import model.alerta;
 import model.ENTITY.usuario;
+import model.ENTITY.usuarioLogado;
 import view.MENU.view_menu;
 /**
  *
@@ -40,8 +39,10 @@ public class controller_login implements Initializable{
     		String vLogin = txtUsuario.getText().trim();
         	String vSenha = txtSenha.getText().trim();
         	
-        	if (vLogin.equals("0") && vSenha.equals("0")) {
-        		vResult = true;
+        	usuarioLogado vUsuarioLogado = new usuarioLogado();
+       
+        	if (vLogin.equals("0") && vSenha.equals("0")) {        		
+        		vResult = true;        		
         	} else {
         	
 	        	String vExisteUser = "";
@@ -51,9 +52,12 @@ public class controller_login implements Initializable{
 	        	vUser.setMatricula(vLogin);
 	        	vUser.setSenha(vSenha);
 	        	
-	        	for (usuario user : vCtrl.ValidarLogin(vUser))
+	        	for (usuario user : vCtrl.ValidarLogin(vUser)) {
 	        		vExisteUser = vExisteUser + user.getNome();
-	        	
+	        		vUsuarioLogado.setUsuario_id(user.getId());
+	            	      
+	        	}
+	        	vCtrl.alterarUsuarioLogado(vUsuarioLogado);
 	        	if (vExisteUser != "") {
 	        		vResult = true;
 	        	} else {
@@ -81,7 +85,7 @@ public class controller_login implements Initializable{
           public void handle(ActionEvent event) {
              
               try {
-            	  if (validaUsuario())   {
+            	  if (validaUsuario())   {               		  
             		  view_menu vMenu = new view_menu();
                 	  vMenu.start(); 
             	  } else {

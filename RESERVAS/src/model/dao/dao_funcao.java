@@ -15,7 +15,6 @@ import com.mysql.jdbc.Statement;
 
 import model.alerta;
 import model.ENTITY.funcao;
-import model.ENTITY.usuario;
 
 
 /**

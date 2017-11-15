@@ -40,8 +40,8 @@ public class ConexaoDataBase {
             String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
             String username = "root";
             //String password = "root";
-            String password = "2220";
-            //String password = "reis12345";
+            //String password = "2220";
+            String password = "reis12345";
 
             
             connection = DriverManager.getConnection(url, username, password);

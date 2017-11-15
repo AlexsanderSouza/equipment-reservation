@@ -19,6 +19,7 @@ import model.DAO.dao_restricaoRecurso;
 import model.DAO.dao_tipoRecurso;
 import model.DAO.dao_unidade;
 import model.DAO.dao_usuario;
+import model.DAO.dao_usuarioLogado;
 import model.DAO.dao_usuarioPermissao;
 import model.ENTITY.disponivel;
 import model.ENTITY.funcao;
@@ -30,6 +31,7 @@ import model.ENTITY.restricaoRecurso;
 import model.ENTITY.tipoRecurso;
 import model.ENTITY.unidade;
 import model.ENTITY.usuario;
+import model.ENTITY.usuarioLogado;
 
 /**
  *
@@ -49,9 +51,20 @@ public class Controller {
 	dao_funcaoPermissao vDaoFuncaoPermissao = new dao_funcaoPermissao();
 	dao_restricaoRecurso vDaoRestricaoRecurso = new dao_restricaoRecurso();
 	dao_usuarioPermissao vDaoUsuarioPermissao = new dao_usuarioPermissao();
+	dao_usuarioLogado vDaoUsuarioLogado = new dao_usuarioLogado();
+	
 	alerta vAlerta = new alerta();
-
+			
 	/* INICIO >> Funções LISTAR */
+	public int ListarUsuarioLogado(){
+		try {
+			return vDaoUsuarioLogado.listar();
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+	}
+	
 	public List<permissao> ListaPermissaoUsuario(int pIdUsuario) {
 		try {
 			return vDaoUsuarioPermissao.listarPermissao(pIdUsuario);
@@ -270,6 +283,11 @@ public class Controller {
 	public void alterarRecurso(recurso pRecurso) {
 		vDaoRecurso.alterar(pRecurso);
 	}
+	
+	public void alterarUsuarioLogado(usuarioLogado pUsuarioLogado) {
+		vDaoUsuarioLogado.alterar(pUsuarioLogado);
+	}
+	
 	/* FIM >> Funções ALTERAR */
 
 	/* INICIO >> Funções INSERIR */

@@ -175,8 +175,7 @@ public class controllerRecurso implements Initializable{
     	if (this.vSalvar.equals("alterar")) {
     		vRecurso.setId(this.vRecurso.getId());
     		vCtrl.alterarRecurso(vRecurso);
-    		limparCampo();
-    		this.vSalvar = "salvarnovo";
+    		limparCampo();    		
     	}
     	
     }
@@ -327,7 +326,7 @@ public class controllerRecurso implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				alteraVariavelControle("salvarnovo");
+				alteraVariavelControle("novo");
 				moverPag2();
 				limparCampo();
 				ControlaBotao("voltar");

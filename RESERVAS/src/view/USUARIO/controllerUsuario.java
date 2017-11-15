@@ -25,7 +25,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
@@ -35,7 +34,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.event.EventHandler;
@@ -96,6 +94,7 @@ public class controllerUsuario implements Initializable {
 	};
 	Controller vCtrl = new Controller();
 	alerta vAlerta = new alerta();
+	
 	Callback cellFactoryFuncao = new Callback<ListView<funcao>, ListCell<funcao>>() {
 		@Override
 		public ListCell<funcao> call(ListView<funcao> param) {

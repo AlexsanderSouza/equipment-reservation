@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javax.security.auth.callback.Callback;
-
 import model.alerta;
 import model.ENTITY.permissao;
 import controller.Controller;

@@ -10,13 +10,9 @@ import model.alerta;
 import model.ENTITY.tipoRecurso;
 
 public class dao_tipoRecurso {
-alerta vAlerta = new alerta();
+	
+	alerta vAlerta = new alerta();
 
-
-
-
-
-    
     public List<tipoRecurso> listar() throws Exception{
         
         List<tipoRecurso> vListaTipo_recurso = new ArrayList<tipoRecurso>();

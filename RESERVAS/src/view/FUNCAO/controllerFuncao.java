@@ -74,6 +74,7 @@ public class controllerFuncao implements Initializable {
 
 	Controller vCtrl = new Controller();
 	alerta vAlerta = new alerta();
+	
 	Callback cellFactory = new Callback<ListView<permissao>, ListCell<permissao>>() {
 		@Override
 		public ListCell<permissao> call(ListView<permissao> param) {

@@ -56,7 +56,7 @@ public class controllerReserva implements Initializable{
 			
 	//Variavel local
 	private TableColumn<reserva, Integer> tbColum1 = new TableColumn<reserva, Integer>(); 		
-	private TableColumn<reserva, Integer> tbColum2 = new TableColumn<reserva, Integer>(); 
+	//private TableColumn<reserva, Integer> tbColum2 = new TableColumn<reserva, Integer>(); 
 	private TableColumn<reserva, Integer> tbColum3 = new TableColumn<reserva, Integer>(); 
 	private TableColumn<reserva, String> tbColum4  = new TableColumn<reserva, String>(); 
 	private TableColumn<reserva, String> tbColum5  = new TableColumn<reserva, String>(); 
@@ -70,9 +70,9 @@ public class controllerReserva implements Initializable{
 	
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
-    
+        
     int vTipoComboBox = 0;
-    
+
     public void Filtro(){
     	String vDataInicio;
     	String vDataFim;
@@ -153,20 +153,20 @@ public class controllerReserva implements Initializable{
     	    	
     	try {
     		tbColum1.setText("Código Reserva");/*SETA O TITULO DA GRID*/
-        	tbColum2.setText("Responsável");
+        	//tbColum2.setText("Responsável");
         	tbColum3.setText("Destinatario");
         	tbColum4.setText("Data Reserva");
         	tbColum5.setText("Data Fim ");
         	tbColum6.setText("Status");
     		
     	    tbColum1.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id"));/*SETA QUAL CAMPO DA LISTA*/
-        	tbColum2.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_responsavel"));//PENSAR COMO MOSTRAR O NOME DO USUARIO
+        	//tbColum2.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_responsavel"));//PENSAR COMO MOSTRAR O NOME DO USUARIO
         	tbColum3.setCellValueFactory(new PropertyValueFactory<reserva, Integer>("id_destinatario"));
         	tbColum4.setCellValueFactory(new PropertyValueFactory<reserva, String>("data_hora_reserva"));
         	tbColum5.setCellValueFactory(new PropertyValueFactory<reserva, String>("data_hora_final"));
         	tbColum6.setCellValueFactory(new PropertyValueFactory<reserva, String>("status"));
         	        	
-        	tbGrid.getColumns().addAll(tbColum1,tbColum2,tbColum3,tbColum4,tbColum5,tbColum6);
+        	tbGrid.getColumns().addAll(tbColum1,tbColum3,tbColum4,tbColum5,tbColum6);
         	
         	ObservableList<reserva> vLista = FXCollections.observableArrayList(vCtrl.ListaReserva());
         	
@@ -195,20 +195,21 @@ public class controllerReserva implements Initializable{
     }
     
     public void inserirReserva(){
-    	
+
     	reserva vReserva = new reserva();
     	
-    	String vResponsavel = cbxResponsavel.getValue();
     	String vDestinatario = cbxdestinatario.getValue();
     	String vRecurso = cbxRecurso.getValue();
     	String vDataInicio = dataTimeAutor.getTextField().getText();
     	String vDataFinal = dataTimeDestinatario.getTextField().getText();
+    	
+    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
     	 	
-    	vReserva.setId_responsavel( Integer.parseInt(vResponsavel.substring(0, vResponsavel.indexOf(" ")).trim() ));
+    	vReserva.setId_responsavel(vUsuarioLogado);
     	vReserva.setId_destinatario(Integer.parseInt(vDestinatario.substring(0, vDestinatario.indexOf(" ")).trim() ));
     	vReserva.setId_recurso(Integer.parseInt(vRecurso.substring(0, vRecurso.indexOf(" ")).trim() ));
     	vReserva.setRepeticao(cbxTipoRepeticao.getValue());
-    	vReserva.setStatus(cbxStatus.getValue());
+    	vReserva.setStatus("ATIVO");
     	vReserva.setData_hora_reserva(vDataInicio);
     	vReserva.setData_hora_final(vDataFinal);
     	
@@ -441,5 +442,6 @@ public class controllerReserva implements Initializable{
 		
 		
 	}
+
 
 }

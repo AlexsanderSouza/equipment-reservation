@@ -15,8 +15,8 @@ alerta vAlerta = new alerta();
         
 			String vSQL = "select rt.*, tp.nome nomeTipoRecurso, f.nome nomeFuncao\r\n" + 
 					"  from restricao_recurso rt\r\n" + 
-					"left join tipo_recurso tp on tp.id = rt.id_tipo_recurso \r\n" + 
-					"left join funcao f on f.id = rt.id_funcao ";
+					"left join tipo_recurso tp on tp.id = rt.id_tipo_recurso2 \r\n" + 
+					"left join funcao f on f.id = rt.id_funcao2 ";
 		
     	
 	        List<restricaoRecurso> vListaRestricao_recurso = new ArrayList<restricaoRecurso>();
@@ -30,8 +30,8 @@ alerta vAlerta = new alerta();
 	        	restricaoRecurso vRestricao_recurso = new restricaoRecurso();
 	        
 	        	vRestricao_recurso.setId(rs.getInt("id"));
-	            vRestricao_recurso.setId_funcao(rs.getInt("id_funcao"));
-	            vRestricao_recurso.setId_tipo_recurso(rs.getInt("id_tipo_recurso"));
+	            vRestricao_recurso.setId_funcao(rs.getInt("id_funcao2"));
+	            vRestricao_recurso.setId_tipo_recurso(rs.getInt("id_tipo_recurso2"));
 	            vRestricao_recurso.setNomeTipoRecurso(rs.getString("nomeTipoRecurso"));
 	            vRestricao_recurso.setNomeFuncao(rs.getString("nomeFuncao"));
 	            
@@ -63,7 +63,7 @@ alerta vAlerta = new alerta();
     
     public void inserir(restricaoRecurso pRestricaoRecurso){
         try {
-            String vSQL = "INSERT INTO restricao_recurso(id, id_funcao, id_tipo_recurso) "
+            String vSQL = "INSERT INTO restricao_recurso(id, id_funcao2, id_tipo_recurso2) "
                                       +"VALUES(?, ?, ?);";
             
             PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
