@@ -2,9 +2,12 @@ package view.INSTITUICAO;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import model.alerta;
+import model.maskFild;
 import model.ENTITY.instituicao;
+import model.ENTITY.permissao;
 import controller.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
@@ -56,7 +60,8 @@ public class controllerInstituicao implements Initializable{
 	private TableColumn<instituicao, String> tbColum3 = new TableColumn<instituicao, String>();
 	private TableColumn<instituicao, String> tbColum4 = new TableColumn<instituicao, String>();
 
-		
+	maskFild mask = new maskFild() {
+	};
 
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
@@ -104,9 +109,13 @@ public class controllerInstituicao implements Initializable{
         vInstituicao.setTelefone(txtTelefone.getText());
         vInstituicao.setAtivo(chkAtivo.isSelected());
         
-        if(this.vSalvar.equals("novo")) {
-			vCtrl.inserirInstituicao(vInstituicao);
-    	}else if(this.vSalvar.equals("alterar")) {
+        if(this.vSalvar.equals("novo") && mask.emailField(txtEmail)) {
+			int lastId = vCtrl.inserirInstituicao(vInstituicao);
+			System.out.println(lastId);
+    	}else if(this.vSalvar.equals("alterar") && mask.emailField(txtEmail)) {
+    		alerta vMsg = new alerta();
+    		vMsg.alertaConfirmacao("Deseja realmente alterar?");
+    		Optional<ButtonType> result = vMsg.getResult();
     		vInstituicao.setId(vInstituicaoSelecionado.getId());
     		
         vCtrl.alterarInstituicao(vInstituicao);
@@ -204,10 +213,18 @@ public class controllerInstituicao implements Initializable{
 		stage.close();
 	}
 	
+	@SuppressWarnings("static-access")
+	public void txtMaskTelefone() {
+		mask.telefoneField(this.txtTelefone);
+	}
+	
 	public void onShow() {
+		txtTelefone.setPromptText("(99) 99999-9999");
+		txtEmail.setPromptText("exemplo@gmail.com");
 		this.inserirTabela();
 		this.ControlaBotao("novo");
 		this.alteraVariavelControle("novo");
+		this.txtMaskTelefone();
 	}
 
   

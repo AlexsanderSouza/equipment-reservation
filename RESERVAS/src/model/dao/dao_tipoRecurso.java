@@ -26,7 +26,8 @@ alerta vAlerta = new alerta();
         while(rs.next()){
         	tipoRecurso vTipo_recurso = new tipoRecurso();
             vTipo_recurso.setId(rs.getInt("id"));
-            vTipo_recurso.setNome(rs.getString("nome"));      
+            vTipo_recurso.setNome(rs.getString("nome"));
+            vTipo_recurso.setDescricao(rs.getString("descricao")); 
             vTipo_recurso.setAtivo(rs.getBoolean("ativo"));
             vListaTipo_recurso.add(vTipo_recurso);
         }
@@ -39,13 +40,14 @@ alerta vAlerta = new alerta();
     
     public void inserir(tipoRecurso pTipo_recurso){
         try {
-            String vSQL = "INSERT INTO tipo_recurso(id, nome) "
-                                      +"VALUES(?, ?);";
+            String vSQL = "INSERT INTO tipo_recurso(id, nome, descricao, ativo) "
+                                      +"VALUES(?, ?, ?, ?);";
             
             PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
             st.setString(1, Integer.toString(pTipo_recurso.getId()));
-            st.setString(2, pTipo_recurso.getNome());         
-            //st.setString(3, pUser.getAtivo());
+            st.setString(2, pTipo_recurso.getNome());
+            st.setString(3, pTipo_recurso.getDescricao());
+            st.setBoolean(4, pTipo_recurso.getAtivo());
             
             st.execute();
             st.close();
@@ -72,14 +74,14 @@ alerta vAlerta = new alerta();
     			
     		}
     		
-    		String vSQL = "UPDATE tipo_recurso SET `nome`='" + pTipo_recurso.getNome()
-    		+ "',`ativo`='" + permissaoAtiva + "' WHERE `id` ='" + pTipo_recurso.getId() + "'";
-    		
+    		String vSQL = "UPDATE tipo_recurso SET `nome`='" + pTipo_recurso.getNome()+"', `descricao`='"+ pTipo_recurso.getDescricao() + "',`ativo`='" + permissaoAtiva + "' WHERE `id`='" + pTipo_recurso.getId() + "'";
+    		System.out.println(vSQL);
+			System.out.println(pTipo_recurso.getAtivo());
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
 
 			st.execute();
 			st.close();
-			
+			vAlerta.mensagemAlerta("Alterado com Sucesso!");
 			ConexaoDataBase.FecharConexao();
 
 		} catch (SQLException e) {
@@ -119,7 +121,7 @@ alerta vAlerta = new alerta();
 			if(id != null && nome.equals("")){
 				vSQL = vSQL + " where id =" +id+ " ";
 			}else if((!nome.equals("")) && id == null ) {
-				vSQL = vSQL + " where nome = '"+nome+"'";
+				vSQL = vSQL + " where nome like  '%"+nome+"%'";
 			}else if(!(nome.equals("") && id == null)) {
 				vSQL= vSQL + " where id =" +id+ "  and nome = '" +nome+ "'";
 			}
@@ -131,7 +133,8 @@ alerta vAlerta = new alerta();
 			while(rs.next()){
 			    tipoRecurso vtipoRecurso = new tipoRecurso();
 			    vtipoRecurso.setId(rs.getInt("id"));
-			    vtipoRecurso.setNome(rs.getString("nome"));   
+			    vtipoRecurso.setNome(rs.getString("nome"));
+			    vtipoRecurso.setDescricao(rs.getString("descricao")); 
 			    vtipoRecurso.setAtivo(rs.getBoolean("ativo"));
 			    vListaTipo_recurso.add(vtipoRecurso);
 			}

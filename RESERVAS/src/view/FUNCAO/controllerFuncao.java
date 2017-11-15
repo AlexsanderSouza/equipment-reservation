@@ -157,8 +157,7 @@ public class controllerFuncao implements Initializable {
 			tbColum2.setText("Nome");
 			tbColum3.setText("Descrição");
 
-			tbColum1.setCellValueFactory(
-					new PropertyValueFactory<funcao, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
+			tbColum1.setCellValueFactory(new PropertyValueFactory<funcao, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
 			tbColum2.setCellValueFactory(new PropertyValueFactory<funcao, String>("nome")); // PENSAR COMO MOSTRAR O
 																							// NOME DO USUARIO
 			tbColum3.setCellValueFactory(new PropertyValueFactory<funcao, String>("descricao"));

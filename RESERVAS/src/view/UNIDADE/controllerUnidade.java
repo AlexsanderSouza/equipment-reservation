@@ -2,8 +2,10 @@ package view.UNIDADE;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import model.alerta;
+import model.maskFild;
 import model.ENTITY.instituicao;
 import model.ENTITY.unidade;
 import controller.Controller;
@@ -14,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tab;
@@ -59,7 +62,9 @@ public class controllerUnidade implements Initializable{
 		private TableColumn<unidade, String> tbColum5 = new TableColumn<unidade, String>();
 		private TableColumn<unidade, String> tbColum6 = new TableColumn<unidade, String>();
 		
-	
+		maskFild mask = new maskFild() {
+		};
+		
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
 	
@@ -109,13 +114,23 @@ public class controllerUnidade implements Initializable{
 		    vUnidade.setAtivo(chkAtivo.isSelected());
 		    vUnidade.setInstituicao(instituicaoSelecionada[0]);
 
-		if(this.vSalvar.equals("novo")) {
-			vCtrl.InserirUnidade(vUnidade);
-    	}else if(this.vSalvar.equals("alterar")) {
+		if(this.vSalvar.equals("novo") && mask.emailField(txtEmail)) {
+			int lastId = vCtrl.InserirUnidade(vUnidade);
+			System.out.println(lastId);
+    	}else if(this.vSalvar.equals("alterar") && mask.emailField(txtEmail)) {
+    		alerta vMsg = new alerta();
+    		vMsg.alertaConfirmacao("Deseja realmente alterar?");
+    		@SuppressWarnings("unused")
+			Optional<ButtonType> result = vMsg.getResult();
     		vUnidade.setId(vUnidadeSelecionado.getId());
     		vCtrl.alterarUnidade(vUnidade);
     	}
-	
+		
+		txtNome.clear();
+        txtEmail.clear();
+        txtTelefone.clear();
+        txtEndereco.clear();
+        chkAtivo.setSelected(true);
 	}
 	
 	public void alimentaCcBoxInstituicao() {
@@ -152,11 +167,7 @@ public class controllerUnidade implements Initializable{
 	}
 
 	public void moverPag1() {
-		 txtNome.clear();
-		 txtEmail.clear();
-		 txtTelefone.clear();
-		 txtEndereco.clear();
-		 chkAtivo.setSelected(true);
+		
 						
 		ObservableList<unidade> vLista = FXCollections.observableArrayList(vCtrl.ListaUnidade());
 		tbGrid.setItems(vLista);
@@ -216,13 +227,20 @@ public class controllerUnidade implements Initializable{
 		Stage stage = (Stage) btnSair.getScene().getWindow();
 		stage.close();
 	}
-
+	@SuppressWarnings("static-access")
+	public void txtMaskTelefone() {
+		mask.telefoneField(this.txtTelefone);
+	}
+	
 	public void onShow() {
 		
 		this.alimentaCcBoxInstituicao();
+		txtTelefone.setPromptText("(99) 99999-9999");
+		txtEmail.setPromptText("exemplo@gmail.com");
 		this.inserirTabela();
 		this.ControlaBotao("novo");
 		this.alteraVariavelControle("novo");
+		this.txtMaskTelefone();
 
 	}
 	

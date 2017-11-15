@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import model.alerta;
 import model.ENTITY.unidade;
 
@@ -47,12 +49,12 @@ public class dao_unidade {
     }
 
 	
-	public void inserir(unidade pUnidade){
+	public int inserir(unidade pUnidade){
         try {
             String vSQL = "INSERT INTO unidade(id, nome, email, telefone, endereco, ativo, id_instituicao) "
                                       +"VALUES(?, ?, ?, ?, ?, ?, ?);";
-            
-            PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+            int lastId = 0;
+            PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, Integer.toString(pUnidade.getId()));
             st.setString(2, pUnidade.getNome());
             st.setString(3, pUnidade.getEmail());
@@ -62,13 +64,18 @@ public class dao_unidade {
             st.setString(7, pUnidade.getInstituicao());
                         
             st.execute();
+            final ResultSet rs = st.getGeneratedKeys();  //atribui o id gerado
+			if (rs.next()) {
+			     lastId = rs.getInt(1);
+			}
             st.close();
            System.out.println("inserido"); 
            vAlerta.mensagemAlerta("Inserido com Sucesso!"); 
             ConexaoDataBase.FecharConexao();
-            
+            return lastId;
         } catch (Exception e) {
         	vAlerta.mensagemAlerta("Erro na Função INSERIR! \n"+"Erro: "+e.getMessage());
+        	return 0;
         }    
     }
     
@@ -130,7 +137,7 @@ public class dao_unidade {
 			}
 			
 			if(!nome.equals("")){
-				vSQL = vSQL + " and uni.nome = '"+nome+"'";
+				vSQL = vSQL + " and uni.nome like '%"+nome+"%'";
 			}
 			
 			

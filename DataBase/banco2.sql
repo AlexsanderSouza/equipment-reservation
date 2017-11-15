@@ -54,11 +54,11 @@ CREATE TABLE `funcao` (
   `ativo` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-<<<<<<< HEAD
+
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-=======
+
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
->>>>>>> ba815774686670d106542ca6394d042cd8d44b12
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,10 +67,9 @@ CREATE TABLE `funcao` (
 
 LOCK TABLES `funcao` WRITE;
 /*!40000 ALTER TABLE `funcao` DISABLE KEYS */;
-<<<<<<< HEAD
-=======
+
 INSERT INTO `funcao` VALUES (14,'coordenador','khdbfjhb',1),(15,'hbb','kubkub',1),(16,'jygjk','bjh',1),(17,'uhkuyg','ugug',1),(18,'jvbhkgvkh','vjhvjhygv',1);
->>>>>>> ba815774686670d106542ca6394d042cd8d44b12
+
 /*!40000 ALTER TABLE `funcao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,10 +96,10 @@ CREATE TABLE `funcao_permissao` (
 
 LOCK TABLES `funcao_permissao` WRITE;
 /*!40000 ALTER TABLE `funcao_permissao` DISABLE KEYS */;
-<<<<<<< HEAD
-=======
+
+
 INSERT INTO `funcao_permissao` VALUES (14,6),(14,9),(14,8),(15,7),(15,9),(15,11),(15,8),(16,8),(16,11),(16,12),(17,9),(17,12),(18,8),(18,6),(18,11);
->>>>>>> ba815774686670d106542ca6394d042cd8d44b12
+
 /*!40000 ALTER TABLE `funcao_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,10 +160,9 @@ CREATE TABLE `permissao` (
 
 LOCK TABLES `permissao` WRITE;
 /*!40000 ALTER TABLE `permissao` DISABLE KEYS */;
-<<<<<<< HEAD
-=======
+
 INSERT INTO `permissao` VALUES (6,'admin','ojhnkn',1),(7,'hgu','gbgbkjh',1),(8,'add','ghjgjh',1),(9,'salas','sdgsd',1),(10,'jvjkvkh','gvghvhg',1),(11,'jbhjgv','hjjhv',1),(12,'jkgghv','ghvhgv',1);
->>>>>>> ba815774686670d106542ca6394d042cd8d44b12
+
 /*!40000 ALTER TABLE `permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 

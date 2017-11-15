@@ -180,8 +180,7 @@ public class controllerUsuario implements Initializable {
 			tbColum6.setText("Telefone");
 			tbColum7.setText("Status");
 
-			tbColum1.setCellValueFactory(
-					new PropertyValueFactory<usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
+			tbColum1.setCellValueFactory(new PropertyValueFactory<usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
 			tbColum2.setCellValueFactory(new PropertyValueFactory<usuario, String>("matricula"));
 			tbColum3.setCellValueFactory(new PropertyValueFactory<usuario, String>("nome"));
 			tbColum4.setCellValueFactory(new PropertyValueFactory<usuario, String>("nomeFuncao"));

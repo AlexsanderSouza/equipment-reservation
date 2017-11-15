@@ -28,7 +28,7 @@ public class controllerTipoRecurso implements Initializable{
     private Button btnVoltar,btnNovo,btnAlterar,btnExcluir,btnSalvar,btnImprimir,btnSair,btnFiltrar;
 	
 	@FXML
-	private TextField txtNome, txtIdPesquisa, txtNomePesquisa;
+	private TextField txtNome, txtDescricao, txtIdPesquisa, txtNomePesquisa;
 	
 	@FXML
 	private TabPane tabPane;
@@ -49,6 +49,7 @@ public class controllerTipoRecurso implements Initializable{
 	//private String listTable = "table"; //variavel de validação para o botão excluir saber se deve excluir da tabela ou do listView
 	private TableColumn<tipoRecurso, Integer> tbColum1 = new TableColumn<tipoRecurso, Integer>(); 		
 	private TableColumn<tipoRecurso, String> tbColum2 = new TableColumn<tipoRecurso, String>();
+	private TableColumn<tipoRecurso, String> tbColum3 = new TableColumn<tipoRecurso, String>();
 	
 	Controller vCtrl = new Controller();
     alerta vAlerta = new alerta();
@@ -60,12 +61,14 @@ public class controllerTipoRecurso implements Initializable{
     		
     		tbColum1.setText("Id");/*SETA O TITULO DA GRID*/
         	tbColum2.setText("Nome");
+        	tbColum3.setText("Descrição");
         	
     		
     	    tbColum1.setCellValueFactory(new PropertyValueFactory<tipoRecurso, Integer>("id"));  /*SETA QUAL CAMPO DA LISTA*/
         	tbColum2.setCellValueFactory(new PropertyValueFactory<tipoRecurso, String>("nome")); //PENSAR COMO MOSTRAR O NOME DO USUARIO
+        	tbColum3.setCellValueFactory(new PropertyValueFactory<tipoRecurso, String>("descricao"));
         	
-        	tbGrid.getColumns().addAll(tbColum1,tbColum2);
+        	tbGrid.getColumns().addAll(tbColum1,tbColum2,tbColum3);
         	
         	ObservableList<tipoRecurso> vLista = FXCollections.observableArrayList(vCtrl.ListaTipoRecurso());
         	
@@ -87,6 +90,7 @@ public class controllerTipoRecurso implements Initializable{
 		tipoRecurso vTipoRecurso = new tipoRecurso();
 	    
 		vTipoRecurso.setNome(txtNome.getText());
+		vTipoRecurso.setDescricao(txtDescricao.getText());
 	    vTipoRecurso.setAtivo(chkAtivo.isSelected());
 	    
 	    if(this.vSalvar.equals("novo")) {
@@ -99,6 +103,7 @@ public class controllerTipoRecurso implements Initializable{
 	}
     
     txtNome.clear();
+    txtDescricao.clear();
     chkAtivo.setSelected(true);
 
     
@@ -176,6 +181,7 @@ public class controllerTipoRecurso implements Initializable{
 		 vTipoRecursoSelecionado = (tbGrid.getSelectionModel().getSelectedItem());
 		 
 		 txtNome.setText(vTipoRecursoSelecionado.getNome());
+		 txtDescricao.setText(vTipoRecursoSelecionado.getDescricao());
 		 chkAtivo.setSelected(vTipoRecursoSelecionado.getAtivo());
 		 
 		
@@ -280,5 +286,13 @@ public class controllerTipoRecurso implements Initializable{
 			}
 		});
 	  }
+
+	/*public TableColumn<tipoRecurso, String> getTbColum3() {
+		return tbColum3;
+	}
+
+	public void setTbColum3(TableColumn<tipoRecurso, String> tbColum3) {
+		this.tbColum3 = tbColum3;
+	}*/
 	
 }	

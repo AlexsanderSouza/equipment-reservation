@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javax.security.auth.callback.Callback;
 
 import model.alerta;
-import model.alerta;
 import model.ENTITY.permissao;
 import controller.Controller;
 import javafx.collections.FXCollections;
@@ -68,8 +67,7 @@ public class controllerPermissao implements Initializable {
 			tbColum2.setText("Nome");
 			tbColum3.setText("Descrição");
 
-			tbColum1.setCellValueFactory(
-					new PropertyValueFactory<permissao, Integer>("id"));/* SETA QUAL CAMPO DA LISTA */
+			tbColum1.setCellValueFactory(new PropertyValueFactory<permissao, Integer>("id"));/* SETA QUAL CAMPO DA LISTA */
 			tbColum2.setCellValueFactory(new PropertyValueFactory<permissao, String>("nome"));// PENSAR COMO MOSTRAR O
 																								// NOME DO USUARIO
 			tbColum3.setCellValueFactory(new PropertyValueFactory<permissao, String>("descricao"));

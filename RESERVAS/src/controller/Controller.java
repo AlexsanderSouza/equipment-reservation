@@ -294,12 +294,13 @@ public class Controller {
 		return vDaoFuncao.inserir(pFuncao);
 	}
 
-	public void inserirInstituicao(instituicao pInstituicao) {
-		vDaoInstituicao.inserir(pInstituicao);
+	public int inserirInstituicao(instituicao pInstituicao) {
+		return vDaoInstituicao.inserir(pInstituicao);
+		
 	}
 
-	public void InserirUnidade(unidade pUnidade) {
-		vDaoUnidade.inserir(pUnidade);
+	public int InserirUnidade(unidade pUnidade) {
+		return vDaoUnidade.inserir(pUnidade);
 	}
 
 	public void InserirRecurso(recurso pRecurso) {

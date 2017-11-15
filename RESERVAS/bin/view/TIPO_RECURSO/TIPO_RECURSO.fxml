@@ -54,11 +54,13 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="61.0" layoutY="88.0" text="NOME" />
-                              <TextField fx:id="txtNome" layoutX="139.0" layoutY="84.0" prefHeight="25.0" prefWidth="184.0" AnchorPane.leftAnchor="120.0" />
-                              <CheckBox fx:id="chkAtivo" layoutX="125.0" layoutY="178.0" mnemonicParsing="false" text="ATIVO" />
+                              <Label layoutX="44.0" layoutY="157.0" text="Descrição" />
+                              <TextField fx:id="txtNome" layoutX="120.0" layoutY="94.0" prefHeight="25.0" prefWidth="184.0" AnchorPane.leftAnchor="120.0" />
+                              <TextField fx:id="txtDescricao" layoutX="118.0" layoutY="153.0" prefHeight="25.0" prefWidth="189.0" />
+                              <Label layoutX="52.0" layoutY="95.0" text="NOME" />
                            </children>
                         </AnchorPane>
+                        <CheckBox fx:id="chkAtivo" layoutX="117.0" layoutY="222.0" mnemonicParsing="false" text="ATIVO" />
                      </children></AnchorPane>
                </content></Tab>
         </tabs>
