@@ -201,6 +201,9 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void onShow() {
+		this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
+		
 		this.inserirTabela();
 		this.ControlaBotao("novo");
 		this.alteraVariavelControle("novo");

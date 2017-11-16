@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +30,9 @@ public class controllerDisponivel implements Initializable {
 	
 	@FXML
     private Button btnPesquisar,btnReserva,btnSair;
+	
+	@FXML
+	private TabPane tabPane;
 	
 	@FXML
 	private VBox vboxDisponivel; //Para usar o botão dinamico de data e hora
@@ -95,6 +99,9 @@ public class controllerDisponivel implements Initializable {
     }
 	
 	public void onShow(){
+		this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
+		
 		inserirTabela();
 	}
 	

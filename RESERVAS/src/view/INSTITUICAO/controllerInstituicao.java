@@ -219,6 +219,9 @@ public class controllerInstituicao implements Initializable{
 	}
 	
 	public void onShow() {
+		this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
+		
 		txtTelefone.setPromptText("(99) 99999-9999");
 		txtEmail.setPromptText("exemplo@gmail.com");
 		this.inserirTabela();

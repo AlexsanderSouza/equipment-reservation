@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +30,9 @@ public class controllerRestricaoRecurso implements Initializable{
 	
 	@FXML
 	private ComboBox<String> cbxTipoRecurso,cbxFuncao;
+	
+	@FXML
+	private TabPane tabPane;
     
 	@FXML 
 	TableView<restricaoRecurso> tbGrid;
@@ -115,6 +119,9 @@ public class controllerRestricaoRecurso implements Initializable{
     }
     
     public void onShow() {
+    	this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
+    	
     	this.alimentaComboBox();
     	this.inserirTabela();
     }

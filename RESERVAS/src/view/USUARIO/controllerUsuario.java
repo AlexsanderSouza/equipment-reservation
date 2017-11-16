@@ -461,6 +461,9 @@ public class controllerUsuario implements Initializable {
 	}
 
 	public void onShow() {
+		this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
+		
 		this.listViewPermissao.setCellFactory(cellFactoryPermissao);
 		passConfirmarSenha.setPromptText("Confirme sua senha");
 		txtTelefone.setPromptText("(99) 99999-9999");

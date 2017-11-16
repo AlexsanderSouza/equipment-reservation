@@ -233,6 +233,8 @@ public class controllerUnidade implements Initializable{
 	}
 	
 	public void onShow() {
+		this.tabPane.setTabMaxHeight(-1);
+		this.tabPane.setTabMaxWidth(-1);
 		
 		this.alimentaCcBoxInstituicao();
 		txtTelefone.setPromptText("(99) 99999-9999");
