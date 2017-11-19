@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import model.alerta;
-import model.ENTITY.permissao;
-import controller.Controller;
+import model.Alerta;
+import model.ENTITY.Permissao;
+import service.Service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class controllerPermissao implements Initializable {
+public class ControllerPermissao implements Initializable {
 
 	@FXML
 	private Button btnVoltar, btnNovo, btnAlterar, btnExcluir, btnSalvar, btnImprimir, btnSair, btnFiltrar;
@@ -42,20 +42,20 @@ public class controllerPermissao implements Initializable {
 	private CheckBox chkAtivo;
 
 	@FXML
-	private TableView<permissao> tbGrid;
+	private TableView<Permissao> tbGrid;
 
 	// Variavel local
 
-	private permissao vPermissaoSelecionada;
+	private Permissao vPermissaoSelecionada;
 	
 	private String vSalvar = "";
 	
-	private TableColumn<permissao, Integer> tbColum1 = new TableColumn<permissao, Integer>();
-	private TableColumn<permissao, String> tbColum2 = new TableColumn<permissao, String>();
-	private TableColumn<permissao, String> tbColum3 = new TableColumn<permissao, String>();
+	private TableColumn<Permissao, Integer> tbColum1 = new TableColumn<Permissao, Integer>();
+	private TableColumn<Permissao, String> tbColum2 = new TableColumn<Permissao, String>();
+	private TableColumn<Permissao, String> tbColum3 = new TableColumn<Permissao, String>();
 
-	Controller vCtrl = new Controller();
-	alerta vAlerta = new alerta();
+	Service vCtrl = new Service();
+	Alerta vAlerta = new Alerta();
 
 	@SuppressWarnings("unchecked")
 	public void inserirTabela() {
@@ -65,14 +65,14 @@ public class controllerPermissao implements Initializable {
 			tbColum2.setText("Nome");
 			tbColum3.setText("Descrição");
 
-			tbColum1.setCellValueFactory(new PropertyValueFactory<permissao, Integer>("id"));/* SETA QUAL CAMPO DA LISTA */
-			tbColum2.setCellValueFactory(new PropertyValueFactory<permissao, String>("nome"));// PENSAR COMO MOSTRAR O
+			tbColum1.setCellValueFactory(new PropertyValueFactory<Permissao, Integer>("id"));/* SETA QUAL CAMPO DA LISTA */
+			tbColum2.setCellValueFactory(new PropertyValueFactory<Permissao, String>("nome"));// PENSAR COMO MOSTRAR O
 																								// NOME DO USUARIO
-			tbColum3.setCellValueFactory(new PropertyValueFactory<permissao, String>("descricao"));
+			tbColum3.setCellValueFactory(new PropertyValueFactory<Permissao, String>("descricao"));
 
 			tbGrid.getColumns().addAll(tbColum1, tbColum2, tbColum3);
 
-			ObservableList<permissao> vLista = FXCollections.observableArrayList(vCtrl.ListaPermissao());
+			ObservableList<Permissao> vLista = FXCollections.observableArrayList(vCtrl.ListaPermissao());
 
 			tbGrid.setItems(vLista);
 
@@ -89,7 +89,7 @@ public class controllerPermissao implements Initializable {
 
 	public void inserirPermissao() {
 
-		permissao vPermissao = new permissao();
+		Permissao vPermissao = new Permissao();
 
 		vPermissao.setNome(txtNome.getText());
 		vPermissao.setDescricao(txtDescricao.getText());
@@ -98,7 +98,7 @@ public class controllerPermissao implements Initializable {
 		if (this.vSalvar.equals("novo")) {
 			vCtrl.inserirPermissao(vPermissao);
 		} else if (this.vSalvar.equals("alterar")) {
-			alerta vMsg = new alerta();
+			Alerta vMsg = new Alerta();
 			vMsg.alertaConfirmacao("Deseja realmente Alterar?");
 			Optional<ButtonType> result = vMsg.getResult();
 
@@ -124,7 +124,7 @@ public class controllerPermissao implements Initializable {
 			aux = null;
 		}
 
-		ObservableList<permissao> vLista = FXCollections
+		ObservableList<Permissao> vLista = FXCollections
 				.observableArrayList(vCtrl.filtrarPermissao(aux, txtNomePesquisa.getText()));
 
 		tbGrid.setItems(vLista);
@@ -132,12 +132,12 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void excluir() {
-		alerta vMsg = new alerta();
+		Alerta vMsg = new Alerta();
 		vMsg.alertaConfirmacao("Deseja realmente Excluir?");
 		Optional<ButtonType> result = vMsg.getResult();
 
 		if (result.get() == ButtonType.OK) {
-			permissao vPermissaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
+			Permissao vPermissaoSelecionada = tbGrid.getSelectionModel().getSelectedItem();
 			int attTabela = tbGrid.getSelectionModel().getSelectedIndex(); // seleciona o index do item a remover
 
 			tbGrid.getItems().remove(attTabela); // atualiza tabela
@@ -148,7 +148,7 @@ public class controllerPermissao implements Initializable {
 	}
 
 	public void moverPag1() {
-		ObservableList<permissao> vLista = FXCollections.observableArrayList(vCtrl.ListaPermissao());
+		ObservableList<Permissao> vLista = FXCollections.observableArrayList(vCtrl.ListaPermissao());
 
 		tbGrid.setItems(vLista);
 

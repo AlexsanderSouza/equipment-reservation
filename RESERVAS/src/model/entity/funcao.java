@@ -9,7 +9,7 @@ package model.ENTITY;
  *
  * @author WigorPaulo
  */
-public class funcao {
+public class Funcao {
     
     private int id;
     private String nome;

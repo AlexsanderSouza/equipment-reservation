@@ -1,6 +1,6 @@
 package model.ENTITY;
 
-public class tipoRecurso {
+public class TipoRecurso {
 	    int id;
 		String nome;
 		String descricao;

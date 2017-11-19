@@ -9,7 +9,7 @@ package model.ENTITY;
  *
  * @author WigorPaulo
  */
-public class unidade {
+public class Unidade {
     
     private int id;
     private String nome;

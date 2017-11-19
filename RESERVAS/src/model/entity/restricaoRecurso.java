@@ -1,6 +1,6 @@
 package model.ENTITY;
 
-public class restricaoRecurso {
+public class RestricaoRecurso {
 	private int id, id_tipo_recurso, id_funcao;
 	private String nomeTipoRecurso, nomeFuncao;
 

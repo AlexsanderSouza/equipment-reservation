@@ -1,6 +1,6 @@
 package model.ENTITY;
 
-public class recurso {
+public class Recurso {
 	private String  nomeTipoRecurso, nomeUnidade, etiqueta, observacao;
 	private int id, id_unidade, id_tipo_recurso;
 	private boolean ativo;

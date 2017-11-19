@@ -1,6 +1,6 @@
 package model.ENTITY;
 
-public class reserva {
+public class Reserva {
 	private int id, id_responsavel, id_destinatario, id_recurso, qtde_gasto, qtde_estoque, qtde_disponivel; 
 	private String  data_hora_reserva, data_hora_final, repeticao,status;
 	private String nome_responsavel, nome_destinatario, nome_recurso;

@@ -1,6 +1,6 @@
 package model.ENTITY;
 
-public class instituicao {
+public class Instituicao {
 	
 	private int id; 
 	private String nome; 

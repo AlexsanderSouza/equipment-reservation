@@ -9,7 +9,7 @@ package model.ENTITY;
  *
  * @author WigorPaulo
  */
-public class usuario {
+public class Usuario {
     
     private int id;
     private int id_funcao;
