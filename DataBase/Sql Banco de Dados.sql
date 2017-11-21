@@ -6,7 +6,6 @@ usuario_id INT NOT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC)
 );
-INSERT INTO usuario_logado (usuario_id) values(0);
 
 CREATE TABLE locacao.instituicao(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -43,7 +42,6 @@ ativo VARCHAR(1),
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC)
 );
-ALTER TABLE tipo_recurso ADD descricao varchar(100);
 
 CREATE TABLE locacao.unidade(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -163,3 +161,82 @@ INDEX `id_responsavel2_idx` (`id_responsavel2` ASC) ,
 	CONSTRAINT `id_responsavel2` FOREIGN KEY (`id_responsavel2` ) REFERENCES `usuario` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE	
 );
+
+CREATE TABLE locacao.usuario_permissao (
+id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+id_usuario2 INT UNSIGNED DEFAULT NULL,
+id_permissao2 INT UNSIGNED DEFAULT NULL,
+PRIMARY KEY (`id`),
+UNIQUE INDEX `id` (`id` ASC),
+INDEX `id_usuario2_idx` (id_usuario2 ASC) , 
+	CONSTRAINT id_usuario2 FOREIGN KEY (id_usuario2 ) REFERENCES `usuario` (`id` )
+	ON DELETE CASCADE ON UPDATE CASCADE,
+INDEX `id_permissao2_idx` (id_permissao2 ASC) , 
+	CONSTRAINT id_permissao2 FOREIGN KEY (id_permissao2 ) REFERENCES `permissao` (`id` )
+	ON DELETE CASCADE ON UPDATE CASCADE		
+);
+
+ALTER TABLE tipo_recurso ADD descricao varchar(100);
+
+INSERT INTO usuario_logado (usuario_id) values(0);
+
+INSERT INTO locacao.funcao(id, nome, descricao, ativo) VALUES
+(1, 'Secretaria', 'professor', 1);
+INSERT INTO locacao.funcao(id, nome, descricao, ativo) VALUES
+(2, 'Estoque', 'acessos ', 1);
+
+INSERT INTO locacao.funcao_permissao(id, id_funcao, id_permissao) VALUES
+(1, 1, 1);
+INSERT INTO locacao.funcao_permissao(id, id_funcao, id_permissao) VALUES
+(2, 2, 2);
+INSERT INTO locacao.funcao_permissao(id, id_funcao, id_permissao) VALUES
+(3, 2, 1);
+
+INSERT INTO locacao.instituicao(id, nome, email, telefone, ativo) VALUES
+(1, 'Faculdade Alfa', 'teste@teste.com', '(62) 99999-9999', NULL);
+
+INSERT INTO locacao.permissao(id, nome, descricao, ativo) VALUES
+(1, 'Professor', 'Acessos', 1);
+INSERT INTO locacao.permissao(id, nome, descricao, ativo) VALUES
+(2, 'Administrador', 'Acessos', 1);
+
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(1, '1', 'primeiro cadastro', 1, 1, '1');
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(2, '2', 'segundo cadastro', 1, 1, '1');
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(3, '3', 'terceiro cadastro', 1, 1, '1');
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(4, '1', 'primeiro cadastro', 1, 2, '1');
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(5, '2', 'segundo cadastro', 1, 2, '1');
+INSERT INTO locacao.recurso(id, etiqueta, observacao, id_unidade, id_tipo_recurso, ativo) VALUES
+(6, '1', 'primeiro cadastro g', 1, 3, '1');
+
+INSERT INTO locacao.reserva(id, id_responsavel, id_destinatario, id_recurso, data_hora_reserva, data_hora_final, repeticao, status) VALUES
+(7, 2, 1, 1, '2017-11-15 02:18:00', '2017-11-15 02:18:00', 'EVENTO UNICO', 'ATIVO');
+
+INSERT INTO locacao.restricao_recurso(id, id_tipo_recurso2, id_funcao2) VALUES
+(1, 1, 1);
+INSERT INTO locacao.restricao_recurso(id, id_tipo_recurso2, id_funcao2) VALUES
+(2, 2, 1);
+
+INSERT INTO locacao.tipo_recurso(id, nome, ativo, descricao) VALUES
+(1, 'Cabo Hdmi 2 metros', '1', 'Resistente a agua');
+INSERT INTO locacao.tipo_recurso(id, nome, ativo, descricao) VALUES
+(2, 'Mouse', '1', 'gamer');
+INSERT INTO locacao.tipo_recurso(id, nome, ativo, descricao) VALUES
+(3, 'Teclado', '1', 'Normal');
+
+INSERT INTO locacao.unidade(id, nome, email, telefone, endereco, ativo, id_instituicao) VALUES
+(1, 'Perimetral Norte', 'teste2@teste.com', '(62) 99999-9999', 'av perimetral', '1', 1);
+INSERT INTO locacao.unidade(id, nome, email, telefone, endereco, ativo, id_instituicao) VALUES
+(2, 'Bueno', 'teste3@teste.com', '(62) 99999-9999', 'Av Multirão', '1', 1);
+
+INSERT INTO locacao.usuario(id, nome, matricula, senha, email, telefone, ativo, id_funcao, status) VALUES
+(1, 'Wigor Paulo', '123', '123', 'teste@teste.com', '(62) 99999-9999', '1', 2, 'Ok');
+INSERT INTO locacao.usuario(id, nome, matricula, senha, email, telefone, ativo, id_funcao, status) VALUES
+(2, 'Wigor Paulo', '123', '123', 'teste@teste.com', '(62) 99999-9999', '1', 2, 'Ok');
+INSERT INTO locacao.usuario(id, nome, matricula, senha, email, telefone, ativo, id_funcao, status) VALUES
+(3, 'Danubia', '123', '123', 'teste@teste.com', '(99) 99999-9999', '1', 1, 'Ok');
+

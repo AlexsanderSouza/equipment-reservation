@@ -48,11 +48,29 @@ public class DaoRecurso {
 	
 	public List<Recurso> filtrar(Integer pIdRecurso, Integer pIdTipoRecurso, Integer pIdUnidade, String pEtiqueta, String pObs ) {
 		try {
-			String vSQL = "select rc.*, tr.nome, un.nome nomeUnidade\r\n" + 
+			/*String vSQL = "select rc.*, tr.nome, un.nome nomeUnidade\r\n" + 
 						  "  from recurso rc\r\n" + 
 						  "left join tipo_recurso tr on tr.id = rc.id_tipo_recurso\r\n" + 
 						  "left join unidade un on un.id = rc.id_unidade\r\n" + 
-						  " where 1 = 1 ";
+						  " where 1 = 1 ";*/
+			
+			String vSQL = "";
+			String vUsuarioLogado = "";
+	         
+	         DaoUsuarioLogado vUserLogado = new DaoUsuarioLogado();
+	            
+	         vUsuarioLogado = Integer.toString(vUserLogado.listar());
+	    	 
+	    	 vSQL = vSQL + "select rc.*, CONCAT(tp.nome,' ',tp.descricao) nome, un.nome nomeUnidade \r\n" + 
+	          		"  from recurso rc \r\n" + 
+	          		"left join tipo_recurso tp on tp.id = rc.id_tipo_recurso \r\n" + 
+	          		"left join unidade un on un.id = rc.id_unidade\r\n" + 
+	          		"  WHERE tp.id NOT IN  (SELECT tr.id\r\n" + 
+	          		"  FROM restricao_recurso rr\r\n" + 
+	          		"LEFT JOIN tipo_recurso tr ON tr.ID = rr.id_tipo_recurso2 AND tr.ativo = 1 \r\n" + 
+	          		"LEFT JOIN funcao f ON f.id = rr.id_funcao2\r\n" + 
+	          		"left JOIN usuario u ON u.id_funcao = f.id\r\n" + 
+	          		"  WHERE u.id = "+vUsuarioLogado+") ";
 			
 			if (pIdRecurso != null) {
 				String vIdRecurso = Integer.toString(pIdRecurso);
@@ -124,10 +142,23 @@ public class DaoRecurso {
 	
     public List<Recurso> listar() throws Exception{
     	 String vSQL = "";
+         String vUsuarioLogado = "";
          
-         vSQL = vSQL + "select rc.*, tp.nome nome, un.nome nomeUnidade from recurso rc "+
-                       "left join tipo_recurso tp on tp.id = rc.id_tipo_recurso "+
-        		       "left join unidade un on un.id = rc.id_unidade ";
+         DaoUsuarioLogado vUserLogado = new DaoUsuarioLogado();
+            
+         vUsuarioLogado = Integer.toString(vUserLogado.listar());
+    	 
+    	 vSQL = vSQL + "select rc.*, CONCAT(tp.nome,' ',tp.descricao) nome, un.nome nomeUnidade \r\n" + 
+          		"  from recurso rc \r\n" + 
+          		"left join tipo_recurso tp on tp.id = rc.id_tipo_recurso \r\n" + 
+          		"left join unidade un on un.id = rc.id_unidade\r\n" + 
+          		"  WHERE tp.id NOT IN  (SELECT tr.id\r\n" + 
+          		"  FROM restricao_recurso rr\r\n" + 
+          		"LEFT JOIN tipo_recurso tr ON tr.ID = rr.id_tipo_recurso2 AND tr.ativo = 1 \r\n" + 
+          		"LEFT JOIN funcao f ON f.id = rr.id_funcao2\r\n" + 
+          		"left JOIN usuario u ON u.id_funcao = f.id\r\n" + 
+          		"  WHERE u.id = "+vUsuarioLogado+") ";
+          
          
         List<Recurso> vListaRecurso = new ArrayList<Recurso>();
         java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();

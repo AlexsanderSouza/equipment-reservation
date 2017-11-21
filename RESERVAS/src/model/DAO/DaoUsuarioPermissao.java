@@ -62,7 +62,7 @@ public class DaoUsuarioPermissao {
 	public void inserir(int pPermissao, int pLastId) {
 		try {
 
-			String vSQL = "INSERT INTO usuario_permissao (id_usuario, id_permissao) VALUES ( ?, ?);";
+			String vSQL = "INSERT INTO usuario_permissao (id_usuario2, id_permissao2) VALUES ( ?, ?);";
 			
 			
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
