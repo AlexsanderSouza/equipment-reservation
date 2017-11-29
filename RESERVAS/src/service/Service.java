@@ -94,6 +94,16 @@ public class Service {
 		}
 	}
 
+	public int listarRecursoID(String pTipoRecursoID) {
+		try {
+			return vDaoDisponivel.listarRecursoID(pTipoRecursoID);
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro no Filtro: \n" + e.getMessage());
+			return 0;
+		}
+	}
+	
 	public List<Permissao> listaFuncaoPermissao(int pIdFuncao) {
 		try {
 			return vDaoFuncaoPermissao.listar(pIdFuncao);

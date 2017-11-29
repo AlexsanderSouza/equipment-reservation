@@ -4,9 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import view.COMPONENTE_DATAHORA.DateTimePicker;
-import view.RESERVA.ViewReserva;
 import model.Alerta;
 import model.ENTITY.Disponivel;
+import model.ENTITY.Reserva;
 import service.Service;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -105,6 +105,30 @@ public class ControllerDisponivel implements Initializable {
 		inserirTabela();
 	}
 	
+	public void inserirReserva(){
+		String vDataInicio = vDataTimeInicial.getTextField().getText();
+    	String vDataFinal = vDataTimeFinal.getTextField().getText();
+    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+    	
+    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+	    
+		int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+    			
+    	Reserva vReserva = new Reserva();
+		
+		vReserva.setData_hora_reserva(vDataInicio);
+		vReserva.setData_hora_final(vDataFinal);
+		vReserva.setId_responsavel(vUsuarioLogado);
+		vReserva.setId_destinatario(vUsuarioLogado);
+		vReserva.setStatus("ATIVO");
+		vReserva.setRepeticao("EVENTO UNICO");
+		vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+		
+		vCtrl.InserirReserva(vReserva);
+		
+		
+	}
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -127,10 +151,13 @@ public class ControllerDisponivel implements Initializable {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				try {
-                	ViewReserva vReserva = new ViewReserva();
-                	vReserva.start();
+                	//ViewReserva vReserva = new ViewReserva();
+                	//vReserva.start();
+					inserirReserva();
+					
                 } catch (Exception e) {
-                	vAlerta.mensagemAlerta("Erro ao Abrir Tela de Reserva! \n"+"Erro: "+e.getMessage());                    
+                	vAlerta.mensagemAlerta("Erro ao gravar reserva! \n Erro: "+e.getMessage());
+                	//vAlerta.mensagemAlerta("Erro ao Abrir Tela de Reserva! \n"+"Erro: "+e.getMessage());                    
                 }
 			}
 		});

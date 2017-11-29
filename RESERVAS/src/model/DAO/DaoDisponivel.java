@@ -10,6 +10,28 @@ import model.ENTITY.Disponivel;
 public class DaoDisponivel {
 
 	Alerta vAlerta = new Alerta();
+	
+	public int listarRecursoID(String pTipoRecursoID) throws Exception {
+		String vSQL = "";
+		
+		int vRecursoID = 0;
+		
+		vSQL = "select id \r\n" + 
+				"  from recurso \r\n" + 
+				" where id_tipo_recurso = "+pTipoRecursoID+"\r\n" + 
+				"   and id not in (select id_recurso\r\n" + 
+				"				from reserva)\r\n" + 
+				" limit 1";
+		
+		java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
+		st.executeQuery(vSQL);
+	    ResultSet rs = st.getResultSet();
+	    while(rs.next()){
+	    	vRecursoID = rs.getInt("id");
+	    }
+		
+		return vRecursoID;
+	}
     
 	public List<Disponivel> listarDisponivel(String pDataInicio,String pDataFim) throws Exception{
 	    
@@ -46,9 +68,17 @@ public class DaoDisponivel {
 	    	Disponivel vDisponivel = new Disponivel(); //chamar a classe disponivel.. e adicionar na grid
 	    	
 	    	vDisponivel.setTipo(rs.getString("tipo")+" - "+rs.getString("nome"));
-	    		    	
+	    		
 	    	vQtdeDisponivel = rs.getString("qtdedisp");
 	    	vQtdeLocado = rs.getString("qtdeloca");
+	    	
+	    	if (vQtdeDisponivel == null) {
+	    		vQtdeDisponivel = "0";
+	    	}
+	    	
+	    	if (vQtdeLocado == null) {
+	    		vQtdeLocado = "0";
+	    	}
 	    	
 	    	vQtdeEstoque = Integer.toString( Integer.parseInt(vQtdeDisponivel) - Integer.parseInt(vQtdeLocado));
 	    	
