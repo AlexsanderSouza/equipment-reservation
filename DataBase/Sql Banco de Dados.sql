@@ -1,3 +1,5 @@
+DROP SCHEMA `locacao`;
+
 CREATE SCHEMA `locacao` ;
 
 CREATE TABLE locacao.usuario_logado(
@@ -53,7 +55,7 @@ ativo VARCHAR(1),
 id_instituicao INT UNSIGNED NOT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_instituicao_idx` (`id_instituicao` ASC) , 
+INDEX `id_instituicao_unidade` (`id_instituicao` ASC) , 
 	CONSTRAINT `id_instituicao` FOREIGN KEY (`id_instituicao` ) REFERENCES `instituicao` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE  
 );
@@ -70,7 +72,7 @@ id_funcao INT UNSIGNED NOT NULL,
 status varchar(25),
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC) ,
-INDEX `id_funcao_idx` (`id_funcao` ASC) ,
+INDEX `id_funcao_usuario` (`id_funcao` ASC) ,
 	CONSTRAINT `id_funcao_user` FOREIGN KEY (`id_funcao` ) REFERENCES `funcao` (`id` )
 );
 
@@ -80,10 +82,10 @@ id_funcao INT UNSIGNED,
 id_permissao int UNSIGNED,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_permissao_idx` (`id_permissao` ASC) ,
+INDEX `id_permissao_funcao_permissao` (`id_permissao` ASC) ,
 	CONSTRAINT `id_permissao` FOREIGN KEY (`id_permissao` ) REFERENCES `permissao` (`id` )
 	ON DELETE NO ACTION ON UPDATE NO ACTION,
-INDEX `id_funcao_idx` (`id_funcao` ASC) , 
+INDEX `id_funcao_funcao_permissao` (`id_funcao` ASC) , 
 	CONSTRAINT `id_funcao` FOREIGN KEY (`id_funcao` ) REFERENCES `funcao` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE    
 );
@@ -97,10 +99,10 @@ id_tipo_recurso INT UNSIGNED NOT NULL,
 ativo VARCHAR(1),
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_tipo_recurso_idx` (`id_tipo_recurso` ASC) , 
+INDEX `id_tipo_recurso_recurso` (`id_tipo_recurso` ASC) , 
 	CONSTRAINT `id_tipo_recurso` FOREIGN KEY (`id_tipo_recurso` ) REFERENCES `tipo_recurso` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,
-INDEX `id_unidade_idx` (`id_unidade` ASC) , 
+INDEX `id_unidade_recurso` (`id_unidade` ASC) , 
 	CONSTRAINT `id_unidade` FOREIGN KEY (`id_unidade` ) REFERENCES `unidade` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE	
 );
@@ -116,13 +118,13 @@ repeticao VARCHAR(100), -- EVENTO UNICO / SEMANALMENTE A CADA SEGUNDA / SEMANALM
 status VARCHAR(50), -- ATIVO / PENDENTE / CONCLUIDO
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_recurso_idx` (`id_recurso` ASC) , 
+INDEX `id_recurso_reserva` (`id_recurso` ASC) , 
 	CONSTRAINT `id_recurso` FOREIGN KEY (`id_recurso` ) REFERENCES `recurso` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,
-INDEX `id_destinatario_idx` (`id_destinatario` ASC) , 
+INDEX `id_destinatario_reserva` (`id_destinatario` ASC) , 
 	CONSTRAINT `id_destinatario` FOREIGN KEY (`id_destinatario` ) REFERENCES `usuario` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,	
-INDEX `id_responsavel_idx` (`id_responsavel` ASC) , 
+INDEX `id_responsavel_reserva` (`id_responsavel` ASC) , 
 	CONSTRAINT `id_responsavel` FOREIGN KEY (`id_responsavel` ) REFERENCES `usuario` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -133,33 +135,26 @@ id_tipo_recurso2 INT UNSIGNED NOT NULL,
 id_funcao2 INT UNSIGNED NOT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_tipo_recurso2_idx` (id_tipo_recurso2 ASC) , 
+INDEX `id_tipo_recurso2_restricao_recurso` (id_tipo_recurso2 ASC) , 
 	CONSTRAINT id_tipo_recurso2 FOREIGN KEY (id_tipo_recurso2 ) REFERENCES `tipo_recurso` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,
-INDEX `id_funcao2_idx` (id_funcao2 ASC) , 
+INDEX `id_funcao2_restricao_recurso` (id_funcao2 ASC) , 
 	CONSTRAINT id_funcao2 FOREIGN KEY (id_funcao2 ) REFERENCES `funcao` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE	
 );
 
 CREATE TABLE locacao.repeticao (
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-id_reserva2 INT UNSIGNED NOT NULL,
-id_responsavel2 INT UNSIGNED NOT NULL,
-id_destinatario2 INT UNSIGNED NOT NULL,
-data_hora_reserva DATETIME NOT NULL,
-data_hora_final DATETIME NOT NULL,
-ativo VARCHAR(1), -- ATIVO / INATIVO
+id_reserva_origem INT UNSIGNED NOT NULL,
+id_reserva_new INT UNSIGNED NOT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_reserva2_idx` (id_reserva2 ASC) , 
-	CONSTRAINT id_reserva2 FOREIGN KEY (id_reserva2 ) REFERENCES `reserva` (`id` )
+INDEX `id_reserva_origem_repeticao` (id_reserva_origem ASC) , 
+	CONSTRAINT id_reserva_origem FOREIGN KEY (id_reserva_origem ) REFERENCES `reserva` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,
-INDEX `id_destinatario2_idx` (`id_destinatario2` ASC) , 
-	CONSTRAINT `id_destinatario2` FOREIGN KEY (`id_destinatario2` ) REFERENCES `usuario` (`id` )
-	ON DELETE CASCADE ON UPDATE CASCADE,	
-INDEX `id_responsavel2_idx` (`id_responsavel2` ASC) , 
-	CONSTRAINT `id_responsavel2` FOREIGN KEY (`id_responsavel2` ) REFERENCES `usuario` (`id` )
-	ON DELETE CASCADE ON UPDATE CASCADE	
+INDEX `id_reserva_new_repeticao` (id_reserva_new ASC) , 
+	CONSTRAINT id_reserva_new FOREIGN KEY (id_reserva_new ) REFERENCES `reserva` (`id` )
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE locacao.usuario_permissao (
@@ -168,10 +163,10 @@ id_usuario2 INT UNSIGNED DEFAULT NULL,
 id_permissao2 INT UNSIGNED DEFAULT NULL,
 PRIMARY KEY (`id`),
 UNIQUE INDEX `id` (`id` ASC),
-INDEX `id_usuario2_idx` (id_usuario2 ASC) , 
+INDEX `id_usuario2_usuario_permissao` (id_usuario2 ASC) , 
 	CONSTRAINT id_usuario2 FOREIGN KEY (id_usuario2 ) REFERENCES `usuario` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE,
-INDEX `id_permissao2_idx` (id_permissao2 ASC) , 
+INDEX `id_permissao2_usuario_permissao` (id_permissao2 ASC) , 
 	CONSTRAINT id_permissao2 FOREIGN KEY (id_permissao2 ) REFERENCES `permissao` (`id` )
 	ON DELETE CASCADE ON UPDATE CASCADE		
 );
