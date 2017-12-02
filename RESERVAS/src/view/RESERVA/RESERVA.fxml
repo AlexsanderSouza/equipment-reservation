@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RESERVA.controllerReserva">
+<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RESERVA.ControllerReserva">
    <children>
       <TabPane fx:id="tabPane" layoutX="69.0" layoutY="31.0" prefHeight="427.0" prefWidth="841.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
         <tabs>
@@ -35,7 +35,7 @@
                            <children>
                               <Button fx:id="btnFiltrar" layoutX="54.0" layoutY="353.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Filtrar" />
                               <Label alignment="CENTER" layoutX="-1.0" layoutY="34.0" prefHeight="17.0" prefWidth="192.0" text="ID" />
-                              <Label alignment="CENTER" layoutY="266.0" prefHeight="17.0" prefWidth="193.0" text="AUTOR" />
+                              <Label alignment="CENTER" disable="true" layoutY="266.0" prefHeight="17.0" prefWidth="193.0" text="AUTOR" visible="false" />
                               <Label alignment="CENTER" layoutX="2.0" layoutY="308.0" prefHeight="17.0" prefWidth="192.0" text="DESTINATÁRIO" />
                               <TextField fx:id="txtPesqID" layoutX="23.0" layoutY="52.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="30.0" prefWidth="94.0" text="PESQUISA">
@@ -55,7 +55,7 @@
                               <Label layoutX="43.0" layoutY="178.0" text="Inicio" />
                               <Label layoutX="53.0" layoutY="204.0" text="Fim" />
                               <ComboBox fx:id="cbxPesqStatus" layoutX="23.0" layoutY="241.0" prefWidth="150.0" />
-                              <ComboBox fx:id="cbxPesqAutor" layoutX="22.0" layoutY="283.0" prefWidth="150.0" />
+                              <ComboBox fx:id="cbxPesqAutor" disable="true" layoutX="22.0" layoutY="283.0" prefWidth="150.0" visible="false" />
                               <ComboBox fx:id="cbxPesqDestinatario" layoutX="23.0" layoutY="325.0" prefWidth="150.0" />
                            </children>
                         </AnchorPane>
@@ -72,16 +72,16 @@
                      <children>
                         <AnchorPane layoutX="-12.0" layoutY="-8.0" prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="140.0" layoutY="65.0" text="RESPONSAVEL" AnchorPane.leftAnchor="140.0" />
+                              <Label disable="true" layoutX="140.0" layoutY="65.0" text="RESPONSAVEL" visible="false" AnchorPane.leftAnchor="140.0" />
                               <Label layoutX="138.0" layoutY="97.0" text="DESTINATÁRIO" AnchorPane.leftAnchor="138.0" />
                               <Label layoutX="71.0" layoutY="131.0" text="DATA E HORA DA RESERVA" AnchorPane.leftAnchor="71.0" />
                               <Label layoutX="56.0" layoutY="165.0" text="DARA E HORA FINAL RESERVA" AnchorPane.leftAnchor="56.0" />
                               <Label layoutX="111.0" layoutY="234.0" text="TIPO DE REPETIÇÃO" AnchorPane.leftAnchor="111.0" />
-                              <Label layoutX="174.0" layoutY="266.0" text="STATUS:" AnchorPane.leftAnchor="174.0" />
-                              <ComboBox fx:id="cbxResponsavel" layoutX="226.0" layoutY="61.0" prefWidth="150.0" />
+                              <Label disable="true" layoutX="174.0" layoutY="266.0" text="STATUS:" visible="false" AnchorPane.leftAnchor="174.0" />
+                              <ComboBox fx:id="cbxResponsavel" disable="true" layoutX="226.0" layoutY="61.0" prefWidth="150.0" visible="false" />
                               <ComboBox fx:id="cbxdestinatario" layoutX="226.0" layoutY="93.0" prefWidth="150.0" />
                               <ComboBox fx:id="cbxTipoRepeticao" layoutX="226.0" layoutY="230.0" prefWidth="150.0" />
-                              <ComboBox fx:id="cbxStatus" layoutX="226.0" layoutY="262.0" prefWidth="150.0" />
+                              <ComboBox fx:id="cbxStatus" disable="true" layoutX="226.0" layoutY="262.0" prefWidth="150.0" visible="false" />
                               <ComboBox fx:id="cbxRecurso" layoutX="227.0" layoutY="195.0" prefWidth="150.0" />
                               <Label layoutX="165.0" layoutY="199.0" text="RECURSO" />
                               <VBox fx:id="vboxReserva" layoutX="226.0" layoutY="127.0" prefHeight="59.0" prefWidth="151.0" />
@@ -103,7 +103,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="30.0" prefWidth="780.0">
          <children>
-            <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="30.0" prefWidth="780.0" text="RESERVA" textAlignment="CENTER" />
+            <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="30.0" prefWidth="780.0" text="CADASTRO DE RESERVA" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </children>

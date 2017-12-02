@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.DISPONIVEL.ControllerDisponivel">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="56.0" layoutY="31.0" prefHeight="427.0" prefWidth="712.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="31.0">
+        <tabs>
+          <Tab fx:id="ctrlPag1" text="Pagina1">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tbGrid" layoutX="2.0" layoutY="200.0" prefHeight="198.0" prefWidth="712.0" />
+                        <Button fx:id="btnPesquisar" layoutX="618.0" layoutY="155.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="82.0" text="Pesquisar" />
+                        <Label layoutX="14.0" layoutY="14.0" text="Data da Reserva" />
+                        <Label layoutX="245.0" layoutY="14.0" text="Hora Inicial" />
+                        <Label layoutX="410.0" layoutY="14.0" text="Hora Final" />
+                        <DatePicker fx:id="edtDataReserva" layoutX="106.0" layoutY="10.0" prefHeight="25.0" prefWidth="123.0" />
+                        <TextField fx:id="edtHoraInicio" layoutX="312.0" layoutY="10.0" prefHeight="25.0" prefWidth="88.0" />
+                        <TextField fx:id="edtHoraFinal" layoutX="470.0" layoutY="10.0" prefHeight="25.0" prefWidth="88.0" />
+                        <ComboBox fx:id="cbxQtde" layoutX="109.0" layoutY="71.0" prefHeight="25.0" prefWidth="121.0" />
+                        <Label layoutX="27.0" layoutY="75.0" text="Repete a cada" />
+                        <Label layoutX="20.0" layoutY="48.0" prefHeight="17.0" prefWidth="345.0" text="-----------------------Informação Repetiçao-----------------------" />
+                        <Label layoutX="240.0" layoutY="75.0" text="dias" />
+                        <Label layoutX="53.0" layoutY="105.0" text="Inicio em" />
+                        <DatePicker fx:id="edtDataInicio" layoutX="109.0" layoutY="102.0" prefHeight="25.0" prefWidth="122.0" />
+                        <Label layoutX="58.0" layoutY="137.0" text="Termina" />
+                        <CheckBox fx:id="chkApos" layoutX="109.0" layoutY="137.0" mnemonicParsing="false" text="Após" />
+                        <TextField fx:id="edtQtdeOcorrer" layoutX="161.0" layoutY="133.0" prefHeight="25.0" prefWidth="70.0" />
+                        <Label layoutX="235.0" layoutY="137.0" prefHeight="17.0" prefWidth="63.0" text="ocorrências" />
+                        <CheckBox fx:id="chkEm" layoutX="109.0" layoutY="167.0" mnemonicParsing="false" text="Em" />
+                        <DatePicker fx:id="edtDataFinal" layoutX="162.0" layoutY="163.0" prefHeight="25.0" prefWidth="134.0" />
+                        <Label layoutX="21.0" layoutY="183.0" text="----------------------------------------------------------------------" />
+                        <Label layoutX="19.0" layoutY="177.0" text="|" />
+                        <Label layoutX="19.0" layoutY="53.0" text="|" />
+                        <Label layoutX="19.0" layoutY="63.0" text="|" />
+                        <Label layoutX="19.0" layoutY="73.0" text="|" />
+                        <Label layoutX="19.0" layoutY="83.0" text="|" />
+                        <Label layoutX="19.0" layoutY="93.0" text="|" />
+                        <Label layoutX="19.0" layoutY="103.0" text="|" />
+                        <Label layoutX="19.0" layoutY="113.0" text="|" />
+                        <Label layoutX="19.0" layoutY="123.0" text="|" />
+                        <Label layoutX="19.0" layoutY="133.0" text="|" />
+                        <Label layoutX="19.0" layoutY="153.0" text="|" />
+                        <Label layoutX="19.0" layoutY="143.0" text="|" />
+                        <Label layoutX="19.0" layoutY="165.0" text="|" />
+                        <Label layoutX="354.0" layoutY="165.0" text="|" />
+                        <Label layoutX="354.0" layoutY="143.0" text="|" />
+                        <Label layoutX="354.0" layoutY="153.0" text="|" />
+                        <Label layoutX="354.0" layoutY="133.0" text="|" />
+                        <Label layoutX="354.0" layoutY="123.0" text="|" />
+                        <Label layoutX="354.0" layoutY="113.0" text="|" />
+                        <Label layoutX="354.0" layoutY="103.0" text="|" />
+                        <Label layoutX="354.0" layoutY="93.0" text="|" />
+                        <Label layoutX="354.0" layoutY="83.0" text="|" />
+                        <Label layoutX="354.0" layoutY="73.0" text="|" />
+                        <Label layoutX="354.0" layoutY="63.0" text="|" />
+                        <Label layoutX="354.0" layoutY="53.0" text="|" />
+                        <Label layoutX="354.0" layoutY="177.0" text="|" />
+                        <CheckBox fx:id="chkRepetir" layoutX="367.0" layoutY="57.0" mnemonicParsing="false" text="Repetir" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane layoutY="35.0" prefHeight="419.0" prefWidth="63.0">
+         <children>
+            <Button fx:id="btnReserva" layoutY="303.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Reserva" />
+            <Button fx:id="btnSair" layoutY="362.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="30.0" prefWidth="780.0">
+         <children>
+            <Label alignment="CENTER" layoutX="1.0" layoutY="2.0" prefHeight="30.0" prefWidth="780.0" text="CONSULTA DISPONIVEL" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
