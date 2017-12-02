@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BAIXA_RESERVA.ControllerBaixaReserva">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="56.0" layoutY="31.0" prefHeight="427.0" prefWidth="799.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="31.0">
+        <tabs>
+          <Tab fx:id="ctrlPag1" text="Grid">
+               <content>
+                  <AnchorPane prefHeight="398.0" prefWidth="749.0">
+                     <children>
+                        <TableView fx:id="tbGrid" prefHeight="398.0" prefWidth="554.0" />
+                        <AnchorPane layoutX="565.0" prefHeight="399.0" prefWidth="220.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="7.0" prefHeight="30.0" prefWidth="94.0" text="PESQUISA">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="37.0" prefHeight="17.0" prefWidth="192.0" text="ID" />
+                              <TextField fx:id="txtPesqID" layoutX="36.0" layoutY="54.0" />
+                              <Label layoutX="56.0" layoutY="85.0" text="Periodo de Cadastro" />
+                              <Label layoutX="11.0" layoutY="132.0" text="Fim" />
+                              <Label layoutX="1.0" layoutY="106.0" text="Inicio" />
+                              <DatePicker fx:id="dtInicial" layoutX="36.0" layoutY="102.0" prefHeight="25.0" prefWidth="102.0" />
+                              <DatePicker fx:id="dtFim" layoutX="36.0" layoutY="128.0" prefHeight="25.0" prefWidth="101.0" />
+                              <TextField fx:id="txtCadHoraInicio" layoutX="143.0" layoutY="102.0" prefHeight="25.0" prefWidth="63.0" />
+                              <TextField fx:id="txtCadHoraFim" layoutX="143.0" layoutY="128.0" prefHeight="25.0" prefWidth="63.0" />
+                              <Label layoutX="76.0" layoutY="153.0" text="Periodo de Fim" />
+                              <DatePicker fx:id="dtInicial2" layoutX="37.0" layoutY="170.0" prefHeight="25.0" prefWidth="100.0" />
+                              <DatePicker fx:id="dtFim2" layoutX="37.0" layoutY="196.0" prefHeight="25.0" prefWidth="101.0" />
+                              <TextField fx:id="txtFimHoraInicio" layoutX="143.0" layoutY="170.0" prefHeight="25.0" prefWidth="63.0" />
+                              <TextField fx:id="txtFimHoraFim" layoutX="143.0" layoutY="196.0" prefHeight="25.0" prefWidth="63.0" />
+                              <Label layoutX="2.0" layoutY="174.0" text="Inicio" />
+                              <Label layoutX="10.0" layoutY="199.0" text="Fim" />
+                              <Label layoutX="100.0" layoutY="227.0" text="Status" />
+                              <ComboBox fx:id="cbxPesqStatus" layoutX="42.0" layoutY="244.0" prefWidth="150.0" />
+                              <Label alignment="CENTER" layoutX="21.0" layoutY="269.0" prefHeight="17.0" prefWidth="192.0" text="DESTINATÁRIO" />
+                              <ComboBox fx:id="cbxPesqDestinatario" layoutX="42.0" layoutY="286.0" prefWidth="150.0" />
+                              <Button fx:id="btnFiltrar" layoutX="76.0" layoutY="321.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="81.0" text="Filtrar" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+          <Tab fx:id="ctrlPag2" text="Novo">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane layoutX="13.0" layoutY="11.0" prefHeight="378.0" prefWidth="504.0">
+                           <children>
+                              <ComboBox fx:id="cbxResponsavel" disable="true" layoutX="232.0" layoutY="59.0" prefHeight="25.0" prefWidth="233.0" />
+                           </children>
+                        </AnchorPane>
+                        <VBox fx:id="vboxReserva" disable="true" layoutX="246.0" layoutY="138.0" prefHeight="59.0" prefWidth="151.0" visible="false" />
+                        <ComboBox fx:id="cbxRecurso" disable="true" layoutX="247.0" layoutY="205.0" prefHeight="25.0" prefWidth="229.0" />
+                        <ComboBox fx:id="cbxStatus" layoutX="246.0" layoutY="274.0" prefHeight="25.0" prefWidth="230.0" />
+                        <ComboBox fx:id="cbxTipoRepeticao" disable="true" layoutX="246.0" layoutY="240.0" prefWidth="150.0" visible="false" />
+                        <ComboBox fx:id="cbxdestinatario" disable="true" layoutX="246.0" layoutY="105.0" prefHeight="25.0" prefWidth="231.0" />
+                        <Label layoutX="175.0" layoutY="209.0" text="RECURSO" />
+                        <Label layoutX="184.0" layoutY="276.0" text="STATUS:" />
+                        <Label disable="true" layoutX="121.0" layoutY="244.0" text="TIPO DE REPETIÇÃO" visible="false" />
+                        <Label disable="true" layoutX="66.0" layoutY="175.0" text="DARA E HORA FINAL RESERVA" visible="false" />
+                        <Label disable="true" layoutX="81.0" layoutY="141.0" text="DATA E HORA DA RESERVA" visible="false" />
+                        <Label layoutX="148.0" layoutY="107.0" text="DESTINATÁRIO" />
+                        <Label layoutX="150.0" layoutY="75.0" text="RESPONSAVEL" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
+        </tabs>
+      </TabPane>
+      <Pane layoutY="31.0" prefHeight="419.0" prefWidth="63.0">
+         <children>
+            <Button fx:id="btnSalvar" layoutY="125.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Salvar" />
+            <Button fx:id="btnAlterar" layoutY="68.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Alterar" />
+            <Button fx:id="btnVoltar" layoutY="10.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Voltar" />
+            <Button fx:id="btnSair" layoutY="364.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="63.0" text="Sair" />
+         </children>
+      </Pane>
+      <Pane layoutY="-1.0" prefHeight="30.0" prefWidth="780.0">
+         <children>
+            <Label alignment="CENTER" layoutX="1.0" layoutY="7.0" prefHeight="17.0" prefWidth="780.0" text="BAIXA DE RESERVA" textAlignment="CENTER" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
