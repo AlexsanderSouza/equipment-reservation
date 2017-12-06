@@ -18,8 +18,8 @@ public class DaoUsuarioPermissao {
 		List<Permissao> vListaPermissao = new ArrayList<Permissao>();
 		java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
 		st.executeQuery(
-				"SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (select * from usuario_permissao where id_usuario = "
-						+ pIdUsuario + ") fc on per.id = fc.id_permissao");
+				"SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (select * from usuario_permissao where id_usuario2 = "
+						+ pIdUsuario + ") fc on per.id = fc.id_permissao2");
 		ResultSet rs = st.getResultSet();
 		while (rs.next()) {
 			Permissao vPermissao = new Permissao();
@@ -40,7 +40,7 @@ public class DaoUsuarioPermissao {
 			List<Permissao> vListaPermissao = new ArrayList<Permissao>();
 			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
 			st.executeQuery("SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (SELECT upe.id_permissao FROM usuario_permissao upe "
-					+ "WHERE upe.id_permissao NOT IN  (select id_permissao from funcao_permissao where id_funcao = "+pIdFuncao+") and upe.id_usuario ="+pIdUsuario+") fc on per.id = fc.id_permissao;");
+					+ "WHERE upe.id_permissao2 NOT IN  (select id_permissao from funcao_permissao where id_funcao = "+pIdFuncao+") and upe.id_usuario2 ="+pIdUsuario+") fc on per.id = fc.id_permissao2;");
 			ResultSet rs = st.getResultSet();
 			while (rs.next()) {
 				Permissao vPermissao = new Permissao();
@@ -81,7 +81,7 @@ public class DaoUsuarioPermissao {
 	public void excluirUsuarioPermissao(Usuario pUsuario) {
 		try {
 
-			String vSQL = "DELETE FROM usuario_permissao WHERE `id_usuario`='" + pUsuario.getId() + "'";
+			String vSQL = "DELETE FROM usuario_permissao WHERE `id_usuario2`='" + pUsuario.getId() + "'";
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
 
 			st.execute();
@@ -100,7 +100,7 @@ public class DaoUsuarioPermissao {
 	public void excluirPermissaoUsuario(Permissao pPermissao) {
 		try {
 
-			String vSQL = "DELETE FROM usuario_permissao WHERE `id_permissao`='" + pPermissao.getId() + "'";
+			String vSQL = "DELETE FROM usuario_permissao WHERE `id_permissao2`='" + pPermissao.getId() + "'";
 			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
 
 			st.execute();
