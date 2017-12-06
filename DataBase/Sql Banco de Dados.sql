@@ -235,3 +235,12 @@ INSERT INTO locacao.usuario(id, nome, matricula, senha, email, telefone, ativo, 
 INSERT INTO locacao.usuario(id, nome, matricula, senha, email, telefone, ativo, id_funcao, status) VALUES
 (3, 'Danubia', '123', '123', 'teste@teste.com', '(99) 99999-9999', '1', 1, 'Ok');
 
+-- Teste
+/*CREATE TABLE locacao.repeticao (
+id_reserva_origem INT NOT NULL,
+id_reserva_new INT NOT NULL
+);*/
+
+ALTER TABLE reserva ADD COLUMN data_reserva date;
+ALTER TABLE reserva ADD COLUMN hora_inicio time;
+ALTER TABLE reserva ADD COLUMN hora_fim time;
