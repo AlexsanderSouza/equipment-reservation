@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import model.Alerta;
+import model.SomarData;
 import model.ENTITY.Disponivel;
 import model.ENTITY.Reserva;
 import service.Service;
@@ -45,7 +46,7 @@ public class ControllerDisponivel implements Initializable {
  	private ComboBox<String> cbxQtde;
  	
 	@FXML
-	private DatePicker edtDatainicio, edtDataReserva, edtDataFinal;
+	private DatePicker edtRepDataInicio, edtDataReserva, edtRepDataFinal;
 	
 	@FXML
 	private TextField edtQtdeOcorrer, edtHoraInicio, edtHoraFinal;
@@ -66,18 +67,98 @@ public class ControllerDisponivel implements Initializable {
     }
 	
 	public void Filtro(){
-		String vDataInicio;
-		String vDataFinal;
-		try {		
-			 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
-	    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
-		} catch (Exception e) {
-			// TODO: handle exception
-			vDataInicio = "";
-			vDataFinal  = "";
-		}		
-		ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListaDisponivel(vDataInicio, vDataFinal));
-    	tbGrid.setItems(vLista);
+		
+		Boolean vRepetir = chkRepetir.isSelected();
+		
+		if (vRepetir == false) {
+			
+			String vDataInicio;
+			String vDataFinal;
+			try {		
+				 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
+		    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
+			} catch (Exception e) {
+				// TODO: handle exception
+				vDataInicio = "";
+				vDataFinal  = "";
+			}		
+			ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListaDisponivel(vDataInicio, vDataFinal));
+	    	tbGrid.setItems(vLista);
+	    	
+		} else {
+			int vRepQtdeDias = 0;
+			String vRepDataInicio = "";
+			int vRepQtdeOcorrencia = 0;
+			String vRepDataFim = "";
+			String vDataPesquisa = "";
+			String vHoraInicio = "";
+			String vHoraFim = "";
+			
+			
+			try {
+				vHoraInicio = edtHoraInicio.getText();
+			} catch (Exception e) {
+				// TODO: handle exception
+				vHoraInicio = "";
+			}
+			
+			try {
+				vHoraFim = edtHoraFinal.getText();
+			} catch (Exception e) {
+				// TODO: handle exception
+				vHoraFim = "";
+			}
+			
+			try {
+				vRepQtdeDias = Integer.parseInt(cbxQtde.getValue());
+			} catch (Exception e) {
+				// TODO: handle exception
+				vRepQtdeDias = 0;
+			}
+			
+			try {
+				vRepDataInicio = edtRepDataInicio.getValue().toString();
+			} catch (Exception e) {
+				// TODO: handle exception
+				vRepDataInicio = "";
+			}
+			
+			try {
+				vRepQtdeOcorrencia = Integer.parseInt(edtQtdeOcorrer.getText());
+			} catch (Exception e) {
+				// TODO: handle exception
+				vRepQtdeOcorrencia = 0;
+			}
+
+			try {
+				vRepDataFim = edtRepDataFinal.getValue().toString();
+			} catch (Exception e) {
+				// TODO: handle exception
+				vRepDataFim = "";
+			}
+			
+			SomarData vSomaData = new SomarData();
+			String vNewData = "";
+			
+			//Primeiro Caso
+			if ((vRepQtdeDias > 0) && (!vRepDataInicio.equals("") && (vRepQtdeOcorrencia > 0))) {
+				vDataPesquisa = "'"+edtDataReserva.getValue().toString()+"','"+vRepDataInicio+"'";
+				
+				for (int i = 0; i < vRepQtdeOcorrencia; i++) {
+					
+					vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
+					vRepDataInicio = vNewData;
+					vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";					
+				}
+				
+				//Chamar a função de pesquisa				
+				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
+		    	tbGrid.setItems(vLista);
+		    	
+			}
+			
+		}
+    	
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -134,7 +215,7 @@ public class ControllerDisponivel implements Initializable {
 			try {
 			
 			 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
-	    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText(); 
+	    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
 	    	
 	    	 vReserva.setData_hora_reserva(vDataInicio);
 	 		 vReserva.setData_hora_final(vDataFinal);
@@ -160,6 +241,9 @@ public class ControllerDisponivel implements Initializable {
 			vCtrl.InserirReserva(vReserva);
 		} else {
 			vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
+			
+			
+			
 		}
 				
 	}

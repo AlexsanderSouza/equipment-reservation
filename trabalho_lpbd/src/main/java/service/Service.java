@@ -83,6 +83,16 @@ public class Service {
 			return null;
 		}
 	}
+		
+	public List<Disponivel> ListarRepeticao(String pRepData, String pHoraInicio, String pHoraFim) {
+		try {
+			return vDaoDisponivel.ListarRepeticao(pRepData, pHoraInicio, pHoraFim);
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro no Filtro: \n" + e.getMessage());
+			return null;
+		}
+	}
 
 	public List<Disponivel> ListaDisponivel(String pDataInicio, String pDataFim) {
 		try {
