@@ -281,7 +281,13 @@ public class Service {
 	}
 
 	public void alterarUsuario(Usuario pUsuario) {
-		vDaoUser.alterar(pUsuario);
+		if(pUsuario.getTelefone().length() < 14) {
+			vAlerta.mensagemAlerta("Telefone incompleto");
+		}else {
+			System.out.println(pUsuario.getTelefone().length());
+			vDaoUser.alterar(pUsuario);
+		}
+		
 	}
 
 	public void alterarFuncao(Funcao pFuncao) {
@@ -328,7 +334,12 @@ public class Service {
 	}
 
 	public int InserirUsuario(Usuario pUser) {
-		return vDaoUser.inserir(pUser);
+		if(pUser.getTelefone().length() <14) {
+			vAlerta.mensagemAlerta("Erro ao salvar: Telefone incompleto");
+			return 0;
+		}else {
+			return vDaoUser.inserir(pUser);
+		}
 	}
 
 	public int InserirFuncao(Funcao pFuncao) {
