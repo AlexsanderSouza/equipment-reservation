@@ -7,6 +7,7 @@ package view.USUARIO;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -94,7 +95,7 @@ public class ControllerUsuario implements Initializable {
 	};
 	Service vCtrl = new Service();
 	Alerta vAlerta = new Alerta();
-	
+
 	Callback cellFactoryFuncao = new Callback<ListView<Funcao>, ListCell<Funcao>>() {
 		@Override
 		public ListCell<Funcao> call(ListView<Funcao> param) {
@@ -179,7 +180,8 @@ public class ControllerUsuario implements Initializable {
 			tbColum6.setText("Telefone");
 			tbColum7.setText("Status");
 
-			tbColum1.setCellValueFactory(new PropertyValueFactory<Usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
+			tbColum1.setCellValueFactory(
+					new PropertyValueFactory<Usuario, Integer>("id")); /* SETA QUAL CAMPO DA LISTA */
 			tbColum2.setCellValueFactory(new PropertyValueFactory<Usuario, String>("matricula"));
 			tbColum3.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nome"));
 			tbColum4.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nomeFuncao"));
@@ -205,7 +207,7 @@ public class ControllerUsuario implements Initializable {
 		funcaoSelecionada = cBoxFuncao.getSelectionModel().getSelectedItem();
 		List<Permissao> vListViewPermissao = listViewPermissao.getItems();
 		Usuario vUsuario = new Usuario();
-		
+
 		vUsuario.setId_funcao(funcaoSelecionada.getId());
 		vUsuario.setNome(txtNome.getText());
 		vUsuario.setEmail(txtEmail.getText());
@@ -404,7 +406,7 @@ public class ControllerUsuario implements Initializable {
 			btnNovo.setDisable(false);
 			btnAlterar.setDisable(false);
 			btnExcluir.setDisable(false);
-			btnImprimir.setDisable(true);
+			btnImprimir.setDisable(false);
 			btnSalvar.setDisable(true);
 			btnSair.setDisable(false);
 			break;
@@ -414,7 +416,7 @@ public class ControllerUsuario implements Initializable {
 			btnAlterar.setDisable(true);
 			btnExcluir.setDisable(false);
 			btnImprimir.setDisable(true);
-			btnSalvar.setDisable(false);
+			btnSalvar.setDisable(true);
 			btnSair.setDisable(false);
 			chkAtivo.setSelected(true);
 			break;
@@ -463,7 +465,7 @@ public class ControllerUsuario implements Initializable {
 	public void onShow() {
 		this.tabPane.setTabMaxHeight(-1);
 		this.tabPane.setTabMaxWidth(-1);
-		
+
 		this.listViewPermissao.setCellFactory(cellFactoryPermissao);
 		passConfirmarSenha.setPromptText("Confirme sua senha");
 		txtTelefone.setPromptText("(99) 99999-9999");
@@ -579,6 +581,7 @@ public class ControllerUsuario implements Initializable {
 				moverPag2();
 				carregarDados();
 				ControlaBotao("voltar");
+				btnSalvar.setDisable(false);
 
 			}
 		});
@@ -590,6 +593,364 @@ public class ControllerUsuario implements Initializable {
 				filtrar();
 			}
 		});
+
+		txtMatricula.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!(cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(false);
+			}
+		});
+
+		txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!(cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtMatricula.getText().equals("") || passSenha.getText().equals(""))) {
+				System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+				btnSalvar.setDisable(false);
+			}
+		});
+
+		passSenha.textProperty().addListener((observable, oldValue, newValue) -> {
+
+			if (!(txtNome.getText().equals("") || txtMatricula.getText().equals("")
+					|| cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty())) {
+				btnSalvar.setDisable(false);
+			}
+		});
+
+		cBoxFuncao.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!(cBoxStatus.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(false);
+			}
+		});
+
+		cBoxStatus.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!(cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(false);
+			}
+		});
 	}
 
+	public Button getBtnVoltar() {
+		return btnVoltar;
+	}
+
+	public void setBtnVoltar(Button btnVoltar) {
+		this.btnVoltar = btnVoltar;
+	}
+
+	public Button getBtnNovo() {
+		return btnNovo;
+	}
+
+	public void setBtnNovo(Button btnNovo) {
+		this.btnNovo = btnNovo;
+	}
+
+	public Button getBtnAlterar() {
+		return btnAlterar;
+	}
+
+	public void setBtnAlterar(Button btnAlterar) {
+		this.btnAlterar = btnAlterar;
+	}
+
+	public Button getBtnExcluir() {
+		return btnExcluir;
+	}
+
+	public void setBtnExcluir(Button btnExcluir) {
+		this.btnExcluir = btnExcluir;
+	}
+
+	public Button getBtnSalvar() {
+		return btnSalvar;
+	}
+
+	public void setBtnSalvar(Button btnSalvar) {
+		this.btnSalvar = btnSalvar;
+	}
+
+	public Button getBtnImprimir() {
+		return btnImprimir;
+	}
+
+	public void setBtnImprimir(Button btnImprimir) {
+		this.btnImprimir = btnImprimir;
+	}
+
+	public Button getBtnSair() {
+		return btnSair;
+	}
+
+	public void setBtnSair(Button btnSair) {
+		this.btnSair = btnSair;
+	}
+
+	public Button getBtnFiltrar() {
+		return btnFiltrar;
+	}
+
+	public void setBtnFiltrar(Button btnFiltrar) {
+		this.btnFiltrar = btnFiltrar;
+	}
+
+	public TextField getTxtMatricula() {
+		return txtMatricula;
+	}
+
+	public void setTxtMatricula(TextField txtMatricula) {
+		this.txtMatricula = txtMatricula;
+	}
+
+	public TextField getTxtNome() {
+		return txtNome;
+	}
+
+	public void setTxtNome(TextField txtNome) {
+		this.txtNome = txtNome;
+	}
+
+	public TextField getTxtEmail() {
+		return txtEmail;
+	}
+
+	public void setTxtEmail(TextField txtEmail) {
+		this.txtEmail = txtEmail;
+	}
+
+	public TextField getTxtTelefone() {
+		return txtTelefone;
+	}
+
+	public void setTxtTelefone(TextField txtTelefone) {
+		this.txtTelefone = txtTelefone;
+	}
+
+	public TextField getTxtIdPesquisa() {
+		return txtIdPesquisa;
+	}
+
+	public void setTxtIdPesquisa(TextField txtIdPesquisa) {
+		this.txtIdPesquisa = txtIdPesquisa;
+	}
+
+	public TextField getTxtNomePesquisa() {
+		return txtNomePesquisa;
+	}
+
+	public void setTxtNomePesquisa(TextField txtNomePesquisa) {
+		this.txtNomePesquisa = txtNomePesquisa;
+	}
+
+	public TextField getTxtMatriculaPesquisa() {
+		return txtMatriculaPesquisa;
+	}
+
+	public void setTxtMatriculaPesquisa(TextField txtMatriculaPesquisa) {
+		this.txtMatriculaPesquisa = txtMatriculaPesquisa;
+	}
+
+	public PasswordField getPassSenha() {
+		return passSenha;
+	}
+
+	public void setPassSenha(PasswordField passSenha) {
+		this.passSenha = passSenha;
+	}
+
+	public PasswordField getPassConfirmarSenha() {
+		return passConfirmarSenha;
+	}
+
+	public void setPassConfirmarSenha(PasswordField passConfirmarSenha) {
+		this.passConfirmarSenha = passConfirmarSenha;
+	}
+
+	public Tab getCtrlPag1() {
+		return ctrlPag1;
+	}
+
+	public void setCtrlPag1(Tab ctrlPag1) {
+		this.ctrlPag1 = ctrlPag1;
+	}
+
+	public Tab getCtrlPag2() {
+		return ctrlPag2;
+	}
+
+	public void setCtrlPag2(Tab ctrlPag2) {
+		this.ctrlPag2 = ctrlPag2;
+	}
+
+	public TabPane getTabPane() {
+		return tabPane;
+	}
+
+	public void setTabPane(TabPane tabPane) {
+		this.tabPane = tabPane;
+	}
+
+	public TableView<Usuario> getTbGrid() {
+		return tbGrid;
+	}
+
+	public void setTbGrid(TableView<Usuario> tbGrid) {
+		this.tbGrid = tbGrid;
+	}
+
+	public ComboBox<Funcao> getcBoxFuncao() {
+		return cBoxFuncao;
+	}
+
+	public void setcBoxFuncao(ComboBox<Funcao> cBoxFuncao) {
+		this.cBoxFuncao = cBoxFuncao;
+	}
+
+	public ComboBox<String> getcBoxStatus() {
+		return cBoxStatus;
+	}
+
+	public void setcBoxStatus(ComboBox<String> cBoxStatus) {
+		this.cBoxStatus = cBoxStatus;
+	}
+
+	public ComboBox<Permissao> getcBoxPermissao() {
+		return cBoxPermissao;
+	}
+
+	public void setcBoxPermissao(ComboBox<Permissao> cBoxPermissao) {
+		this.cBoxPermissao = cBoxPermissao;
+	}
+
+	public ListView<Permissao> getListViewPermissao() {
+		return listViewPermissao;
+	}
+
+	public void setListViewPermissao(ListView<Permissao> listViewPermissao) {
+		this.listViewPermissao = listViewPermissao;
+	}
+
+	public CheckBox getChkAtivo() {
+		return chkAtivo;
+	}
+
+	public void setChkAtivo(CheckBox chkAtivo) {
+		this.chkAtivo = chkAtivo;
+	}
+
+	public Usuario getvUsuarioSelecionado() {
+		return vUsuarioSelecionado;
+	}
+
+	public void setvUsuarioSelecionado(Usuario vUsuarioSelecionado) {
+		this.vUsuarioSelecionado = vUsuarioSelecionado;
+	}
+
+	public String getvSalvar() {
+		return vSalvar;
+	}
+
+	public void setvSalvar(String vSalvar) {
+		this.vSalvar = vSalvar;
+	}
+
+	public TableColumn<Usuario, Integer> getTbColum1() {
+		return tbColum1;
+	}
+
+	public void setTbColum1(TableColumn<Usuario, Integer> tbColum1) {
+		this.tbColum1 = tbColum1;
+	}
+
+	public TableColumn<Usuario, String> getTbColum2() {
+		return tbColum2;
+	}
+
+	public void setTbColum2(TableColumn<Usuario, String> tbColum2) {
+		this.tbColum2 = tbColum2;
+	}
+
+	public TableColumn<Usuario, String> getTbColum3() {
+		return tbColum3;
+	}
+
+	public void setTbColum3(TableColumn<Usuario, String> tbColum3) {
+		this.tbColum3 = tbColum3;
+	}
+
+	public TableColumn<Usuario, String> getTbColum4() {
+		return tbColum4;
+	}
+
+	public void setTbColum4(TableColumn<Usuario, String> tbColum4) {
+		this.tbColum4 = tbColum4;
+	}
+
+	public TableColumn<Usuario, String> getTbColum5() {
+		return tbColum5;
+	}
+
+	public void setTbColum5(TableColumn<Usuario, String> tbColum5) {
+		this.tbColum5 = tbColum5;
+	}
+
+	public TableColumn<Usuario, String> getTbColum6() {
+		return tbColum6;
+	}
+
+	public void setTbColum6(TableColumn<Usuario, String> tbColum6) {
+		this.tbColum6 = tbColum6;
+	}
+
+	public TableColumn<Usuario, String> getTbColum7() {
+		return tbColum7;
+	}
+
+	public void setTbColum7(TableColumn<Usuario, String> tbColum7) {
+		this.tbColum7 = tbColum7;
+	}
+
+	public MaskFild getMask() {
+		return mask;
+	}
+
+	public void setMask(MaskFild mask) {
+		this.mask = mask;
+	}
+
+	public Service getvCtrl() {
+		return vCtrl;
+	}
+
+	public void setvCtrl(Service vCtrl) {
+		this.vCtrl = vCtrl;
+	}
+
+	public Alerta getvAlerta() {
+		return vAlerta;
+	}
+
+	public void setvAlerta(Alerta vAlerta) {
+		this.vAlerta = vAlerta;
+	}
+
+	public Callback getCellFactoryFuncao() {
+		return cellFactoryFuncao;
+	}
+
+	public void setCellFactoryFuncao(Callback cellFactoryFuncao) {
+		this.cellFactoryFuncao = cellFactoryFuncao;
+	}
+
+	public Callback getCellFactoryPermissao() {
+		return cellFactoryPermissao;
+	}
+
+	public void setCellFactoryPermissao(Callback cellFactoryPermissao) {
+		this.cellFactoryPermissao = cellFactoryPermissao;
+	}
+	
+	
 }
