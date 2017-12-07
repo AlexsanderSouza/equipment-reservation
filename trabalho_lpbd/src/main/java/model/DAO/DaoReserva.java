@@ -12,6 +12,45 @@ public class DaoReserva {
 	
 	Alerta vAlerta = new Alerta();
 
+	public Reserva listaUltimoResertro() {
+		Reserva vReserva = new Reserva();
+		try {
+			String vSQL = "";
+			
+			vSQL = vSQL + "SELECT * \r\n" + 
+					"  from reserva r \r\n" + 
+					"ORDER BY r.id DESC \r\n" + 
+					"LIMIT 1";
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			
+			st.execute();
+			
+			ResultSet rs = st.getResultSet();
+			while (rs.next()) {
+				
+				vReserva.setId(rs.getInt("id"));
+				vReserva.setId_responsavel(rs.getInt("id_responsavel"));
+				vReserva.setId_destinatario(rs.getInt("id_destinatario"));
+				vReserva.setData_hora_reserva(rs.getString("data_hora_reserva"));
+				vReserva.setData_hora_final(rs.getString("data_hora_final"));
+				vReserva.setRepeticao(rs.getString("repeticao"));
+				vReserva.setStatus(rs.getString("status"));
+				
+			}
+			rs.close();
+			st.close();
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função listaUltimoResertro! \n" + "Erro: " + e.getMessage());
+		}
+		
+		return vReserva;
+	}
+	
 	public void alterarStatus(Reserva pReserva) {
 		try {
 			String vSQL = "";
@@ -263,6 +302,38 @@ public class DaoReserva {
 		return vListaReserva;
 	}
 
+	public void InserirReservaRepeticao(Reserva pReserva) {
+		try {
+			String vSQL = "";
+			vSQL = vSQL+"INSERT INTO reserva(id_responsavel, id_destinatario, id_recurso, data_hora_reserva, data_hora_final, repeticao, status, data_reserva, hora_inicio, hora_fim) "
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+						
+			st.setInt(1, pReserva.getId_responsavel());
+			st.setInt(2, pReserva.getId_destinatario());
+			st.setInt(3, pReserva.getId_recurso());
+			st.setString(4, pReserva.getData_hora_reserva());
+			st.setString(5, pReserva.getData_hora_final());
+			st.setString(6, pReserva.getRepeticao());
+			st.setString(7, pReserva.getStatus());
+			st.setString(8, pReserva.getDataReserva());
+			st.setString(9, pReserva.getHoraReservaInicio());
+			st.setString(10, pReserva.getHoraReservaFim());
+						
+			st.execute();
+			st.close();
+			
+			vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			ConexaoDataBase.FecharConexao();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função INSERIR Repetição! \n" + "Erro: " + e.getMessage());
+		}
+		
+	}
+	
 	public void inserir(Reserva pReserva) {
 		try {
 			String vSQL = "INSERT INTO reserva(id, id_responsavel, id_destinatario, id_recurso, data_hora_reserva, data_hora_final, repeticao, status) "
@@ -274,7 +345,7 @@ public class DaoReserva {
 			st.setString(2, Integer.toString(pReserva.getId_responsavel()));
 			st.setString(3, Integer.toString(pReserva.getId_destinatario()));
 			st.setString(4, Integer.toString(pReserva.getId_recurso()));
-			st.setString(5, pReserva.getData_hora_reserva());
+			st.setString(5, pReserva.getData_hora_reserva());			
 			st.setString(6, pReserva.getData_hora_final());
 			st.setString(7, pReserva.getRepeticao());
 			st.setString(8, pReserva.getStatus());

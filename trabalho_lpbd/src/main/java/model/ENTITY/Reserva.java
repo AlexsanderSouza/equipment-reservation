@@ -4,6 +4,7 @@ public class Reserva {
 	private int id, id_responsavel, id_destinatario, id_recurso, qtde_gasto, qtde_estoque, qtde_disponivel; 
 	private String  data_hora_reserva, data_hora_final, repeticao,status;
 	private String nome_responsavel, nome_destinatario, nome_recurso;
+	private String dataReserva, horaReservaInicio, horaReservaFim;
 	
 	
 	public int getId() {
@@ -89,6 +90,24 @@ public class Reserva {
 	}
 	public void setNome_recurso(String nome_recurso) {
 		this.nome_recurso = nome_recurso;
+	}
+	public String getDataReserva() {
+		return dataReserva;
+	}
+	public void setDataReserva(String dataReserva) {
+		this.dataReserva = dataReserva;
+	}
+	public String getHoraReservaFim() {
+		return horaReservaFim;
+	}
+	public void setHoraReservaFim(String horaReservaFim) {
+		this.horaReservaFim = horaReservaFim;
+	}
+	public String getHoraReservaInicio() {
+		return horaReservaInicio;
+	}
+	public void setHoraReservaInicio(String horaReservaInicio) {
+		this.horaReservaInicio = horaReservaInicio;
 	}
 	 
 	

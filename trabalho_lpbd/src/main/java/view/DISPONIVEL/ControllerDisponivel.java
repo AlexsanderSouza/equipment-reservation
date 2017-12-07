@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import model.Alerta;
 import model.SomarData;
 import model.ENTITY.Disponivel;
+import model.ENTITY.Repeticao;
 import model.ENTITY.Reserva;
 import service.Service;
 import javafx.collections.FXCollections;
@@ -60,6 +61,9 @@ public class ControllerDisponivel implements Initializable {
 			
 	Service vCtrl = new Service();
 	Alerta vAlerta = new Alerta();
+	
+	String gDataReserva;
+	String gHoraInicio, gHoraFim;
 
 	public void fecharJanela() {
     	Stage stage = (Stage) btnSair.getScene().getWindow();
@@ -155,7 +159,36 @@ public class ControllerDisponivel implements Initializable {
 				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
 		    	tbGrid.setItems(vLista);
 		    	
+		    	gDataReserva = vDataPesquisa;
+		    	gHoraInicio = vHoraInicio;
+		    	gHoraFim = vHoraFim;
+		    	
 			}
+			
+			//Segundo Caso -- Faltar Saber como faz comparação entre data, tem de entrar quando DataInicial < DataFinal
+//			if ((vRepQtdeDias > 0) && (!vRepDataInicio.equals("") && (!vRepDataFim.equals("")))) {				
+//				vDataPesquisa = "'"+edtDataReserva.getValue().toString()+"','"+vRepDataInicio+"'";
+//				
+//				for (int i = 0; i < 9999 ; i++) {
+//
+//					if (vRepDataInicio.compareTo(vRepDataFim) != 1) {					
+//						vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
+//						vRepDataInicio = vNewData;
+//						vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";
+//					} else {
+//						break;
+//					}
+//				}
+//				
+//				//Chamar a função de pesquisa				
+//				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
+//		    	tbGrid.setItems(vLista);
+//		    	
+//		    	gDataReserva = vDataPesquisa;
+//		    	gHoraInicio = vHoraInicio;
+//		    	gHoraFim = vHoraFim;
+//				
+//			}
 			
 		}
     	
@@ -241,6 +274,65 @@ public class ControllerDisponivel implements Initializable {
 			vCtrl.InserirReserva(vReserva);
 		} else {
 			vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
+					
+			Reserva vReserva = new Reserva();
+			int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+	    	
+	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+		    
+			int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+			
+			/*Inicio>> Chamar Faz as Reservas*/
+			int I = 0;
+			String[] vData = gDataReserva.split(",");	
+			int Id_Pai = 0;
+			int Id_Filho = 0;
+			while (true) {
+				try {
+					String vDataRes = vData[I];
+					
+					String d = vDataRes.replaceAll("'", "");
+					
+					vReserva.setData_hora_reserva(d+" "+gHoraInicio);	
+					vReserva.setData_hora_final(d+" "+gHoraFim);									
+					vReserva.setId_responsavel(vUsuarioLogado);
+					vReserva.setId_destinatario(vUsuarioLogado);
+					vReserva.setStatus("ATIVO");
+					vReserva.setRepeticao("EVENTO UNICO");
+					vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+					vReserva.setDataReserva(d);
+					vReserva.setHoraReservaInicio(gHoraInicio);
+					vReserva.setHoraReservaFim(gHoraFim);
+					
+					vCtrl.InserirReservaRepeticao(vReserva);
+					
+					if (I == 0) {
+						//criar a consulta que traz o ultimo registro inserido
+						Reserva vReserva2 = new Reserva();
+						vReserva2 = vCtrl.listaUltimoResertro();
+						Id_Pai = vReserva2.getId();					
+					}else {
+						// dai faz o insert na tabela de repetição						
+						Reserva vReserva2 = new Reserva();
+						vReserva2 = vCtrl.listaUltimoResertro();
+						Id_Filho = vReserva2.getId();	
+						
+						Repeticao vRepeticao = new Repeticao();
+						vRepeticao.setId_reserva_pai(Id_Pai);
+						vRepeticao.setId_reserva_filho(Id_Filho);
+						
+						vCtrl.InserirRepeticao(vRepeticao);
+						
+					}
+					
+					I = I+1;					
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+					break;
+				}
+				
+			}
 			
 			
 			

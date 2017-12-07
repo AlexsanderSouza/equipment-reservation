@@ -60,7 +60,7 @@
                         <Label layoutX="354.0" layoutY="53.0" text="|" />
                         <Label layoutX="354.0" layoutY="177.0" text="|" />
                         <CheckBox fx:id="chkRepetir" layoutX="367.0" layoutY="57.0" mnemonicParsing="false" text="Repetir" />
-                        <Label layoutX="42.0" layoutY="167.0" text="Ou na Data" />
+                        <Label layoutX="45.0" layoutY="167.0" text="ou na Data" />
                      </children>
                   </AnchorPane>
                </content></Tab>
