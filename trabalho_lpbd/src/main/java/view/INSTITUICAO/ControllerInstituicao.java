@@ -271,8 +271,8 @@ public class ControllerInstituicao implements Initializable{
 		public void handle(ActionEvent event) {
 			// TODO Auto-generated method stub
 			alteraVariavelControle("novo");
-			moverPag2();
-			ControlaBotao("voltar");
+			moverPag2();			
+			ControlaBotao("voltar");			
 		}
 	});
 	

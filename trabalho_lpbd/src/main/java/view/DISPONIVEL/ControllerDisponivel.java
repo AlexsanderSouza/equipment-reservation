@@ -171,7 +171,7 @@ public class ControllerDisponivel implements Initializable {
 //				
 //				for (int i = 0; i < 9999 ; i++) {
 //
-//					if (vRepDataInicio.compareTo(vRepDataFim) != 1) {					
+//					if (vRepDataInicio.compareTo(vRepDataFim) != 1) { //ADICIONAR A COMPARAÇÃO DA DATA, AQUI					
 //						vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
 //						vRepDataInicio = vNewData;
 //						vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";
@@ -273,7 +273,7 @@ public class ControllerDisponivel implements Initializable {
 			
 			vCtrl.InserirReserva(vReserva);
 		} else {
-			vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
+			//vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
 					
 			Reserva vReserva = new Reserva();
 			int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
@@ -333,9 +333,7 @@ public class ControllerDisponivel implements Initializable {
 				}
 				
 			}
-			
-			
-			
+
 		}
 				
 	}

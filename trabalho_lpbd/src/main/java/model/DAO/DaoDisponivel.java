@@ -19,8 +19,8 @@ public class DaoDisponivel {
 		vSQL = "select id \r\n" + 
 				"  from recurso \r\n" + 
 				" where id_tipo_recurso = "+pTipoRecursoID+"\r\n" + 
-				"   and id not in (select id_recurso\r\n" + 
-				"				from reserva)\r\n" + 
+//				"   and id not in (select id_recurso\r\n" + 
+//				"				from reserva)\r\n" + 
 				" limit 1";
 		
 		java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
@@ -46,7 +46,7 @@ public class DaoDisponivel {
 				"		 (select  count(*) qtdeloca \r\n" + 
 				"		    from reserva rs \r\n" + 
 				"		    left join recurso rc on rc.id = rs.id_recurso \r\n" + 
-				"		    where 1 = 1 ";
+				"		    where 1 = 1 and status = 'ATIVO' AND status = 'PENDENTE' ";
 		
 		if (!pRepData.equals("")) {
 			vSQL = vSQL+"and data_reserva IN ("+pRepData+")";
