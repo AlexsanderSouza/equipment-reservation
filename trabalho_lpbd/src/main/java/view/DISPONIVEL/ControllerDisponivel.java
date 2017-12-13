@@ -41,7 +41,7 @@ public class ControllerDisponivel implements Initializable {
 	private TabPane tabPane;
 	
 	@FXML
-	private VBox vboxDisponivel; //Para usar o bot„o dinamico de data e hora
+	private VBox vboxDisponivel; //Para usar o bot√£o dinamico de data e hora
 
 	@FXML
  	private ComboBox<String> cbxQtde;
@@ -155,7 +155,7 @@ public class ControllerDisponivel implements Initializable {
 					vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";					
 				}
 				
-				//Chamar a funÁ„o de pesquisa				
+				//Chamar a fun√ß√£o de pesquisa				
 				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
 		    	tbGrid.setItems(vLista);
 		    	
@@ -165,30 +165,31 @@ public class ControllerDisponivel implements Initializable {
 		    	
 			}
 			
-			//Segundo Caso -- Faltar Saber como faz comparaÁ„o entre data, tem de entrar quando DataInicial < DataFinal
-//			if ((vRepQtdeDias > 0) && (!vRepDataInicio.equals("") && (!vRepDataFim.equals("")))) {				
-//				vDataPesquisa = "'"+edtDataReserva.getValue().toString()+"','"+vRepDataInicio+"'";
-//				
-//				for (int i = 0; i < 9999 ; i++) {
-//
-//					if (vRepDataInicio.compareTo(vRepDataFim) != 1) { //ADICIONAR A COMPARA«√O DA DATA, AQUI					
-//						vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
-//						vRepDataInicio = vNewData;
-//						vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";
-//					} else {
-//						break;
-//					}
-//				}
-//				
-//				//Chamar a funÁ„o de pesquisa				
-//				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
-//		    	tbGrid.setItems(vLista);
-//		    	
-//		    	gDataReserva = vDataPesquisa;
-//		    	gHoraInicio = vHoraInicio;
-//		    	gHoraFim = vHoraFim;
-//				
-//			}
+			//Segundo Caso -- Faltar Saber como faz compara√ß√£o entre data, tem de entrar quando DataInicial < DataFinal
+			if ((vRepQtdeDias > 0) && (!vRepDataInicio.equals("") && (!vRepDataFim.equals("")))) {				
+				vDataPesquisa = "'"+edtDataReserva.getValue().toString()+"','"+vRepDataInicio+"'";
+				
+				for (int i = 0; i < 9999 ; i++) {
+
+					if (vRepDataInicio.compareTo(vRepDataFim) < 0) { //ADICIONAR A COMPARA√á√ÉO DA DATA, AQUI					
+						vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
+						vRepDataInicio = vNewData;
+						vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";
+					} else {
+						break;
+					}
+				}
+				
+				//Chamar a fun√ß√£o de pesquisa				
+				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
+		    	tbGrid.setItems(vLista);
+		    	
+		    	gDataReserva = vDataPesquisa;
+		    	gHoraInicio = vHoraInicio;
+		    	gHoraFim = vHoraFim;
+				
+			}
+
 			
 		}
     	
@@ -220,7 +221,7 @@ public class ControllerDisponivel implements Initializable {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			vAlerta.mensagemAlerta("Erro na FunÁ„o Inserir na Tabela: \n Erro: "+e.getMessage());
+			vAlerta.mensagemAlerta("Erro na Fun√ß√£o Inserir na Tabela: \n Erro: "+e.getMessage());
 		}		
 		    	
     }
@@ -272,8 +273,9 @@ public class ControllerDisponivel implements Initializable {
 			vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
 			
 			vCtrl.InserirReserva(vReserva);
+			vAlerta.mensagemAlerta("Inserido com Sucesso!");
 		} else {
-			//vAlerta.mensagemAlerta("Falta fazer a funÁ„o para inserir a RepetiÁ„o!");
+			//vAlerta.mensagemAlerta("Falta fazer a fun√ß√£o para inserir a Repeti√ß√£o!");
 					
 			Reserva vReserva = new Reserva();
 			int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
@@ -312,7 +314,7 @@ public class ControllerDisponivel implements Initializable {
 						vReserva2 = vCtrl.listaUltimoResertro();
 						Id_Pai = vReserva2.getId();					
 					}else {
-						// dai faz o insert na tabela de repetiÁ„o						
+						// dai faz o insert na tabela de repeti√ß√£o						
 						Reserva vReserva2 = new Reserva();
 						vReserva2 = vCtrl.listaUltimoResertro();
 						Id_Filho = vReserva2.getId();	
@@ -332,7 +334,9 @@ public class ControllerDisponivel implements Initializable {
 					break;
 				}
 				
-			}
+
+			}vAlerta.mensagemAlerta("Inserido com Sucesso!");
+
 
 		}
 				

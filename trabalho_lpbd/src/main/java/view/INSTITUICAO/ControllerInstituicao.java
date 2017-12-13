@@ -186,7 +186,7 @@ public class ControllerInstituicao implements Initializable{
 			btnAlterar.setDisable(true);
 			btnExcluir.setDisable(true);   
 			btnImprimir.setDisable(true);
-			btnSalvar.setDisable(false);
+			btnSalvar.setDisable(true);
 			btnSair.setDisable(false);
 			chkAtivo.setSelected(true);
 			break;
@@ -317,7 +317,23 @@ public class ControllerInstituicao implements Initializable{
 			filtrar();
 		}
 	});
+	
+	txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+		if (!( txtNome.getText().equals("") )) {
+			//System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+			btnSalvar.setDisable(false);
+		}
+	});
+	
+	txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+		if (( txtNome.getText().equals("") )) {
+			//System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+			btnSalvar.setDisable(true);
+		}
+	});
 }
+	
+	
 	
 	
 	

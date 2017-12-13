@@ -324,7 +324,7 @@ public class DaoReserva {
 			st.execute();
 			st.close();
 			
-			vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			
 			ConexaoDataBase.FecharConexao();
 			
 		} catch (Exception e) {
@@ -353,7 +353,7 @@ public class DaoReserva {
 			st.execute();
 			st.close();
 
-			vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			
 			ConexaoDataBase.FecharConexao();
 
 		} catch (Exception e) {
