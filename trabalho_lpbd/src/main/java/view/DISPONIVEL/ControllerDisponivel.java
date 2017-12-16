@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import model.Alerta;
 import model.SomarData;
 import model.ENTITY.Disponivel;
+import model.ENTITY.Repeticao;
 import model.ENTITY.Reserva;
 import service.Service;
 import javafx.collections.FXCollections;
@@ -40,7 +41,7 @@ public class ControllerDisponivel implements Initializable {
 	private TabPane tabPane;
 	
 	@FXML
-	private VBox vboxDisponivel; //Para usar o bot„o dinamico de data e hora
+	private VBox vboxDisponivel; //Para usar o bot√£o dinamico de data e hora
 
 	@FXML
  	private ComboBox<String> cbxQtde;
@@ -60,6 +61,9 @@ public class ControllerDisponivel implements Initializable {
 			
 	Service vCtrl = new Service();
 	Alerta vAlerta = new Alerta();
+	
+	String gDataReserva;
+	String gHoraInicio, gHoraFim;
 
 	public void fecharJanela() {
     	Stage stage = (Stage) btnSair.getScene().getWindow();
@@ -151,11 +155,41 @@ public class ControllerDisponivel implements Initializable {
 					vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";					
 				}
 				
-				//Chamar a funÁ„o de pesquisa				
+				//Chamar a fun√ß√£o de pesquisa				
 				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
 		    	tbGrid.setItems(vLista);
 		    	
+		    	gDataReserva = vDataPesquisa;
+		    	gHoraInicio = vHoraInicio;
+		    	gHoraFim = vHoraFim;
+		    	
 			}
+			
+			//Segundo Caso -- Faltar Saber como faz compara√ß√£o entre data, tem de entrar quando DataInicial < DataFinal
+			if ((vRepQtdeDias > 0) && (!vRepDataInicio.equals("") && (!vRepDataFim.equals("")))) {				
+				vDataPesquisa = "'"+edtDataReserva.getValue().toString()+"','"+vRepDataInicio+"'";
+				
+				for (int i = 0; i < 9999 ; i++) {
+
+					if (vRepDataInicio.compareTo(vRepDataFim) < 0) { //ADICIONAR A COMPARA√á√ÉO DA DATA, AQUI					
+						vNewData = vSomaData.SomaData(vRepDataInicio,vRepQtdeDias);
+						vRepDataInicio = vNewData;
+						vDataPesquisa = vDataPesquisa+",'" + vNewData+"'";
+					} else {
+						break;
+					}
+				}
+				
+				//Chamar a fun√ß√£o de pesquisa				
+				ObservableList<Disponivel> vLista = FXCollections.observableArrayList(vCtrl.ListarRepeticao(vDataPesquisa, vHoraInicio, vHoraFim));
+		    	tbGrid.setItems(vLista);
+		    	
+		    	gDataReserva = vDataPesquisa;
+		    	gHoraInicio = vHoraInicio;
+		    	gHoraFim = vHoraFim;
+				
+			}
+
 			
 		}
     	
@@ -187,7 +221,7 @@ public class ControllerDisponivel implements Initializable {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
-			vAlerta.mensagemAlerta("Erro na FunÁ„o Inserir na Tabela: \n Erro: "+e.getMessage());
+			vAlerta.mensagemAlerta("Erro na Fun√ß√£o Inserir na Tabela: \n Erro: "+e.getMessage());
 		}		
 		    	
     }
@@ -204,48 +238,120 @@ public class ControllerDisponivel implements Initializable {
 	public void inserirReserva(){
 		
 		Boolean vRepetir = chkRepetir.isSelected();
+		Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
 		
-		if (vRepetir == false) {
 		
-			String vDataInicio;
-			String vDataFinal;
+		try {
 			
-			Reserva vReserva = new Reserva();
 			
-			try {
-			
-			 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
-	    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
-	    	
-	    	 vReserva.setData_hora_reserva(vDataInicio);
-	 		 vReserva.setData_hora_final(vDataFinal);
+			String vNome = vDisponivel.getTipo();
+			if ((vNome == null)||(vNome == "") ) {
+				vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-				vAlerta.mensagemAlerta("Obrigatorio Informar a Data da Reserva!");
+			} else {
 				
+			if (vRepetir == false) {
+			
+				String vDataInicio;
+				String vDataFinal;
+				
+				Reserva vReserva = new Reserva();
+				
+				try {
+				
+				 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
+		    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
+		    	
+		    	 vReserva.setData_hora_reserva(vDataInicio);
+		 		 vReserva.setData_hora_final(vDataFinal);
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+					vAlerta.mensagemAlerta("Obrigatorio Informar a Data da Reserva!");
+					
+				}
+		    	
+		    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+		    	    	
+	//	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+		    		    	
+				int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+		    				
+				vReserva.setId_responsavel(vUsuarioLogado);
+				vReserva.setId_destinatario(vUsuarioLogado);
+				vReserva.setStatus("ATIVO");
+				vReserva.setRepeticao("EVENTO UNICO");
+				vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+				
+				vCtrl.InserirReserva(vReserva);
+				vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			} else {
+				//vAlerta.mensagemAlerta("Falta fazer a fun√ß√£o para inserir a Repeti√ß√£o!");
+						
+				Reserva vReserva = new Reserva();
+				int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+		    	
+	//	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+			    
+				int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+				
+				/*Inicio>> Chamar Faz as Reservas*/
+				int I = 0;
+				String[] vData = gDataReserva.split(",");	
+				int Id_Pai = 0;
+				int Id_Filho = 0;
+				while (true) {
+					try {
+						String vDataRes = vData[I];
+						
+						String d = vDataRes.replaceAll("'", "");
+						
+						vReserva.setData_hora_reserva(d+" "+gHoraInicio);	
+						vReserva.setData_hora_final(d+" "+gHoraFim);									
+						vReserva.setId_responsavel(vUsuarioLogado);
+						vReserva.setId_destinatario(vUsuarioLogado);
+						vReserva.setStatus("ATIVO");
+						vReserva.setRepeticao("EVENTO UNICO");
+						vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+						vReserva.setDataReserva(d);
+						vReserva.setHoraReservaInicio(gHoraInicio);
+						vReserva.setHoraReservaFim(gHoraFim);
+						
+						vCtrl.InserirReservaRepeticao(vReserva);
+						
+						if (I == 0) {
+							//criar a consulta que traz o ultimo registro inserido
+							Reserva vReserva2 = new Reserva();
+							vReserva2 = vCtrl.listaUltimoResertro();
+							Id_Pai = vReserva2.getId();					
+						}else {
+							// dai faz o insert na tabela de repeti√ß√£o						
+							Reserva vReserva2 = new Reserva();
+							vReserva2 = vCtrl.listaUltimoResertro();
+							Id_Filho = vReserva2.getId();	
+							
+							Repeticao vRepeticao = new Repeticao();
+							vRepeticao.setId_reserva_pai(Id_Pai);
+							vRepeticao.setId_reserva_filho(Id_Filho);
+							
+							vCtrl.InserirRepeticao(vRepeticao);
+							
+						}					
+						I = I+1;					
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+						break;
+					}					
+				}
+				
+				vAlerta.mensagemAlerta("Inserido com Sucesso!");
 			}
-	    	
-	    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
-	    	    	
-	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
-		    
-			int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
-	    				
-			vReserva.setId_responsavel(vUsuarioLogado);
-			vReserva.setId_destinatario(vUsuarioLogado);
-			vReserva.setStatus("ATIVO");
-			vReserva.setRepeticao("EVENTO UNICO");
-			vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
-			
-			vCtrl.InserirReserva(vReserva);
-		} else {
-			vAlerta.mensagemAlerta("Falta fazer a funÁ„o para inserir a RepetiÁ„o!");
-			
-			
-			
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
 		}
-				
 	}
 	
 	public void AlimentarComboBoxRepeticao() {

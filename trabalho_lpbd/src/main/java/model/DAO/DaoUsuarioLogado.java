@@ -48,6 +48,8 @@ public class DaoUsuarioLogado {
 	        
 	        return vUsuarioLogado;       
 	    }
+	 
+	 
 	
 	
 }

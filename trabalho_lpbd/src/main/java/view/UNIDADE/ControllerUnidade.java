@@ -344,6 +344,20 @@ public class ControllerUnidade implements Initializable{
 				filtrar();
 			}
 		});
+		
+		txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (!( txtNome.getText().equals("") )) {
+				//System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+				btnSalvar.setDisable(false);
+			}
+		});
+		
+		txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (( txtNome.getText().equals("") )) {
+				//System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+				btnSalvar.setDisable(true);
+			}
+		});
 	}
 
 }

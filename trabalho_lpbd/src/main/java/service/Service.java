@@ -14,6 +14,7 @@ import model.DAO.DaoFuncaoPermissao;
 import model.DAO.DaoInstituicao;
 import model.DAO.DaoPermissao;
 import model.DAO.DaoRecurso;
+import model.DAO.DaoRepeticao;
 import model.DAO.DaoReserva;
 import model.DAO.DaoRestricaoRecurso;
 import model.DAO.DaoTipoRecurso;
@@ -26,6 +27,7 @@ import model.ENTITY.Funcao;
 import model.ENTITY.Instituicao;
 import model.ENTITY.Permissao;
 import model.ENTITY.Recurso;
+import model.ENTITY.Repeticao;
 import model.ENTITY.Reserva;
 import model.ENTITY.RestricaoRecurso;
 import model.ENTITY.TipoRecurso;
@@ -52,6 +54,7 @@ public class Service {
 	DaoRestricaoRecurso vDaoRestricaoRecurso = new DaoRestricaoRecurso();
 	DaoUsuarioPermissao vDaoUsuarioPermissao = new DaoUsuarioPermissao();
 	DaoUsuarioLogado vDaoUsuarioLogado = new DaoUsuarioLogado();
+	DaoRepeticao vDaoRepeticao = new DaoRepeticao();
 	
 	Alerta vAlerta = new Alerta();
 			
@@ -269,6 +272,10 @@ public class Service {
 	public List<Instituicao> filtrarinstituicao(Integer pId, String pNome) {
 		return vDaoInstituicao.filtrar(pId, pNome);
 	}
+	
+	public Reserva listaUltimoResertro() {
+		return vDaoReserva.listaUltimoResertro();
+	}
 	/* FIM >> Funções FILTRAR */
 
 	/* INICIO >> Funções ALTERAR */
@@ -321,6 +328,10 @@ public class Service {
 
 	/* INICIO >> Funções INSERIR */
 	
+	public void InserirRepeticao(Repeticao pRepeticao) {
+		vDaoRepeticao.InserirRepeticao(pRepeticao);
+	}
+	
 	public void inserirUsuarioPermissao(int pPermissao, int pLastId) {
 		vDaoUsuarioPermissao.inserir(pPermissao, pLastId);
 	}
@@ -366,6 +377,10 @@ public class Service {
 	public void InserirReserva(Reserva pReserva) {
 		vDaoReserva.inserir(pReserva);
 	}
+	
+	public void InserirReservaRepeticao(Reserva pReserva) {
+		vDaoReserva.InserirReservaRepeticao(pReserva);
+	}
 
 	public void InserirRestricaoRecurso(RestricaoRecurso pRestricaoRecurso) {
 		vDaoRestricaoRecurso.inserir(pRestricaoRecurso);
@@ -373,6 +388,10 @@ public class Service {
 	/* FIM >> Funções INSERIR */
 
 	/* INICIO >> Funções EXCLUIR */
+	public void ExcluiReserva(Reserva pReserva) {
+		vDaoReserva.excluirReserva(pReserva);
+	}
+	
 	public void excluirPermissao(Permissao pPermissao) {
 		vDaoPermissao.excluir(pPermissao);
 	}

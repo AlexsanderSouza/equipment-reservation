@@ -5,21 +5,29 @@
  */
 package view.MENU;
 
+
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import model.Alerta;
+import model.ENTITY.Permissao;
+import model.ENTITY.Usuario;
+import service.Service;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Menu;
 import view.BAIXA_RESERVA.ViewBaixaReserva;
 import view.DISPONIVEL.ViewDisponivel;
 import view.FUNCAO.ViewFuncao;
 import view.INSTITUICAO.ViewInstituicao;
 import view.PERMISSAO.ViewPermissao;
 import view.RECURSO.ViewRecurso;
+import view.RESERVA.ViewReserva;
 import view.RESTRICAO_RECURSO.ViewRestricaoRecurso;
 import view.TIPO_RECURSO.ViewTipoRecurso;
 import view.UNIDADE.ViewUnidade;
@@ -37,13 +45,50 @@ public class ControllerMenu implements Initializable{
     private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel,menuBaixaReserva;
     
     @FXML
-    private MenuItem menuTipoRecurso, menuRestricaoRecurso, menuRecurso,menuPermissao;
+    private MenuItem menuTipoRecurso, menuRestricaoRecurso,menuReserva, menuRecurso,menuPermissao;
+    
+    @FXML
+    private Menu menuCadastro;
 
     Alerta vAlerta = new Alerta();
+    Service ser = new Service();
+    
+    public void permissaoTela() {
+    	List<Permissao> permissao = new ArrayList<Permissao>();
+    	permissao = ser.ListaPermissaoUsuario(ser.ListarUsuarioLogado());
+    	menuCadastro.setDisable(true);
+    	menuCadastro.setDisable(true);;
+		menuRestricaoRecurso.setDisable(true);
+		menuBaixaReserva.setDisable(true);
+    	for(Permissao per:permissao) {
+    		if(per.getNome().equals("Administrador")) {
+    			menuCadastro.setDisable(false);;
+    			menuRestricaoRecurso.setDisable(false);
+    			menuBaixaReserva.setDisable(false);
+    		}
+    	}
+    	
+    	
+    }
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	
+    	permissaoTela();
+    	menuReserva.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					ViewReserva vReserva = new ViewReserva();
+					vReserva.start();
+				} catch (Exception e) {
+					// TODO: handle exception
+					vAlerta.mensagemAlerta("Erro ao Abrir Tela de Reserva! \n"+"Erro: "+e.getMessage());
+				}
+			}
+		});
     	
     	menuBaixaReserva.setOnAction(new EventHandler<ActionEvent>() {
 

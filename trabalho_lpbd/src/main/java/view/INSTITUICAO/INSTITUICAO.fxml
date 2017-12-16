@@ -52,7 +52,7 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="61.0" layoutY="88.0" text="NOME" />
+                        <Label layoutX="61.0" layoutY="88.0" text="NOME*" />
                         <Label layoutX="61.0" layoutY="138.0" text="E-MAIL" />
                         <Label layoutX="61.0" layoutY="191.0" text="TELEFONE" />
                         <TextField fx:id="txtNome" layoutX="139.0" layoutY="84.0" prefHeight="25.0" prefWidth="184.0" />
