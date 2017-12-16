@@ -39,7 +39,7 @@ public class DaoUsuarioPermissao {
 		try {
 			List<Permissao> vListaPermissao = new ArrayList<Permissao>();
 			java.sql.Statement st = ConexaoDataBase.getConexaoMySQL().createStatement();
-			st.executeQuery("SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (SELECT upe.id_permissao FROM usuario_permissao upe "
+			st.executeQuery("SELECT per.id, per.nome, per.descricao, per.ativo FROM permissao per right join (SELECT upe.id_permissao2 FROM usuario_permissao upe "
 					+ "WHERE upe.id_permissao2 NOT IN  (select id_permissao from funcao_permissao where id_funcao = "+pIdFuncao+") and upe.id_usuario2 ="+pIdUsuario+") fc on per.id = fc.id_permissao2;");
 			ResultSet rs = st.getResultSet();
 			while (rs.next()) {

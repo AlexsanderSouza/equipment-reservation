@@ -465,7 +465,7 @@ public class ControllerUsuario implements Initializable {
 	public void onShow() {
 		this.tabPane.setTabMaxHeight(-1);
 		this.tabPane.setTabMaxWidth(-1);
-
+		
 		this.listViewPermissao.setCellFactory(cellFactoryPermissao);
 		passConfirmarSenha.setPromptText("Confirme sua senha");
 		txtTelefone.setPromptText("(99) 99999-9999");
@@ -630,6 +630,47 @@ public class ControllerUsuario implements Initializable {
 				btnSalvar.setDisable(false);
 			}
 		});
+		
+		///////////////////////
+		
+		
+		txtMatricula.textProperty().addListener((observable, oldValue, newValue) -> {
+			if ((txtMatricula.getText().equals("") || cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(true);
+			}
+		});
+
+		txtNome.textProperty().addListener((observable, oldValue, newValue) -> {
+			if ((txtNome.getText().equals("") || cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtMatricula.getText().equals("") || passSenha.getText().equals(""))) {
+				System.out.println("Nome: " + cBoxFuncao.getValue() + txtMatricula.getText() + passSenha.getText());
+				btnSalvar.setDisable(true);
+			}
+		});
+
+		passSenha.textProperty().addListener((observable, oldValue, newValue) -> {
+
+			if ((passSenha.getText().equals("") || txtNome.getText().equals("") || txtMatricula.getText().equals("")
+					|| cBoxStatus.getSelectionModel().isEmpty() || cBoxFuncao.getSelectionModel().isEmpty())) {
+				btnSalvar.setDisable(true);
+			}
+		});
+
+		cBoxFuncao.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if ((cBoxStatus.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(true);
+			}
+		});
+
+		cBoxStatus.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if ((cBoxFuncao.getSelectionModel().isEmpty()
+					|| txtNome.getText().equals("") || passSenha.getText().equals(""))) {
+				btnSalvar.setDisable(true);
+			}
+		});
+		
 	}
 
 	public Button getBtnVoltar() {
