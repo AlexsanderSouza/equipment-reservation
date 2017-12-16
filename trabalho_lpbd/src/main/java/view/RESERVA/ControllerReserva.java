@@ -142,11 +142,14 @@ public class ControllerReserva implements Initializable{
 		if (result.get() == ButtonType.OK) {
     	
 	    	Reserva vReserva = tbGrid.getSelectionModel().getSelectedItem();
+	    	int vId = vReserva.getId();
+	    	if (vId > 0) {
 	    	
-	    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
-	    	
-	    	vCtrl.excluirReserva(vReserva);
-	    	tbGrid.getItems().remove(vTabelaRemover);
+		    	int vTabelaRemover = tbGrid.getSelectionModel().getSelectedIndex();
+		    	
+		    	vCtrl.ExcluiReserva(vReserva);
+		    	tbGrid.getItems().remove(vTabelaRemover);
+	    	}
 		}
     }
     
@@ -363,10 +366,14 @@ public class ControllerReserva implements Initializable{
     	switch (pBotao) {
 		case "novo":
 			btnVoltar.setDisable(true);	
+			btnVoltar.setVisible(false);
 			btnNovo.setDisable(false);
+			btnNovo.setVisible(false);
 			btnExcluir.setDisable(false);
 			btnImprimir.setDisable(true);
+			btnImprimir.setVisible(false);
 			btnSalvar.setDisable(true);
+			btnSalvar.setVisible(false);
 			btnSair.setDisable(false);
 			break;
 		case "voltar":
@@ -399,6 +406,7 @@ public class ControllerReserva implements Initializable{
 					excluir();
 				} catch (Exception e) {
 					// TODO: handle exception
+					vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
 				}
 			}
 		});

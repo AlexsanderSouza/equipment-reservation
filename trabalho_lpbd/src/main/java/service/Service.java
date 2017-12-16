@@ -388,6 +388,10 @@ public class Service {
 	/* FIM >> Funções INSERIR */
 
 	/* INICIO >> Funções EXCLUIR */
+	public void ExcluiReserva(Reserva pReserva) {
+		vDaoReserva.excluirReserva(pReserva);
+	}
+	
 	public void excluirPermissao(Permissao pPermissao) {
 		vDaoPermissao.excluir(pPermissao);
 	}

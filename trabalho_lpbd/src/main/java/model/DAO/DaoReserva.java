@@ -73,6 +73,47 @@ public class DaoReserva {
 		}
 	}
 	
+	public void excluirReserva(Reserva pReserva) {
+		try {
+			String vSQL = "";
+			int vId_Pai = 0;
+			
+			vSQL = "select * \r\n" + 
+				   "  from repeticao r\r\n" + 
+				   " where r.id_reserva_new = "+pReserva.getId();
+
+			PreparedStatement st = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL);
+			
+			st.execute();
+			ResultSet rs = st.getResultSet();
+			while (rs.next()) {
+				vId_Pai = rs.getInt("id_reserva_origem");
+			}
+			st.close();
+			
+			if (vId_Pai > 0) {
+				String vSQL2 = "";
+				
+				vSQL2 = " delete from repeticao where id_reserva_origem = "+Integer.toString(vId_Pai)+";";
+				
+				PreparedStatement st2 = ConexaoDataBase.getConexaoMySQL().prepareStatement(vSQL2);
+				
+				st2.execute();
+				
+		        st2.close();
+		        
+		        ConexaoDataBase.FecharConexao();
+				
+		        vAlerta.mensagemAlerta("Excluisão de Reserva feita com Sucesso!");
+			} else {
+				excluir(pReserva);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Erro na Função excluirReserva! \n"+"Erro: "+e.getMessage());
+		}
+	}
+	
 	public void excluir(Reserva pReserva) {
 		try {
 			String vSQL = "DELETE FROM reserva WHERE `id` = '"+pReserva.getId()+"'";
@@ -84,6 +125,7 @@ public class DaoReserva {
 	        
 	        ConexaoDataBase.FecharConexao();
 			
+	        vAlerta.mensagemAlerta("Excluisão de Reserva feita com Sucesso!");
 		} catch (Exception e) {
 			// TODO: handle exception
 			vAlerta.mensagemAlerta("Erro na Função DELETAR! \n"+"Erro: "+e.getMessage());

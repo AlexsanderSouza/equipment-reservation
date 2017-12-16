@@ -238,108 +238,120 @@ public class ControllerDisponivel implements Initializable {
 	public void inserirReserva(){
 		
 		Boolean vRepetir = chkRepetir.isSelected();
+		Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
 		
-		if (vRepetir == false) {
 		
-			String vDataInicio;
-			String vDataFinal;
+		try {
 			
-			Reserva vReserva = new Reserva();
 			
-			try {
-			
-			 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
-	    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
-	    	
-	    	 vReserva.setData_hora_reserva(vDataInicio);
-	 		 vReserva.setData_hora_final(vDataFinal);
+			String vNome = vDisponivel.getTipo();
+			if ((vNome == null)||(vNome == "") ) {
+				vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
 				
-			} catch (Exception e) {
-				// TODO: handle exception
-				vAlerta.mensagemAlerta("Obrigatorio Informar a Data da Reserva!");
+			} else {
 				
-			}
-	    	
-	    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
-	    	    	
-	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
-		    
-			int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
-	    				
-			vReserva.setId_responsavel(vUsuarioLogado);
-			vReserva.setId_destinatario(vUsuarioLogado);
-			vReserva.setStatus("ATIVO");
-			vReserva.setRepeticao("EVENTO UNICO");
-			vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+			if (vRepetir == false) {
 			
-			vCtrl.InserirReserva(vReserva);
-			vAlerta.mensagemAlerta("Inserido com Sucesso!");
-		} else {
-			//vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
-					
-			Reserva vReserva = new Reserva();
-			int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
-	    	
-	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
-		    
-			int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
-			
-			/*Inicio>> Chamar Faz as Reservas*/
-			int I = 0;
-			String[] vData = gDataReserva.split(",");	
-			int Id_Pai = 0;
-			int Id_Filho = 0;
-			while (true) {
+				String vDataInicio;
+				String vDataFinal;
+				
+				Reserva vReserva = new Reserva();
+				
 				try {
-					String vDataRes = vData[I];
-					
-					String d = vDataRes.replaceAll("'", "");
-					
-					vReserva.setData_hora_reserva(d+" "+gHoraInicio);	
-					vReserva.setData_hora_final(d+" "+gHoraFim);									
-					vReserva.setId_responsavel(vUsuarioLogado);
-					vReserva.setId_destinatario(vUsuarioLogado);
-					vReserva.setStatus("ATIVO");
-					vReserva.setRepeticao("EVENTO UNICO");
-					vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
-					vReserva.setDataReserva(d);
-					vReserva.setHoraReservaInicio(gHoraInicio);
-					vReserva.setHoraReservaFim(gHoraFim);
-					
-					vCtrl.InserirReservaRepeticao(vReserva);
-					
-					if (I == 0) {
-						//criar a consulta que traz o ultimo registro inserido
-						Reserva vReserva2 = new Reserva();
-						vReserva2 = vCtrl.listaUltimoResertro();
-						Id_Pai = vReserva2.getId();					
-					}else {
-						// dai faz o insert na tabela de repetição						
-						Reserva vReserva2 = new Reserva();
-						vReserva2 = vCtrl.listaUltimoResertro();
-						Id_Filho = vReserva2.getId();	
-						
-						Repeticao vRepeticao = new Repeticao();
-						vRepeticao.setId_reserva_pai(Id_Pai);
-						vRepeticao.setId_reserva_filho(Id_Filho);
-						
-						vCtrl.InserirRepeticao(vRepeticao);
-						
-					}
-					
-					I = I+1;					
+				
+				 vDataInicio = edtDataReserva.getValue().toString()+" "+edtHoraInicio.getText();
+		    	 vDataFinal  = edtDataReserva.getValue().toString()+" "+edtHoraFinal.getText(); 
+		    	
+		    	 vReserva.setData_hora_reserva(vDataInicio);
+		 		 vReserva.setData_hora_final(vDataFinal);
 					
 				} catch (Exception e) {
 					// TODO: handle exception
-					break;
+					vAlerta.mensagemAlerta("Obrigatorio Informar a Data da Reserva!");
+					
+				}
+		    	
+		    	int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+		    	    	
+	//	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+		    		    	
+				int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+		    				
+				vReserva.setId_responsavel(vUsuarioLogado);
+				vReserva.setId_destinatario(vUsuarioLogado);
+				vReserva.setStatus("ATIVO");
+				vReserva.setRepeticao("EVENTO UNICO");
+				vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+				
+				vCtrl.InserirReserva(vReserva);
+				vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			} else {
+				//vAlerta.mensagemAlerta("Falta fazer a função para inserir a Repetição!");
+						
+				Reserva vReserva = new Reserva();
+				int vUsuarioLogado = vCtrl.ListarUsuarioLogado();
+		    	
+	//	    	Disponivel vDisponivel = (tbGrid.getSelectionModel().getSelectedItem());
+			    
+				int vTipoRecurso_Id = Integer.parseInt(vDisponivel.getTipo().substring(0, vDisponivel.getTipo().indexOf(" ")).trim() );
+				
+				/*Inicio>> Chamar Faz as Reservas*/
+				int I = 0;
+				String[] vData = gDataReserva.split(",");	
+				int Id_Pai = 0;
+				int Id_Filho = 0;
+				while (true) {
+					try {
+						String vDataRes = vData[I];
+						
+						String d = vDataRes.replaceAll("'", "");
+						
+						vReserva.setData_hora_reserva(d+" "+gHoraInicio);	
+						vReserva.setData_hora_final(d+" "+gHoraFim);									
+						vReserva.setId_responsavel(vUsuarioLogado);
+						vReserva.setId_destinatario(vUsuarioLogado);
+						vReserva.setStatus("ATIVO");
+						vReserva.setRepeticao("EVENTO UNICO");
+						vReserva.setId_recurso(vCtrl.listarRecursoID(Integer.toString(vTipoRecurso_Id)));
+						vReserva.setDataReserva(d);
+						vReserva.setHoraReservaInicio(gHoraInicio);
+						vReserva.setHoraReservaFim(gHoraFim);
+						
+						vCtrl.InserirReservaRepeticao(vReserva);
+						
+						if (I == 0) {
+							//criar a consulta que traz o ultimo registro inserido
+							Reserva vReserva2 = new Reserva();
+							vReserva2 = vCtrl.listaUltimoResertro();
+							Id_Pai = vReserva2.getId();					
+						}else {
+							// dai faz o insert na tabela de repetição						
+							Reserva vReserva2 = new Reserva();
+							vReserva2 = vCtrl.listaUltimoResertro();
+							Id_Filho = vReserva2.getId();	
+							
+							Repeticao vRepeticao = new Repeticao();
+							vRepeticao.setId_reserva_pai(Id_Pai);
+							vRepeticao.setId_reserva_filho(Id_Filho);
+							
+							vCtrl.InserirRepeticao(vRepeticao);
+							
+						}					
+						I = I+1;					
+						
+					} catch (Exception e) {
+						// TODO: handle exception
+						break;
+					}					
 				}
 				
-
-			}vAlerta.mensagemAlerta("Inserido com Sucesso!");
-
-
+				vAlerta.mensagemAlerta("Inserido com Sucesso!");
+			}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
 		}
-				
 	}
 	
 	public void AlimentarComboBoxRepeticao() {

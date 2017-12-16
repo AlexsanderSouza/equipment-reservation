@@ -317,13 +317,25 @@ public class ControllerBaixaReserva implements Initializable{
 		 cbxStatus.getSelectionModel().select(" ");
 	 }
 	 
-	 public void alterarDados() {
-		 this.vReserva = (tbGrid.getSelectionModel().getSelectedItem());
+	 public Boolean alterarDados() {
 		 
-		 cbxResponsavel.getSelectionModel().select(vReserva.getId_responsavel()+" - "+vReserva.getNome_responsavel());
-		 cbxdestinatario.getSelectionModel().select(vReserva.getId_destinatario()+" - "+vReserva.getNome_destinatario());
-		 cbxRecurso.getSelectionModel().select(vReserva.getId_recurso()+" - "+vReserva.getNome_recurso());
-		 cbxStatus.getSelectionModel().select(vReserva.getStatus());
+		 
+		 try {
+			 this.vReserva = (tbGrid.getSelectionModel().getSelectedItem());
+			int vId = vReserva.getId();
+			if (vId > 0) {
+				 cbxResponsavel.getSelectionModel().select(vReserva.getId_responsavel()+" - "+vReserva.getNome_responsavel());
+				 cbxdestinatario.getSelectionModel().select(vReserva.getId_destinatario()+" - "+vReserva.getNome_destinatario());
+				 cbxRecurso.getSelectionModel().select(vReserva.getId_recurso()+" - "+vReserva.getNome_recurso());
+				 cbxStatus.getSelectionModel().select(vReserva.getStatus());
+				 return true;
+			}
+		 } catch (Exception e) {
+				// TODO: handle exception
+			 vAlerta.mensagemAlerta("Favor Selecionar um Registro na grid!");
+			 return false;
+		}
+		return false;
 		 
 	 }
 	 
@@ -397,10 +409,15 @@ public class ControllerBaixaReserva implements Initializable{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				//alteraVariavelControle("alterar");				
-				alterarDados();				
-				moverPag2();
-				ControlaBotao("voltar");
+				//alteraVariavelControle("alterar");	
+				try {
+					if ( alterarDados() ) {				
+					moverPag2();
+					ControlaBotao("voltar");
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}				
 			}
 		});
 		

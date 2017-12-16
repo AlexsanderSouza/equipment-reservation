@@ -20,6 +20,7 @@ import view.FUNCAO.ViewFuncao;
 import view.INSTITUICAO.ViewInstituicao;
 import view.PERMISSAO.ViewPermissao;
 import view.RECURSO.ViewRecurso;
+import view.RESERVA.ViewReserva;
 import view.RESTRICAO_RECURSO.ViewRestricaoRecurso;
 import view.TIPO_RECURSO.ViewTipoRecurso;
 import view.UNIDADE.ViewUnidade;
@@ -37,13 +38,28 @@ public class ControllerMenu implements Initializable{
     private MenuItem menuUsuario, menuUnidade, menuInstituicao, menuFuncao, menuDisponivel,menuBaixaReserva;
     
     @FXML
-    private MenuItem menuTipoRecurso, menuRestricaoRecurso, menuRecurso,menuPermissao;
+    private MenuItem menuTipoRecurso, menuRestricaoRecurso,menuReserva, menuRecurso,menuPermissao;
 
     Alerta vAlerta = new Alerta();
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	
+    	
+    	menuReserva.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					ViewReserva vReserva = new ViewReserva();
+					vReserva.start();
+				} catch (Exception e) {
+					// TODO: handle exception
+					vAlerta.mensagemAlerta("Erro ao Abrir Tela de Reserva! \n"+"Erro: "+e.getMessage());
+				}
+			}
+		});
     	
     	menuBaixaReserva.setOnAction(new EventHandler<ActionEvent>() {
 
